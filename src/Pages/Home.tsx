@@ -1,4 +1,4 @@
-import StaveComponent from "./../components/StaveComponet";
+import StaveComponent from "../components/StaveComponent";
 
 export default function Home() {
   return (
