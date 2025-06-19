@@ -4,7 +4,6 @@ const FooterContainer = styled.footer`
   display: flex;
   flex-direction: column;
   text-align: center;
-
   width: 100%;
   color: var(--text-dark-grey);
   padding: 12px 0;
@@ -41,6 +40,14 @@ export default function Footer() {
         aria-label="Send an email to zuzka.volfova@gmail.com"
       >
         zuzka.volfova@gmail.com
+      </a>
+      <a
+        className="footer__link"
+        href="https://zuzanavolfova.github.io/zuzana-volfova-2025/#/"
+        target="_blank"
+        aria-label="Visit Zuzana Volfová's web side"
+      >
+        My website
       </a>
       <a
         className="footer__link"
