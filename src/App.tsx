@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/main.css";
 import Home from "./Pages/Home";
 
 export default function App() {
