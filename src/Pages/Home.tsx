@@ -3,7 +3,13 @@ import NoteComponent from "../components/NoteComponent";
 
 export default function Home() {
   const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
-  const noteType: string = notes[Math.floor(Math.random() * notes.length)];
+
+  const noteType: string = notes[getRandomPosition()];
+
+  function getRandomPosition(): number {
+    return Math.floor(Math.random() * notes.length);
+  }
+
   console.log("Note type:", noteType);
 
   return (
