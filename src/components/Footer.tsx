@@ -7,7 +7,6 @@ const FooterContainer = styled.footer`
   width: 100%;
   color: var(--text-dark-grey);
   padding: 12px 0;
-  border-top: 1px solid var(--light-background);
 
   .footer__title {
     font-weight: 600;
