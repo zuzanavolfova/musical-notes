@@ -29,9 +29,24 @@ const Button = styled.button`
     color: var(--secondary-color);
   }
 `;
+interface SelectButtonProps {
+  answerText: string;
+  checkAnswer: (answerText: string) => void;
+}
+export default function SelectButton({
+  answerText,
+  checkAnswer,
+}: SelectButtonProps) {
+  function onAnswerClick(answerText: string) {
+    checkAnswer(answerText);
+  }
 
-export default function SelectButton({ answerText }: { answerText: string }) {
   return (
-    <Button aria-label={`click to answer - ${answerText}`}>{answerText}</Button>
+    <Button
+      onClick={() => onAnswerClick(answerText)}
+      aria-label={`click to answer - ${answerText}`}
+    >
+      {answerText}
+    </Button>
   );
 }
