@@ -11,7 +11,7 @@ const Header = styled.header`
     padding: 16px 18px;
   }
   & h1 {
-    font-family: "Zen Antique Soft", serif;
+    font-family: var(--font-decoration);
     text-transform: uppercase;
   }
   & img {
