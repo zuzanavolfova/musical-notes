@@ -12,6 +12,7 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   width: 50px;
   border: 2px solid transparent;
   color: black;
+  transition: all 0.3s ease-in-out;
   &:disabled {
     background-color: #eee;
     color: #aaa;
@@ -26,6 +27,10 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
       box-shadow: none;
     }
   }
+  &:hover {
+    background-color: var(--secondary-color);
+    color: white;
+  }
 
   ${({ $isCorrect }) =>
     $isCorrect &&
@@ -38,10 +43,7 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   ${({ $resetFocus }) =>
     !$resetFocus &&
     `
-      &:hover {
-        background-color: var(--secondary-color);
-        color: white;
-      }
+    
       &:focus {
         background-color: transparent;
         box-shadow: none;
