@@ -12,7 +12,7 @@ const Button = styled.button`
   width: 50px;
   border: 2px solid transparent;
   color: black;
-  transition: all 0.3s ease-in-out;
+
   &:hover {
     background-color: var(--secondary-color);
     color: white;
