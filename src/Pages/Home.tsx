@@ -3,6 +3,7 @@ import { useState } from "react";
 import StaveComponent from "../components/StaveComponent";
 import NoteComponent from "../components/NoteComponent";
 import SelectButton from "../components/Buttons/SelectButton";
+import ActionButton from "../components/Buttons/ActionButton";
 
 export default function Home() {
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
@@ -18,11 +19,12 @@ export default function Home() {
   function checkAnswer(data: string): void {
     if (data == noteType) {
       setAnswerResult(true);
-      setTimeout(() => {
-        setAnswerResult(null);
-        setNoteType(notes[getRandomPosition()]);
-      }, 3000);
     } else setAnswerResult(false);
+  }
+
+  function changeNote() {
+    setAnswerResult(null);
+    setNoteType(notes[getRandomPosition()]);
   }
 
   return (
@@ -68,6 +70,9 @@ export default function Home() {
           <span>{answerResult ? "Good Answer" : "Wrong answer"}</span>
         )}
       </section>
+      {answerResult === true && (
+        <ActionButton buttonTitle="Next" onButtonClick={changeNote} />
+      )}
     </>
   );
 }
