@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&display=swap");
 :root {
   --primary-color: #b8a064;
+  --primary-color-hover: #c69927;
   --secondary-color: #5e6572;
   --success-color: #00916e;
   --wrong-color: #972d07;
@@ -31,6 +32,7 @@ body {
 }
 :root {
   --primary-color: #b8a064;
+  --primary-color-hover: #c69927;
   --secondary-color: #5e6572;
   --success-color: #00916e;
   --wrong-color: #972d07;
