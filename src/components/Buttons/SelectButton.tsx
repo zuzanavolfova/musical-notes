@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const Button = styled.button`
+const Button = styled.button<{ $resetFocus?: boolean }>`
   padding: 10px;
   border: none;
   border-radius: 8px;
@@ -17,25 +17,33 @@ const Button = styled.button`
     background-color: var(--secondary-color);
     color: white;
   }
-  &:focus {
-    background-color: transparent;
-    box-shadow: none;
-    border: 2px solid var(--secondary-color);
-    font-weight: bold;
-    color: var(--secondary-color);
-  }
-  &:active {
-    font-weight: bold;
-    color: var(--secondary-color);
-  }
+  ${({ $resetFocus }) =>
+    !$resetFocus &&
+    `
+    &:focus {
+      background-color: transparent;
+      box-shadow: none;
+      border: 2px solid var(--secondary-color);
+      font-weight: bold;
+      color: var(--secondary-color);
+    }
+    &:active {
+      font-weight: bold;
+      color: var(--secondary-color);
+    }
+  `}
 `;
+
 interface SelectButtonProps {
   answerText: string;
   checkAnswer: (answerText: string) => void;
+  resetFocus?: boolean;
 }
+
 export default function SelectButton({
   answerText,
   checkAnswer,
+  resetFocus = false,
 }: SelectButtonProps) {
   function onAnswerClick(answerText: string) {
     checkAnswer(answerText);
@@ -45,6 +53,7 @@ export default function SelectButton({
     <Button
       onClick={() => onAnswerClick(answerText)}
       aria-label={`click to answer - ${answerText}`}
+      $resetFocus={resetFocus}
     >
       {answerText}
     </Button>

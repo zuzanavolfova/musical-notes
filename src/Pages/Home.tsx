@@ -1,13 +1,28 @@
+import { useState } from "react";
+
 import StaveComponent from "../components/StaveComponent";
 import NoteComponent from "../components/NoteComponent";
 import SelectButton from "../components/Buttons/SelectButton";
-export default function Home() {
-  const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
 
-  const noteType: string = notes[getRandomPosition()];
+export default function Home() {
+  const [answerResult, setAnswerResult] = useState<boolean | null>(null);
+  const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
+  const [noteType, setNoteType] = useState<string>(
+    () => notes[getRandomPosition()]
+  );
 
   function getRandomPosition(): number {
     return Math.floor(Math.random() * notes.length);
+  }
+
+  function checkAnswer(data: string): void {
+    if (data == noteType) {
+      setAnswerResult(true);
+      setTimeout(() => {
+        setAnswerResult(null);
+        setNoteType(notes[getRandomPosition()]);
+      }, 3000);
+    } else setAnswerResult(false);
   }
 
   return (
@@ -25,6 +40,7 @@ export default function Home() {
           noteType={noteType}
         />
       </section>
+
       <section
         style={{
           display: "flex",
@@ -37,8 +53,18 @@ export default function Home() {
         }}
       >
         {notes.map((note) => (
-          <SelectButton key={note} answerText={note} />
+          <SelectButton
+            checkAnswer={checkAnswer}
+            key={note}
+            answerText={note}
+            resetFocus={answerResult === null}
+          />
         ))}
+      </section>
+      <section>
+        {answerResult != null && (
+          <span>{answerResult ? "Good Answer" : "Wrong answer"}</span>
+        )}
       </section>
     </>
   );
