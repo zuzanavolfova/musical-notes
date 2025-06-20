@@ -58,6 +58,8 @@ export default function Home() {
             key={note}
             answerText={note}
             resetFocus={answerResult === null}
+            disabled={answerResult === true}
+            isCorrect={answerResult === true && note === noteType}
           />
         ))}
       </section>
