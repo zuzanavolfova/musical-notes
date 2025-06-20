@@ -1,0 +1,48 @@
+import { styled } from "styled-components";
+
+const StyledActionButton = styled.button`
+  width: auto;
+  min-width: 80px;
+  padding: 10px 18px;
+  margin: 10px;
+  border-radius: 60px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 18px;
+  border: 2px solid white;
+  box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  &:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: default;
+    border: 2px solid #ddd;
+    box-shadow: none;
+    &:hover {
+      background-color: #eee;
+      color: #aaa;
+      cursor: default;
+      border: 2px solid #ddd;
+      box-shadow: none;
+    }
+  }
+`;
+
+interface ActionButtonProps {
+  buttonTitle: string;
+  onButtonClick: () => void;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+}
+
+export default function ActionButton({
+  buttonTitle,
+  onButtonClick,
+  type = "button",
+  disabled = false,
+}: ActionButtonProps) {
+  return (
+    <StyledActionButton onClick={onButtonClick} type={type} disabled={disabled}>
+      {buttonTitle}
+    </StyledActionButton>
+  );
+}
