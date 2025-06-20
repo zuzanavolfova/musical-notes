@@ -12,6 +12,10 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   width: 50px;
   border: 2px solid transparent;
   color: black;
+  &:hover {
+    background-color: var(--secondary-color);
+    color: white;
+  }
   &:disabled {
     background-color: #eee;
     color: #aaa;
