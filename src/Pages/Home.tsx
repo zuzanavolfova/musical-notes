@@ -10,8 +10,6 @@ export default function Home() {
     return Math.floor(Math.random() * notes.length);
   }
 
-  console.log("Note type:", noteType);
-
   return (
     <>
       <StaveComponent />
