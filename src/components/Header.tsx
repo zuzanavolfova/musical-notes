@@ -13,6 +13,7 @@ const Header = styled.header`
   & h1 {
     font-family: var(--font-decoration);
     text-transform: uppercase;
+    color: var(--primary-color);
   }
   & img {
     display: none;
