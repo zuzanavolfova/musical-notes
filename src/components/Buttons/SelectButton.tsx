@@ -12,6 +12,7 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   width: 50px;
   border: 2px solid transparent;
   color: black;
+  transition: all 0.3s ease-in-out;
   &:disabled {
     background-color: #eee;
     color: #aaa;
