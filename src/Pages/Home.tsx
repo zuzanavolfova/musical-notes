@@ -65,7 +65,12 @@ export default function Home() {
           />
         ))}
       </section>
-      <section>
+      <section
+        style={{
+          color: answerResult ? "var(--success-color)" : "var(--wrong-color)",
+          fontSize: "32px",
+        }}
+      >
         {answerResult != null && (
           <span>{answerResult ? "Good Answer" : "Wrong answer"}</span>
         )}
