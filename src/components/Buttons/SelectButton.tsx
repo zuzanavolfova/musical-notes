@@ -45,13 +45,9 @@ export default function SelectButton({
   checkAnswer,
   resetFocus = false,
 }: SelectButtonProps) {
-  function onAnswerClick(answerText: string) {
-    checkAnswer(answerText);
-  }
-
   return (
     <Button
-      onClick={() => onAnswerClick(answerText)}
+      onClick={() => checkAnswer(answerText)}
       aria-label={`click to answer - ${answerText}`}
       $resetFocus={resetFocus}
     >
