@@ -9,14 +9,14 @@ export default function NoteComponent({
   noteType: string;
 }) {
   const notePosition: { [key: string]: string } = {
-    c: "152px",
-    d: "142px",
-    e: "132px",
-    f: "122px",
-    g: "112px",
-    a: "101px",
-    h: "89px",
-    c2: "80px",
+    c: "56px",
+    d: "40px",
+    e: "29px",
+    f: "19px",
+    g: "8px",
+    a: "-2px",
+    h: "-13px",
+    c2: "-23px",
   };
 
   return (
