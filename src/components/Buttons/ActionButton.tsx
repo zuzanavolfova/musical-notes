@@ -11,6 +11,7 @@ const StyledActionButton = styled.button`
   font-size: 24px;
   border: 2px solid white;
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  cursor: pointer;
   &:hover {
     background-color: var(--primary-color-hover);
     border: var(--primary-color-hover);
