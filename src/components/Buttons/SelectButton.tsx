@@ -27,6 +27,10 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
       box-shadow: none;
     }
   }
+  &:hover {
+    background-color: var(--secondary-color);
+    color: white;
+  }
 
   ${({ $isCorrect }) =>
     $isCorrect &&
@@ -39,10 +43,7 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   ${({ $resetFocus }) =>
     !$resetFocus &&
     `
-      &:hover {
-        background-color: var(--secondary-color);
-        color: white;
-      }
+    
       &:focus {
         background-color: transparent;
         box-shadow: none;
