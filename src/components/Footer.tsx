@@ -7,9 +7,11 @@ const FooterContainer = styled.footer`
   width: 100%;
   color: var(--text-dark-grey);
   padding: 12px 0;
+  box-shadow: 0 -2px 8px -4px var(--primary-color);
 
   .footer__title {
     font-weight: 600;
+    color: var(--primary-color);
   }
 
   .footer__link {
@@ -32,7 +34,6 @@ export default function Footer() {
       <span className="footer__title" aria-label="Name">
         Zuzana Volfová
       </span>
-      <span aria-label="Phone number">+420 728 881 941</span>
       <a
         className="footer__link"
         href="mailto:zuzka.volfova@gmail.com"
