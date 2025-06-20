@@ -16,11 +16,7 @@ export default function ActionButton({
   disabled = false,
 }: ActionButtonProps) {
   return (
-    <StyledActionButton
-      onClick={() => onButtonClick}
-      type={type}
-      disabled={disabled}
-    >
+    <StyledActionButton onClick={onButtonClick} type={type} disabled={disabled}>
       {buttonTitle}
     </StyledActionButton>
   );
