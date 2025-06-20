@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <div
+      <section
         style={{
           position: "relative",
           height: "140px",
@@ -24,10 +24,22 @@ export default function Home() {
           noteImage={noteType === "c" ? "note2" : "note"}
           noteType={noteType}
         />
-      </div>
-      {notes.map((note) => (
-        <SelectButton key={note} answerText={note} />
-      ))}
+      </section>
+      <section
+        style={{
+          display: "flex",
+          gap: "20px",
+          flexWrap: "wrap",
+          maxWidth: "300px",
+          margin: "0 auto",
+          padding: "20px",
+          justifyContent: "center",
+        }}
+      >
+        {notes.map((note) => (
+          <SelectButton key={note} answerText={note} />
+        ))}
+      </section>
     </>
   );
 }
