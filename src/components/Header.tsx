@@ -7,19 +7,27 @@ const Header = styled.header`
   justify-content: center;
   gap: 40px;
   padding: 6px 4px;
-  @media screen and (min-width: 768px) {
+  position: relative;
+
+  @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
   & h1 {
     font-family: var(--font-decoration);
     text-transform: uppercase;
     color: var(--primary-color);
+    margin: 0 auto;
+    position: relative;
   }
   & img {
     display: none;
-    @media screen and (min-width: 768px) {
-      display: flex;
-      width: 30px;
+
+    @media screen and (min-width: 480px) {
+      display: block;
+      position: absolute;
+      left: 8%;
+      top: 30px;
+      width: 12%;
     }
   }
 `;
