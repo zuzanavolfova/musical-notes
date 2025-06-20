@@ -18,6 +18,9 @@ const Header = styled.header`
     color: var(--primary-color);
     margin: 0 auto;
     position: relative;
+    @media screen and (min-width: 480px) {
+      font-size: 42px;
+    }
   }
   & img {
     display: none;
@@ -26,8 +29,8 @@ const Header = styled.header`
       display: block;
       position: absolute;
       left: 8%;
-      top: 30px;
-      width: 12%;
+      top: 36px;
+      width: 10%;
     }
   }
 `;
