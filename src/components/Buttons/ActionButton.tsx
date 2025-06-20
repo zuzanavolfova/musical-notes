@@ -11,6 +11,17 @@ const StyledActionButton = styled.button`
   font-size: 24px;
   border: 2px solid white;
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  cursor: pointer;
+  &:hover {
+    background-color: #781800;
+    border: #781800;
+  }
+  &:focus {
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+  }
+
   &:disabled {
     background-color: #eee;
     color: #aaa;
