@@ -5,7 +5,7 @@ const Stave = styled.div`
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  max-width: 300px;
+  max-width: 280px;
   margin: 0 auto;
   border-right: 2px solid black;
   border-left: 2px solid black;
