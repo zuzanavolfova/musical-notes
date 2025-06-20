@@ -12,11 +12,13 @@ export default function Home() {
 
   return (
     <>
-      <StaveComponent />
-      <NoteComponent
-        noteImage={noteType === "c" ? "note2" : "note"}
-        noteType={noteType}
-      />
+      <div style={{ position: "relative", width: "100%" }}>
+        <StaveComponent />
+        <NoteComponent
+          noteImage={noteType === "c" ? "note2" : "note"}
+          noteType={noteType}
+        />
+      </div>
     </>
   );
 }
