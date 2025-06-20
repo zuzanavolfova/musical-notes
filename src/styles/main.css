@@ -38,3 +38,8 @@ body {
   --text-medium-grey: #615f5f;
   --text-dark-grey: #434343;
 }
+
+:root {
+  --font-decoration: "Zen Antique Soft", serif;
+  --font-primary: "Arial", sans-serif;
+}
