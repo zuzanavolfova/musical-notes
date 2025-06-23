@@ -30,6 +30,7 @@ export default function Home() {
   return (
     <>
       <section
+        aria-label="Musical stave with note"
         style={{
           position: "relative",
           height: "140px",
@@ -44,6 +45,7 @@ export default function Home() {
       </section>
 
       <section
+        aria-label="Select the correct note"
         style={{
           display: "flex",
           gap: "20px",
@@ -62,10 +64,14 @@ export default function Home() {
             resetFocus={answerResult === null}
             disabled={answerResult === true}
             isCorrect={answerResult === true && note === noteType}
+            aria-pressed={answerResult === true && note === noteType}
+            aria-label={`Select note ${note.toUpperCase()}`}
           />
         ))}
       </section>
       <section
+        aria-live="polite"
+        aria-atomic="true"
         style={{
           color: answerResult ? "var(--success-color)" : "var(--wrong-color)",
           fontSize: "32px",

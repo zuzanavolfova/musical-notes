@@ -44,6 +44,7 @@ interface ActionButtonProps {
   onButtonClick: () => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  ariaLabel?: string;
 }
 
 export default function ActionButton({
@@ -51,9 +52,16 @@ export default function ActionButton({
   onButtonClick,
   type = "button",
   disabled = false,
+  ariaLabel,
 }: ActionButtonProps) {
   return (
-    <StyledActionButton onClick={onButtonClick} type={type} disabled={disabled}>
+    <StyledActionButton
+      onClick={onButtonClick}
+      type={type}
+      disabled={disabled}
+      aria-disabled={disabled}
+      aria-label={ariaLabel || buttonTitle}
+    >
       {buttonTitle}
     </StyledActionButton>
   );

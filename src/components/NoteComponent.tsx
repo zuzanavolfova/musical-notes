@@ -23,12 +23,14 @@ export default function NoteComponent({
     <img
       src={noteImage === "note" ? note : note2}
       alt="Musical Note"
+      tabIndex={0}
       style={{
         position: "absolute",
         top: notePosition[noteType],
         left: "50%",
         height: "66px",
       }}
+      draggable={false}
     />
   );
 }

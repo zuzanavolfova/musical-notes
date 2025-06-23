@@ -37,9 +37,9 @@ const Header = styled.header`
 
 export default function HeaderComponent() {
   return (
-    <Header>
-      <img src={clefLogo} alt="Logo treble clef" />
-      <h1>Musical Notes</h1>
+    <Header role="banner" aria-label="Musical Notes header">
+      <img src={clefLogo} alt="Treble clef logo" aria-hidden="true" />
+      <h1 tabIndex={0}>Musical Notes</h1>
     </Header>
   );
 }
