@@ -45,7 +45,7 @@ export default function Home() {
         />
       </section>
       <section id="Piano" style={{ margin: "0 auto" }}>
-        <Piano checkAnswer={checkAnswer} />
+        <Piano checkAnswer={checkAnswer} disabled={answerResult === true} />
       </section>
 
       <section

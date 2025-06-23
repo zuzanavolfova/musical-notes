@@ -10,9 +10,13 @@ const PianoStyled = styled.div`
     width: 44px;
     height: 180px;
     background-color: white;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid rgba(124, 124, 124, 0.5);
     border-radius: 0 0 6px 6px;
+    box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
     cursor: pointer;
+    &:disabled {
+      cursor: default;
+    }
   }
   .black-key {
     width: 32px;
@@ -20,9 +24,13 @@ const PianoStyled = styled.div`
     background-color: black;
     border-radius: 0 0 6px 6px;
     border: none;
+    box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
     position: absolute;
     top: 0;
     cursor: pointer;
+    &:disabled {
+      cursor: default;
+    }
   }
   .black-key-0 {
     left: 26px;
@@ -50,8 +58,11 @@ const blackKeys: string[] = ["c#", "d#", "", "f#", "g#", "a#", ""];
 
 interface PianoProps {
   checkAnswer: (answerText: string) => void;
+
+  disabled?: boolean;
 }
-const Piano = ({ checkAnswer }: PianoProps) => {
+
+export default function Piano({ checkAnswer, disabled = false }: PianoProps) {
   return (
     <PianoStyled className="piano-container">
       <div className="white-keys">
@@ -60,6 +71,7 @@ const Piano = ({ checkAnswer }: PianoProps) => {
             key={index}
             className="white-key"
             onClick={() => checkAnswer(note)}
+            disabled={disabled}
             type="button"
           ></button>
         ))}
@@ -72,6 +84,7 @@ const Piano = ({ checkAnswer }: PianoProps) => {
               key={index}
               className={`black-key black-key-${index}`}
               onClick={() => checkAnswer(note)}
+              disabled={disabled}
               type="button"
             ></button>
           ) : (
@@ -81,6 +94,4 @@ const Piano = ({ checkAnswer }: PianoProps) => {
       </div>
     </PianoStyled>
   );
-};
-
-export default Piano;
+}
