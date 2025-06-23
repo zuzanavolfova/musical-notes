@@ -284,6 +284,7 @@ Error generating stack: `+a.message+`
   color: var(--text-dark-grey);
   padding: 12px 0;
   box-shadow: 0 -2px 8px -4px var(--primary-color);
+  margin-bottom: 20px;
 
   .footer__title {
     font-weight: 600;
