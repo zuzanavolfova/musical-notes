@@ -176,7 +176,7 @@ Error generating stack: `+a.message+`
   & img {
     display: none;
 
-    @media screen and (min-width: 480px) {
+    @media screen and (min-width: 550px) {
       display: block;
       position: absolute;
       left: 8%;
