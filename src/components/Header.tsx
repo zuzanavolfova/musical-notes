@@ -16,9 +16,13 @@ const Header = styled.header`
   }
   & img {
     display: none;
-    @media screen and (min-width: 768px) {
-      display: flex;
-      width: 30px;
+
+    @media screen and (min-width: 550px) {
+      display: block;
+      position: absolute;
+      left: 8%;
+      top: 36px;
+      width: 10%;
     }
   }
 `;
