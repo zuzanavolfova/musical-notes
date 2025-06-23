@@ -4,6 +4,7 @@ import StaveComponent from "../components/StaveComponent";
 import NoteComponent from "../components/NoteComponent";
 import SelectButton from "../components/Buttons/SelectButton";
 import ActionButton from "../components/Buttons/ActionButton";
+import Piano from "../components/Buttons/Piano";
 
 export default function Home() {
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
@@ -42,6 +43,9 @@ export default function Home() {
           noteImage={noteType === "c" ? "note2" : "note"}
           noteType={noteType}
         />
+      </section>
+      <section id="Piano" style={{ margin: "0 auto" }}>
+        <Piano checkAnswer={checkAnswer} />
       </section>
 
       <section

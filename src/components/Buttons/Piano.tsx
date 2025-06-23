@@ -45,14 +45,13 @@ const PianoStyled = styled.div`
     visibility: hidden;
   }
 `;
-const whiteKeys: string[] = ["C", "D", "E", "F", "G", "A", "H", "C2"];
-const blackKeys: string[] = ["C#", "D#", "", "F#", "G#", "A#", ""];
+const whiteKeys: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
+const blackKeys: string[] = ["c#", "d#", "", "f#", "g#", "a#", ""];
 
-const Piano = () => {
-  const handleClick = (note: string) => {
-    console.log(`Zahraná nota: ${note}`);
-  };
-
+interface PianoProps {
+  checkAnswer: (answerText: string) => void;
+}
+const Piano = ({ checkAnswer }: PianoProps) => {
   return (
     <PianoStyled className="piano-container">
       <div className="white-keys">
@@ -60,7 +59,7 @@ const Piano = () => {
           <button
             key={index}
             className="white-key"
-            onClick={() => handleClick(note)}
+            onClick={() => checkAnswer(note)}
             type="button"
           ></button>
         ))}
@@ -72,7 +71,7 @@ const Piano = () => {
             <button
               key={index}
               className={`black-key black-key-${index}`}
-              onClick={() => handleClick(note)}
+              onClick={() => checkAnswer(note)}
               type="button"
             ></button>
           ) : (
