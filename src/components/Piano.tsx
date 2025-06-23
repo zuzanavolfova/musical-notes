@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 const PianoStyled = styled.div`
   position: relative;
   margin: 0 auto;
-  width: calc(8 * 44px);
+  width: calc(8 * var(--piano-key-width));
   height: 180px;
 `;
 
