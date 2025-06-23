@@ -18,6 +18,9 @@ const FooterContainer = styled.footer`
   .footer__link {
     color: var(--text-dark-grey);
     text-decoration: none;
+    @media (prefers-color-scheme: dark) {
+      color: var(--dark-theme-text-color);
+    }
 
     &:hover {
       font-weight: 600;

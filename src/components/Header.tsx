@@ -31,6 +31,7 @@ const Header = styled.header`
       left: 8%;
       top: 36px;
       width: 10%;
+      z-index: 10;
     }
   }
 `;
