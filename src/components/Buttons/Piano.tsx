@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { styled } from "styled-components";
 
 const PianoStyled = styled.div`
@@ -6,101 +5,131 @@ const PianoStyled = styled.div`
   margin: 0 auto;
   width: calc(8 * 44px);
   height: 180px;
-  .white-key {
-    width: 44px;
-    height: 180px;
-    background-color: white;
-    border: 1px solid rgba(124, 124, 124, 0.5);
-    border-radius: 0 0 6px 6px;
-    box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background-color: rgb(212, 212, 212);
-    }
-    &:disabled {
-      cursor: default;
-    }
-  }
-  .black-key {
-    width: 32px;
-    height: 120px;
-    background-color: black;
-    border-radius: 0 0 6px 6px;
-    border: none;
-    box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
-    position: absolute;
-    top: 0;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    &:hover {
-      background-color: rgb(93, 92, 92);
-    }
-    &:disabled {
-      cursor: default;
-    }
-  }
-  .black-key-0 {
-    left: 26px;
-  }
-  .black-key-1 {
-    left: 70px;
-  }
-
-  .black-key-3 {
-    left: 158px;
-  }
-  .black-key-4 {
-    left: 202px;
-  }
-  .black-key-5 {
-    left: 246px;
-  }
-  .black-key-2,
-  .black-key-6 {
-    visibility: hidden;
-  }
 `;
-const whiteKeys: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
-const blackKeys: string[] = ["c#", "d#", "", "f#", "g#", "a#", ""];
+
+const WhiteKey = styled.button<{ $isCorrect?: boolean }>`
+  width: 44px;
+  height: 180px;
+  background-color: white;
+  border: 1px solid rgba(124, 124, 124, 0.5);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgb(212, 212, 212);
+  }
+
+  &:disabled {
+    cursor: default;
+    &:hover {
+      background-color: white;
+    }
+  }
+
+  ${({ $isCorrect }) =>
+    $isCorrect &&
+    `
+      background-color: var(--secondary-color) !important;
+      color: white;
+      font-weight: bold;
+    `}
+`;
+
+const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
+  width: 32px;
+  height: 120px;
+  background-color: black;
+  border-radius: 0 0 6px 6px;
+  border: none;
+  box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+
+  &:hover {
+    background-color: rgb(93, 92, 92);
+  }
+
+  &:focus {
+    background-color: var(--secondary-color);
+  }
+
+  &:disabled {
+    cursor: default;
+    &:hover {
+      background-color: black;
+    }
+  }
+
+  ${({ $isCorrect }) =>
+    $isCorrect &&
+    `
+      background-color: var(--secondary-color) !important;
+    `}
+
+  ${({ index }) => {
+    const positions: { [key: number]: number } = {
+      0: 26,
+      1: 70,
+      3: 158,
+      4: 202,
+      5: 246,
+    };
+    if (index === 2 || index === 6) {
+      return `visibility: hidden;`;
+    }
+    return `left: ${positions[index]}px;`;
+  }}
+`;
+
+const whiteKeys = ["c", "d", "e", "f", "g", "a", "h", "c2"];
+const blackKeys = ["c#", "d#", "", "f#", "g#", "a#", ""];
 
 interface PianoProps {
   checkAnswer: (answerText: string) => void;
-
+  noteType: string;
+  answerResult: boolean | null;
   disabled?: boolean;
 }
 
-export default function Piano({ checkAnswer, disabled = false }: PianoProps) {
+export default function Piano({
+  checkAnswer,
+  noteType,
+  answerResult,
+  disabled = false,
+}: PianoProps) {
   return (
-    <PianoStyled className="piano-container">
-      <div className="white-keys">
+    <PianoStyled>
+      <div style={{ display: "flex" }}>
         {whiteKeys.map((note, index) => (
-          <button
+          <WhiteKey
             key={index}
-            className="white-key"
             onClick={() => checkAnswer(note)}
+            $isCorrect={answerResult === true && note === noteType}
             disabled={disabled}
             type="button"
-          ></button>
+            aria-label={`White key ${note.toUpperCase()}`}
+          />
         ))}
       </div>
 
-      <div className="black-keys">
-        {blackKeys.map((note, index) =>
-          note ? (
-            <button
-              key={index}
-              className={`black-key black-key-${index}`}
-              onClick={() => checkAnswer(note)}
-              disabled={disabled}
-              type="button"
-            ></button>
-          ) : (
-            <div key={index} className="black-key-placeholder" />
-          )
-        )}
-      </div>
+      {blackKeys.map((note, index) =>
+        note ? (
+          <BlackKey
+            key={index}
+            index={index}
+            onClick={() => checkAnswer(note)}
+            $isCorrect={answerResult === true && note === noteType}
+            disabled={disabled}
+            type="button"
+            aria-label={`Black key ${note.toUpperCase()}`}
+          />
+        ) : null
+      )}
     </PianoStyled>
   );
 }
