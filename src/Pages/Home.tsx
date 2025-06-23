@@ -35,16 +35,17 @@ export default function Home() {
   }
   return (
     <>
+      <TabsComponent setContent={changeContent} />
       <section
         aria-label="Musical stave with note"
         style={{
           position: "relative",
-          height: "200px",
-          margin: "20px",
+          height: "130px",
+          padding: "10px 0 0 0",
+          margin: "20px 0",
+          backgroundColor: "white",
         }}
       >
-        {" "}
-        <TabsComponent setContent={changeContent} />
         <div style={{ position: "relative" }}>
           <StaveComponent />
           <NoteComponent
