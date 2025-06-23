@@ -97,6 +97,7 @@ export default function Home() {
         style={{
           color: answerResult ? "var(--success-color)" : "var(--wrong-color)",
           fontSize: "32px",
+          margin: "20px auto 0 auto",
         }}
       >
         {answerResult != null && (
