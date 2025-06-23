@@ -4,7 +4,7 @@ import StaveComponent from "../components/StaveComponent";
 import NoteComponent from "../components/NoteComponent";
 import SelectButton from "../components/Buttons/SelectButton";
 import ActionButton from "../components/Buttons/ActionButton";
-import Piano from "../components/Buttons/Piano";
+import Piano from "../components/Piano";
 
 export default function Home() {
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
