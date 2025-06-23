@@ -7,12 +7,20 @@ const Header = styled.header`
   justify-content: center;
   gap: 40px;
   padding: 6px 4px;
-  @media screen and (min-width: 768px) {
+  position: relative;
+
+  @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
   & h1 {
     font-family: var(--font-decoration);
     text-transform: uppercase;
+    color: var(--primary-color);
+    margin: 0 auto;
+    position: relative;
+    @media screen and (min-width: 480px) {
+      font-size: 42px;
+    }
   }
   & img {
     display: none;
