@@ -31,13 +31,13 @@ export default function Footer() {
       role="contentinfo"
       aria-label="Contact information for Zuzana Volfová"
     >
-      <span className="footer__title" aria-label="Name">
+      <strong className="footer__title" aria-label="Name">
         Zuzana Volfová
-      </span>
+      </strong>
       <a
         className="footer__link"
         href="mailto:zuzka.volfova@gmail.com"
-        aria-label="Send an email to zuzka.volfova@gmail.com"
+        title="Send an email to zuzka.volfova@gmail.com"
       >
         zuzka.volfova@gmail.com
       </a>
@@ -45,7 +45,8 @@ export default function Footer() {
         className="footer__link"
         href="https://zuzanavolfova.github.io/zuzana-volfova-2025/#/"
         target="_blank"
-        aria-label="Visit Zuzana Volfová's web side"
+        rel="noopener noreferrer"
+        title="Visit Zuzana Volfová's web side"
       >
         My website
       </a>
@@ -53,7 +54,8 @@ export default function Footer() {
         className="footer__link"
         href="https://www.linkedin.com/in/zuzana-volfová"
         target="_blank"
-        aria-label="Visit Zuzana Volfová's LinkedIn profile"
+        rel="noopener noreferrer"
+        title="Visit Zuzana Volfová's LinkedIn profile"
       >
         LinkedIn
       </a>
