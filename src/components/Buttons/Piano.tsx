@@ -20,7 +20,9 @@ const WhiteKey = styled.button<{ $isCorrect?: boolean }>`
   &:hover {
     background-color: rgb(212, 212, 212);
   }
-
+  &:focus {
+    box-shadow: inset 1px 2px 6px rgba(124, 124, 124, 0.5);
+  }
   &:disabled {
     cursor: default;
     &:hover {
@@ -33,6 +35,8 @@ const WhiteKey = styled.button<{ $isCorrect?: boolean }>`
     `
       background-color: var(--secondary-color) !important;
       color: white;
+            box-shadow: inset 0 0 8px 2px rgba(0, 0, 0, 0.22);
+
       font-weight: bold;
     `}
 `;
