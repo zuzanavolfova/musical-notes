@@ -14,6 +14,11 @@ const PianoStyled = styled.div`
     border-radius: 0 0 6px 6px;
     box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgb(212, 212, 212);
+    }
     &:disabled {
       cursor: default;
     }
@@ -28,6 +33,10 @@ const PianoStyled = styled.div`
     position: absolute;
     top: 0;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background-color: rgb(93, 92, 92);
+    }
     &:disabled {
       cursor: default;
     }
