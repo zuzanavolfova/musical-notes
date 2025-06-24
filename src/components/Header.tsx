@@ -37,10 +37,11 @@ const Header = styled.header`
 
 export default function HeaderComponent() {
   const { t } = useTranslation();
+
   return (
     <Header role="banner" aria-label="Musical Notes header">
       <img src={clefLogo} alt="Treble clef logo" aria-hidden="true" />
-      <h1 tabIndex={0}>{t("welcome")}</h1>
+      <h1 tabIndex={0}>{t("musical-notes")}</h1>
     </Header>
   );
 }

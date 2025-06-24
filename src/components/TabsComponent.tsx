@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 import TabButton from "./Buttons/TabButton";
 
@@ -14,6 +15,7 @@ const TabsContainerStyled = styled.div`
 `;
 
 export default function TabsComponent({ setContent }: TabsComponentProps) {
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState<TabType>("Notes");
 
   function handleOnTabClick(value: TabType) {
@@ -26,13 +28,13 @@ export default function TabsComponent({ setContent }: TabsComponentProps) {
         isSelected={selectedTab === "Notes"}
         onClick={() => handleOnTabClick("Notes")}
       >
-        Learn notes
+        {t("learn-notes")}
       </TabButton>
       <TabButton
         isSelected={selectedTab === "Keyboard"}
         onClick={() => handleOnTabClick("Keyboard")}
       >
-        Find the note on the keyboard
+        {t("find-note-on-keyboard")}
       </TabButton>
     </TabsContainerStyled>
   );

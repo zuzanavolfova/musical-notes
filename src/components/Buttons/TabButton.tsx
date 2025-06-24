@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import type { TabButtonProps } from "../../types/interfaces";
+import { useTranslation } from "react-i18next";
 
 const TabButtonStyled = styled.button<{ $isSelected?: boolean }>`
   background: ${({ $isSelected }) =>
@@ -26,9 +27,10 @@ export default function TabButton({
   isSelected,
   ...props
 }: TabButtonProps) {
+  const { t } = useTranslation();
   return (
     <TabButtonStyled $isSelected={isSelected} {...props}>
-      {children}
+      {typeof children === "string" ? t(children) : children}
     </TabButtonStyled>
   );
 }

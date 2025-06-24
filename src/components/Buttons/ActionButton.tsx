@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
+import { useTranslation } from "react-i18next";
 
-import type {ActionButtonProps } from "./../../types/interfaces"
+import type { ActionButtonProps } from "./../../types/interfaces";
 
 const StyledActionButton = styled.button`
   width: auto;
@@ -49,6 +50,7 @@ export default function ActionButton({
   ariaLabel,
   ...props
 }: ActionButtonProps) {
+  const { t } = useTranslation();
   return (
     <StyledActionButton
       onClick={onButtonClick}
@@ -58,7 +60,7 @@ export default function ActionButton({
       aria-label={ariaLabel || buttonTitle}
       {...props}
     >
-      {buttonTitle}
+      {t(buttonTitle)}
     </StyledActionButton>
   );
 }
