@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import type { PianoProps } from "../types/interfaces";
 
 const PianoStyled = styled.div`
   position: relative;
@@ -85,13 +86,6 @@ const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
 
 const whiteKeys = ["c", "d", "e", "f", "g", "a", "h", "c2"];
 const blackKeys = ["c#", "d#", "", "f#", "g#", "a#", ""];
-
-interface PianoProps {
-  checkAnswer: (answerText: string) => void;
-  noteType: string;
-  answerResult: boolean | null;
-  disabled?: boolean;
-}
 
 export default function Piano({
   checkAnswer,

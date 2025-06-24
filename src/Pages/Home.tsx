@@ -7,6 +7,8 @@ import ActionButton from "../components/Buttons/ActionButton";
 import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
 
+import type { TabType } from "../types/types";
+
 export default function Home() {
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Notes");
@@ -56,7 +58,6 @@ export default function Home() {
           />
         </div>
       </section>
-
       {showContent === "Keyboard" && (
         <section id="Piano" style={{ margin: "0 auto" }}>
           <Piano

@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 
+import type {ActionButtonProps } from "./../../types/interfaces"
+
 const StyledActionButton = styled.button`
   width: auto;
   min-width: 80px;
@@ -39,20 +41,13 @@ const StyledActionButton = styled.button`
   }
 `;
 
-interface ActionButtonProps {
-  buttonTitle: string;
-  onButtonClick: () => void;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-  ariaLabel?: string;
-}
-
 export default function ActionButton({
   buttonTitle,
   onButtonClick,
   type = "button",
   disabled = false,
   ariaLabel,
+  ...props
 }: ActionButtonProps) {
   return (
     <StyledActionButton
@@ -61,6 +56,7 @@ export default function ActionButton({
       disabled={disabled}
       aria-disabled={disabled}
       aria-label={ariaLabel || buttonTitle}
+      {...props}
     >
       {buttonTitle}
     </StyledActionButton>
