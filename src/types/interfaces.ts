@@ -1,3 +1,4 @@
+import React from "react";
 import type { TabType } from "./types";
 
 export interface ActionButtonProps
