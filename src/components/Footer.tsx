@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -26,6 +27,8 @@ const FooterContainer = styled.footer`
 `;
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <FooterContainer
       className="footer"
@@ -49,7 +52,7 @@ export default function Footer() {
         rel="noopener noreferrer"
         title="Visit Zuzana Volfová's web side"
       >
-        My website
+        {t("my-website")}
       </a>
       <a
         className="footer__link"

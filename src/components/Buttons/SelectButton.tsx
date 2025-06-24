@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import type { SelectButtonProps } from "../../types/interfaces";
+import { useTranslation } from "react-i18next";
 
 const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   padding: 10px;
@@ -70,6 +71,7 @@ export default function SelectButton({
   isCorrect = false,
   ...props
 }: SelectButtonProps) {
+  const { t } = useTranslation();
   return (
     <Button
       onClick={() => checkAnswer(answerText)}
@@ -83,7 +85,7 @@ export default function SelectButton({
       $isCorrect={isCorrect}
       {...props}
     >
-      {answerText}
+      {t(answerText)}
     </Button>
   );
 }

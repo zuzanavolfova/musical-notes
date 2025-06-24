@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import StaveComponent from "../components/StaveComponent";
 import NoteComponent from "../components/NoteComponent";
@@ -10,6 +11,7 @@ import TabsComponent from "../components/TabsComponent";
 import type { TabType } from "../types/types";
 
 export default function Home() {
+  const { t } = useTranslation();
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Notes");
 
@@ -105,11 +107,11 @@ export default function Home() {
         }}
       >
         {answerResult != null && (
-          <span>{answerResult ? "Good Answer" : "Wrong answer"}</span>
+          <span>{answerResult ? t("good-answer") : t("wrong-answer")}</span>
         )}
       </section>
       {answerResult === true && (
-        <ActionButton buttonTitle="Next" onButtonClick={changeNote} />
+        <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
       )}
     </>
   );
