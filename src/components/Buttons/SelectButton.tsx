@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import type { SelectButtonProps } from "../../types/interfaces";
 
 const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   padding: 10px;
@@ -35,7 +36,6 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
     background-color: var(--secondary-color);
     color: white;
   }
-
   ${({ $isCorrect }) =>
     $isCorrect &&
     `
@@ -47,7 +47,6 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
   ${({ $resetFocus }) =>
     !$resetFocus &&
     `
-    
       &:focus {
         background-color: transparent;
         box-shadow: none;
@@ -62,25 +61,19 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
     `}
 `;
 
-interface SelectButtonProps {
-  answerText: string;
-  checkAnswer: (answerText: string) => void;
-  resetFocus?: boolean;
-  disabled?: boolean;
-  isCorrect?: boolean;
-}
-
 export default function SelectButton({
   answerText,
   checkAnswer,
+  type = "button",
   resetFocus = false,
   disabled = false,
   isCorrect = false,
+  ...props
 }: SelectButtonProps) {
   return (
     <Button
-      type="button"
       onClick={() => checkAnswer(answerText)}
+      type={type}
       aria-label={`click to answer - ${answerText}`}
       aria-pressed={isCorrect}
       aria-disabled={disabled}
@@ -88,6 +81,7 @@ export default function SelectButton({
       $resetFocus={resetFocus}
       disabled={disabled}
       $isCorrect={isCorrect}
+      {...props}
     >
       {answerText}
     </Button>

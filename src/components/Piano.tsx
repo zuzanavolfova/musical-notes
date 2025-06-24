@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import type { PianoProps } from "../types/interfaces";
 
 const PianoStyled = styled.div`
   position: relative;
@@ -16,7 +17,6 @@ const WhiteKey = styled.button<{ $isCorrect?: boolean }>`
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-
   &:hover {
     background-color: rgb(212, 212, 212);
   }
@@ -29,7 +29,6 @@ const WhiteKey = styled.button<{ $isCorrect?: boolean }>`
       background-color: white;
     }
   }
-
   ${({ $isCorrect }) =>
     $isCorrect &&
     `
@@ -53,28 +52,23 @@ const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   z-index: 2;
-
   &:hover {
     background-color: rgb(93, 92, 92);
   }
-
   &:focus {
     background-color: var(--secondary-color);
   }
-
   &:disabled {
     cursor: default;
     &:hover {
       background-color: black;
     }
   }
-
   ${({ $isCorrect }) =>
     $isCorrect &&
     `
       background-color: var(--secondary-color) !important;
     `}
-
   ${({ index }) => {
     const positions: { [key: number]: number } = {
       0: 26,
@@ -92,13 +86,6 @@ const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
 
 const whiteKeys = ["c", "d", "e", "f", "g", "a", "h", "c2"];
 const blackKeys = ["c#", "d#", "", "f#", "g#", "a#", ""];
-
-interface PianoProps {
-  checkAnswer: (answerText: string) => void;
-  noteType: string;
-  answerResult: boolean | null;
-  disabled?: boolean;
-}
 
 export default function Piano({
   checkAnswer,

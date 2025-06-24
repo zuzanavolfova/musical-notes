@@ -1,0 +1,34 @@
+import type { TabType } from "./types";
+
+export interface ActionButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  buttonTitle: string;
+  onButtonClick: () => void;
+  ariaLabel?: string;
+}
+
+export interface SelectButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  answerText: string;
+  checkAnswer: (answerText: string) => void;
+  resetFocus?: boolean;
+  isCorrect?: boolean;
+}
+
+export interface TabButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  isSelected?: boolean;
+  [key: string]: any;
+}
+
+export interface PianoProps {
+  checkAnswer: (answerText: string) => void;
+  noteType: string;
+  answerResult: boolean | null;
+  disabled?: boolean;
+}
+
+export interface TabsComponentProps {
+  setContent: (tab: TabType) => void;
+}

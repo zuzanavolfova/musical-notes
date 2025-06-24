@@ -8,7 +8,6 @@ const Header = styled.header`
   gap: 40px;
   padding: 6px 4px;
   position: relative;
-
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
@@ -24,7 +23,6 @@ const Header = styled.header`
   }
   & img {
     display: none;
-
     @media screen and (min-width: 550px) {
       display: block;
       position: absolute;
