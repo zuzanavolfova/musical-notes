@@ -94,7 +94,6 @@ Error generating stack: `+a.message+`
     background-color: var(--secondary-color);
     color: white;
   }
-
   ${({$isCorrect:c})=>c&&`
       background-color: var(--secondary-color) !important;
       color: white !important;
@@ -102,7 +101,6 @@ Error generating stack: `+a.message+`
       font-weight: bold;
     `}
   ${({$resetFocus:c})=>!c&&`
-    
       &:focus {
         background-color: transparent;
         box-shadow: none;
@@ -115,7 +113,7 @@ Error generating stack: `+a.message+`
         color: var(--secondary-color);
       }
     `}
-`;function Zv({answerText:c,checkAnswer:r,resetFocus:s=!1,disabled:o=!1,isCorrect:m=!1}){return k.jsx(Qv,{type:"button",onClick:()=>r(c),"aria-label":`click to answer - ${c}`,"aria-pressed":m,"aria-disabled":o,tabIndex:o?-1:0,$resetFocus:s,disabled:o,$isCorrect:m,children:c})}const Vv=nl.button`
+`;function Zv({answerText:c,checkAnswer:r,type:s="button",resetFocus:o=!1,disabled:m=!1,isCorrect:E=!1,...D}){return k.jsx(Qv,{onClick:()=>r(c),type:s,"aria-label":`click to answer - ${c}`,"aria-pressed":E,"aria-disabled":m,tabIndex:m?-1:0,$resetFocus:o,disabled:m,$isCorrect:E,...D,children:c})}const Vv=nl.button`
   width: auto;
   min-width: 80px;
   padding: 10px 42px;
@@ -152,7 +150,7 @@ Error generating stack: `+a.message+`
       box-shadow: none;
     }
   }
-`;function Lv({buttonTitle:c,onButtonClick:r,type:s="button",disabled:o=!1,ariaLabel:m}){return k.jsx(Vv,{onClick:r,type:s,disabled:o,"aria-disabled":o,"aria-label":m||c,children:c})}const wv=nl.div`
+`;function Lv({buttonTitle:c,onButtonClick:r,type:s="button",disabled:o=!1,ariaLabel:m,...E}){return k.jsx(Vv,{onClick:r,type:s,disabled:o,"aria-disabled":o,"aria-label":m||c,...E,children:c})}const wv=nl.div`
   position: relative;
   margin: 0 auto;
   width: calc(8 * var(--piano-key-width));
@@ -166,7 +164,6 @@ Error generating stack: `+a.message+`
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-
   &:hover {
     background-color: rgb(212, 212, 212);
   }
@@ -179,7 +176,6 @@ Error generating stack: `+a.message+`
       background-color: white;
     }
   }
-
   ${({$isCorrect:c})=>c&&`
       background-color: var(--secondary-color) !important;
       color: white;
@@ -199,40 +195,32 @@ Error generating stack: `+a.message+`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   z-index: 2;
-
   &:hover {
     background-color: rgb(93, 92, 92);
   }
-
   &:focus {
     background-color: var(--secondary-color);
   }
-
   &:disabled {
     cursor: default;
     &:hover {
       background-color: black;
     }
   }
-
   ${({$isCorrect:c})=>c&&`
       background-color: var(--secondary-color) !important;
     `}
-
   ${({index:c})=>{const r={0:26,1:70,3:158,4:202,5:246};return c===2||c===6?"visibility: hidden;":`left: ${r[c]}px;`}}
 `,kv=["c","d","e","f","g","a","h","c2"],$v=["c#","d#","","f#","g#","a#",""];function Wv({checkAnswer:c,noteType:r,answerResult:s,disabled:o=!1}){return k.jsxs(wv,{children:[k.jsx("div",{style:{display:"flex"},children:kv.map((m,E)=>k.jsx(Kv,{onClick:()=>c(m),$isCorrect:s===!0&&m===r,disabled:o,type:"button","aria-label":`White key ${m.toUpperCase()}`},E))}),$v.map((m,E)=>m?k.jsx(Jv,{index:E,onClick:()=>c(m),$isCorrect:s===!0&&m===r,disabled:o,type:"button","aria-label":`Black key ${m.toUpperCase()}`},E):null)]})}const Fv=nl.button`
   background: ${({$isSelected:c})=>c?"var(--primary-color)":"white"};
   color: ${({$isSelected:c})=>c?"white":"var(--secondary-color)"};
-
   border: 1px solid var(--primary-color);
   border-radius: 4px 4px 4px 4px;
   padding: 8px 8px;
   font-size: 16px;
-
   cursor: pointer;
   outline: none;
   transition: background 0.2s, color 0.2s;
-
   &:hover,
   &:focus-visible {
     background: var(--primary-color);
@@ -251,7 +239,6 @@ Error generating stack: `+a.message+`
   gap: 40px;
   padding: 6px 4px;
   position: relative;
-
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
@@ -267,7 +254,6 @@ Error generating stack: `+a.message+`
   }
   & img {
     display: none;
-
     @media screen and (min-width: 550px) {
       display: block;
       position: absolute;
@@ -286,19 +272,16 @@ Error generating stack: `+a.message+`
   padding: 12px 0;
   box-shadow: 0 -2px 8px -4px var(--primary-color);
   margin-bottom: 20px;
-
   .footer__title {
     font-weight: 600;
     color: var(--primary-color);
   }
-
   .footer__link {
     color: var(--text-dark-grey);
     text-decoration: none;
     @media (prefers-color-scheme: dark) {
       color: var(--dark-theme-text-color);
     }
-
     &:hover {
       font-weight: 600;
     }
