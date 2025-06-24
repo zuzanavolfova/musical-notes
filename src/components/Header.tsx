@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
+import { useTranslation } from "react-i18next";
 
 const Header = styled.header`
   display: flex;
@@ -35,10 +36,11 @@ const Header = styled.header`
 `;
 
 export default function HeaderComponent() {
+  const { t } = useTranslation();
   return (
     <Header role="banner" aria-label="Musical Notes header">
       <img src={clefLogo} alt="Treble clef logo" aria-hidden="true" />
-      <h1 tabIndex={0}>Musical Notes</h1>
+      <h1 tabIndex={0}>{t("welcome")}</h1>
     </Header>
   );
 }
