@@ -15,6 +15,7 @@ const AppContainer = styled.div`
 const MainContent = styled.main`
   flex: 1;
 `;
+
 export default function App() {
   return (
     <AppContainer>

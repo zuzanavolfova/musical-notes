@@ -9,19 +9,16 @@ const FooterContainer = styled.footer`
   padding: 12px 0;
   box-shadow: 0 -2px 8px -4px var(--primary-color);
   margin-bottom: 20px;
-
   .footer__title {
     font-weight: 600;
     color: var(--primary-color);
   }
-
   .footer__link {
     color: var(--text-dark-grey);
     text-decoration: none;
     @media (prefers-color-scheme: dark) {
       color: var(--dark-theme-text-color);
     }
-
     &:hover {
       font-weight: 600;
     }

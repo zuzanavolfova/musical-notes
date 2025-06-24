@@ -30,9 +30,11 @@ export default function Home() {
     setAnswerResult(null);
     setNoteType(notes[getRandomPosition()]);
   }
-  function changeContent(tab: "Notes" | "Keyboard") {
+
+  function changeContent(tab: TabType) {
     setContent(tab);
   }
+
   return (
     <>
       <TabsComponent setContent={changeContent} />

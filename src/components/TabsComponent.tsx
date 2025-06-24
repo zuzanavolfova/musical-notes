@@ -1,7 +1,5 @@
 import { styled } from "styled-components";
 
-import { useState } from "react";
-
 import TabButton from "./Buttons/TabButton";
 
 const TabsContainerStyled = styled.div`

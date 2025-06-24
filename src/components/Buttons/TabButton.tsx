@@ -6,7 +6,6 @@ const TabButtonStyled = styled.button<{ $isSelected?: boolean }>`
     $isSelected ? "var(--primary-color)" : "white"};
   color: ${({ $isSelected }) =>
     $isSelected ? "white" : "var(--secondary-color)"};
-
   border: 1px solid var(--primary-color);
   border-radius: 4px 4px 4px 4px;
   padding: 8px 8px;

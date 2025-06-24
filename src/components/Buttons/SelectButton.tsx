@@ -35,7 +35,6 @@ const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`
     background-color: var(--secondary-color);
     color: white;
   }
-
   ${({ $isCorrect }) =>
     $isCorrect &&
     `
