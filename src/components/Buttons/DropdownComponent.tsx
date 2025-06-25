@@ -54,7 +54,7 @@ const DropdownItem = styled.button`
 export default function DropdownComponent({
   buttonTitle,
   items,
-  onSelect,
+  onItemSelect,
   ...props
 }: DropdownProps) {
   const { t } = useTranslation();
@@ -63,7 +63,7 @@ export default function DropdownComponent({
 
   function onItemClick(value: string) {
     setIsOpen(false);
-    onSelect?.(value);
+    onItemSelect?.(value);
   }
 
   useEffect(() => {
