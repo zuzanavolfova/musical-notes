@@ -311,12 +311,16 @@ Error generating stack: `+a.message+`
   .locale-component {
     grid-column: 3 / 4;
     justify-self: center;
+
     & button {
       background-color: white;
       box-shadow: none;
       border-bottom: 2px solid var(--primary-color);
       padding: 4px;
       transition: all 0.3s ease-in-out;
+      @media (prefers-color-scheme: dark) {
+        color: var(--secondary-color);
+      }
       &:hover {
         background-color: var(--primary-color);
         color: white;
