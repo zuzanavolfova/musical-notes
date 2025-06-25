@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
 import { useTranslation } from "react-i18next";
+import DropdownComponent from "./Buttons/DropdownComponent";
+import { useState } from "react";
 
 const Header = styled.header`
   display: flex;
@@ -37,11 +39,21 @@ const Header = styled.header`
 
 export default function HeaderComponent() {
   const { t } = useTranslation();
+  const localeItems = [
+    { title: "CS", id: 0 },
+    { title: "EN", id: 1 },
+  ];
+  const [locale, setLocale] = useState("CS");
 
   return (
     <Header role="banner" aria-label="Musical Notes header">
       <img src={clefLogo} alt="Treble clef logo" aria-hidden="true" />
       <h1 tabIndex={0}>{t("musical-notes")}</h1>
+      <DropdownComponent
+        buttonTitle={locale}
+        items={localeItems}
+        onSelect={setLocale}
+      />
     </Header>
   );
 }
