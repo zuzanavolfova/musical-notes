@@ -38,12 +38,19 @@ const Header = styled.header`
 `;
 
 export default function HeaderComponent() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const localeItems = [
-    { title: "CS", id: 0 },
-    { title: "EN", id: 1 },
+    { title: "CS", id: "cs" },
+    { title: "EN", id: "en" },
   ];
   const [locale, setLocale] = useState("CS");
+  const handleLocaleChange = (selectedItem: string) => {
+    setLocale(selectedItem);
+    const found = localeItems.find((item) => item.title === selectedItem);
+    if (found) {
+      i18n.changeLanguage(found.id);
+    }
+  };
 
   return (
     <Header role="banner" aria-label="Musical Notes header">
@@ -52,7 +59,7 @@ export default function HeaderComponent() {
       <DropdownComponent
         buttonTitle={locale}
         items={localeItems}
-        onSelect={setLocale}
+        onSelect={handleLocaleChange}
       />
     </Header>
   );
