@@ -35,6 +35,29 @@ const Header = styled.header`
       z-index: 10;
     }
   }
+  .locale-component {
+    & button {
+      background-color: white;
+      box-shadow: none;
+      border-bottom: 2px solid var(--primary-color);
+      padding: 4px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+      &:focus,
+      &:active {
+        background-color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        box-shadow: none;
+        color: white;
+      }
+      &.dropdown__item {
+        border: none;
+      }
+    }
+  }
 `;
 
 export default function HeaderComponent() {
@@ -60,6 +83,7 @@ export default function HeaderComponent() {
         buttonTitle={locale}
         items={localeItems}
         onSelect={handleLocaleChange}
+        className="locale-component"
       />
     </Header>
   );
