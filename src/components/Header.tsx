@@ -88,7 +88,7 @@ export default function HeaderComponent() {
       <DropdownComponent
         buttonTitle={locale}
         items={localeItems}
-        onSelect={handleLocaleChange}
+        onItemSelect={handleLocaleChange}
         className="locale-component"
       />
     </Header>
