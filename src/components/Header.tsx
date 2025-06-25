@@ -1,9 +1,13 @@
 import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
 import { useTranslation } from "react-i18next";
+import DropdownComponent from "./Buttons/DropdownComponent";
+import { useState } from "react";
 
 const Header = styled.header`
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 120px auto 120px;
   align-items: center;
   justify-content: center;
   gap: 40px;
@@ -13,6 +17,8 @@ const Header = styled.header`
     padding: 16px 18px;
   }
   & h1 {
+    grid-column: 2 / 3;
+    justify-self: center;
     font-family: var(--font-decoration);
     text-transform: uppercase;
     color: var(--primary-color);
@@ -33,15 +39,58 @@ const Header = styled.header`
       z-index: 10;
     }
   }
+  .locale-component {
+    grid-column: 3 / 4;
+    justify-self: center;
+    & button {
+      background-color: white;
+      box-shadow: none;
+      border-bottom: 2px solid var(--primary-color);
+      padding: 4px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+      &:focus,
+      &:active {
+        background-color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        box-shadow: none;
+        color: white;
+      }
+      &.dropdown__item {
+        border: none;
+      }
+    }
+  }
 `;
 
 export default function HeaderComponent() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const localeItems = [
+    { title: "CS", id: "cs" },
+    { title: "EN", id: "en" },
+  ];
+  const [locale, setLocale] = useState("CS");
+  const handleLocaleChange = (selectedItem: string) => {
+    setLocale(selectedItem);
+    const found = localeItems.find((item) => item.title === selectedItem);
+    if (found) {
+      i18n.changeLanguage(found.id);
+    }
+  };
 
   return (
     <Header role="banner" aria-label="Musical Notes header">
       <img src={clefLogo} alt="Treble clef logo" aria-hidden="true" />
       <h1 tabIndex={0}>{t("musical-notes")}</h1>
+      <DropdownComponent
+        buttonTitle={locale}
+        items={localeItems}
+        onSelect={handleLocaleChange}
+        className="locale-component"
+      />
     </Header>
   );
 }

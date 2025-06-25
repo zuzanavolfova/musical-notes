@@ -9,6 +9,7 @@ import type { TabType } from "../types/types";
 
 const TabsContainerStyled = styled.div`
   display: flex;
+  justify-content: center;
   margin: 30px auto;
   gap: 12px;
   width: calc(8 * var(--piano-key-width));

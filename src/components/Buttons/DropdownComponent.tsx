@@ -117,6 +117,7 @@ export default function DropdownComponent({
                 e.stopPropagation();
                 onItemClick(item.title);
               }}
+              className="dropdown__item"
             >
               {t(item.title)}
             </DropdownItem>
