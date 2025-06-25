@@ -5,7 +5,9 @@ import DropdownComponent from "./Buttons/DropdownComponent";
 import { useState } from "react";
 
 const Header = styled.header`
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 120px auto 120px;
   align-items: center;
   justify-content: center;
   gap: 40px;
@@ -15,6 +17,8 @@ const Header = styled.header`
     padding: 16px 18px;
   }
   & h1 {
+    grid-column: 2 / 3;
+    justify-self: center;
     font-family: var(--font-decoration);
     text-transform: uppercase;
     color: var(--primary-color);
@@ -36,6 +40,8 @@ const Header = styled.header`
     }
   }
   .locale-component {
+    grid-column: 3 / 4;
+    justify-self: center;
     & button {
       background-color: white;
       box-shadow: none;
