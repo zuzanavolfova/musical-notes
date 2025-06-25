@@ -33,3 +33,9 @@ export interface PianoProps {
 export interface TabsComponentProps {
   setContent: (tab: TabType) => void;
 }
+
+export interface DropdownProps {
+  buttonTitle: string;
+  items: { title: string; id: number }[];
+  onSelect?: (value: string) => void;
+}
