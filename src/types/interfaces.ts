@@ -36,6 +36,6 @@ export interface TabsComponentProps {
 
 export interface DropdownProps {
   buttonTitle: string;
-  items: { title: string; id: number }[];
+  items: { title: string; id: number | string }[];
   onSelect?: (value: string) => void;
 }
