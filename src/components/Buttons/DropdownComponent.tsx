@@ -6,23 +6,25 @@ import type { DropdownProps } from "./../../types/interfaces";
 const DropdownStyled = styled.div`
   position: relative;
   display: inline-block;
-  button {
-    background-color: white;
-    box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
-    border: 1px solid transparent;
-    cursor: pointer;
-    padding: 8px 12px;
-    transition: all 0.3s ease-in-out;
-    &:hover {
-      background-color: rgb(212, 212, 212);
-    }
-    &:focus,
-    :active {
-      background-color: var(--secondary-color);
-      border: 1px solid var(--secondary-color);
-      box-shadow: none;
-      color: white;
-    }
+  margin: 12px;
+`;
+
+const DropdownButton = styled.button`
+  background-color: white;
+  box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: rgb(212, 212, 212);
+  }
+  &:focus,
+  &:active {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    box-shadow: none;
+    color: white;
   }
 `;
 
@@ -32,8 +34,6 @@ const DropdownMenu = styled.div`
   min-width: 120px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 10;
-  border-radius: 6px;
-  padding: 4px 0;
 `;
 
 const DropdownItem = styled.button`
@@ -94,7 +94,7 @@ export default function DropdownComponent({
 
   return (
     <DropdownStyled ref={ref} {...props}>
-      <button
+      <DropdownButton
         type="button"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -104,7 +104,7 @@ export default function DropdownComponent({
         }}
       >
         {t(buttonTitle)}
-      </button>
+      </DropdownButton>
       {isOpen && (
         <DropdownMenu role="listbox">
           {items.map((item) => (
