@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
+
+import type { CounterProps } from "../types/interfaces";
 const CounterStyled = styled.section`
   display: flex;
   flex-direction: column;
@@ -11,10 +13,13 @@ const CounterStyled = styled.section`
   }
 `;
 
-export default function CounterComponent() {
+export default function CounterComponent({
+  goodAnswersCounter = 0,
+  wrongAnswersCounter = 0,
+}: CounterProps) {
   const { t } = useTranslation();
-  const wrongAnswers = 0;
-  const goodAnswers = 0;
+  const wrongAnswers = goodAnswersCounter;
+  const goodAnswers = wrongAnswersCounter;
 
   return (
     <CounterStyled aria-labell="Amount of answers">
