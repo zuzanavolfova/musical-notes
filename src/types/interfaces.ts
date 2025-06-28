@@ -39,3 +39,8 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   items: { title: string; id: number | string }[];
   onItemSelect?: (value: string) => void;
 }
+
+export interface CounterProps {
+  goodAnswersCounter: number;
+  wrongAnswersCounter: number;
+}
