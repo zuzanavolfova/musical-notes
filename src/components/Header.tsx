@@ -7,14 +7,17 @@ import { useState } from "react";
 const Header = styled.header`
   width: 100%;
   display: grid;
-  grid-template-columns: 120px auto 120px;
+  grid-template-columns: 60px auto 60px;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 12px;
   padding: 6px 4px;
   position: relative;
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
+  }
+  @media screen and (min-width: 800px) {
+    gap: 40px;
   }
   & h1 {
     grid-column: 2 / 3;
