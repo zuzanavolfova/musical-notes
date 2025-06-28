@@ -7,6 +7,7 @@ import SelectButton from "../components/Buttons/SelectButton";
 import ActionButton from "../components/Buttons/ActionButton";
 import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
+import CounterComponent from "../components/CounterComponent";
 
 import type { TabType } from "../types/types";
 
@@ -110,6 +111,7 @@ export default function Home() {
           <span>{answerResult ? t("good-answer") : t("wrong-answer")}</span>
         )}
       </section>
+      <CounterComponent></CounterComponent>
       {answerResult === true && (
         <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
       )}
