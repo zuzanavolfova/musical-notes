@@ -285,14 +285,17 @@ Error generating stack: `+a.message+`
 `;function Sy({buttonTitle:s,items:i,onItemSelect:c,...r}){const{t:f}=ra(),[d,g]=_t.useState(!1),m=_t.useRef(null);function y(p){g(!1),c==null||c(p)}return _t.useEffect(()=>{function p(x){x.key==="Escape"&&g(!1)}return d&&document.addEventListener("keydown",p),()=>{document.removeEventListener("keydown",p)}},[d]),_t.useEffect(()=>{function p(x){m.current&&!m.current.contains(x.target)&&g(!1)}return d&&document.addEventListener("mousedown",p),()=>{document.removeEventListener("mousedown",p)}},[d]),J.jsxs(my,{ref:m,...r,children:[J.jsx(yy,{type:"button","aria-haspopup":"listbox","aria-expanded":d,onClick:p=>{p.stopPropagation(),g(!d)},children:f(s)}),d&&J.jsx(vy,{role:"listbox",children:i.map(p=>J.jsx(by,{type:"button",role:"option",tabIndex:0,onClick:x=>{x.stopPropagation(),y(p.title)},className:"dropdown__item",children:f(p.title)},p.id??p.title))})]})}const xy=Zt.header`
   width: 100%;
   display: grid;
-  grid-template-columns: 120px auto 120px;
+  grid-template-columns: 60px auto 60px;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 12px;
   padding: 6px 4px;
   position: relative;
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
+  }
+  @media screen and (min-width: 800px) {
+    gap: 40px;
   }
   & h1 {
     grid-column: 2 / 3;
@@ -354,7 +357,7 @@ Error generating stack: `+a.message+`
   color: var(--text-dark-grey);
   padding: 12px 0;
   box-shadow: 0 -2px 8px -4px var(--primary-color);
-  margin-bottom: 20px;
+  margin: 20px 0;
   .footer__title {
     font-weight: 600;
     color: var(--primary-color);
