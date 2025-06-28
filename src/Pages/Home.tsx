@@ -15,6 +15,8 @@ export default function Home() {
   const { t } = useTranslation();
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Notes");
+  const [goodAnswers, setGoodAnswers] = useState<number>(0);
+  const [wrongAnswers, setWrongAnswers] = useState<number>(0);
 
   const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
   const [noteType, setNoteType] = useState<string>(
@@ -27,8 +29,12 @@ export default function Home() {
 
   function checkAnswer(data: string): void {
     if (data == noteType) {
+      setGoodAnswers((prev) => prev + 1);
       setAnswerResult(true);
-    } else setAnswerResult(false);
+    } else {
+      setWrongAnswers((prev) => prev + 1);
+      setAnswerResult(false);
+    }
   }
 
   function changeNote() {
@@ -111,7 +117,10 @@ export default function Home() {
           <span>{answerResult ? t("good-answer") : t("wrong-answer")}</span>
         )}
       </section>
-      <CounterComponent></CounterComponent>
+      <CounterComponent
+        goodAnswersCounter={goodAnswers}
+        wrongAnswersCounter={wrongAnswers}
+      ></CounterComponent>
       {answerResult === true && (
         <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
       )}
