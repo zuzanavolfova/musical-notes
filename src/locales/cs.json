@@ -5,5 +5,7 @@
   "find-note-on-keyboard": "Najdi správnou klávesu",
   "good-answer": "Správná odpověď",
   "wrong-answer": "Špatná odpověď",
-  "next-t": "Další"
+  "next-t": "Další",
+  "Amount-good-answers": "Celkem správných odpovědí:",
+  "Amount-wrong-answers": "Celkem špatných odpovědí:"
 }

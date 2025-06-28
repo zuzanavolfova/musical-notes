@@ -5,5 +5,7 @@
   "find-note-on-keyboard": "Find the note on the keyboard",
   "good-answer": "Good answer",
   "wrong-answer": "Wrong answer",
-  "next-t": "Next"
+  "next-t": "Next",
+  "Amount-good-answers": "Amount of good answers:",
+  "Amount-wrong-answers": "Amount of wrong answers:"
 }
