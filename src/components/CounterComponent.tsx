@@ -18,12 +18,10 @@ export default function CounterComponent({
   wrongAnswersCounter = 0,
 }: CounterProps) {
   const { t } = useTranslation();
-  const wrongAnswers = goodAnswersCounter;
-  const goodAnswers = wrongAnswersCounter;
 
   return (
-    <CounterStyled aria-labell="Amount of answers">
-      <div className="amount__container" aria-labell="Amount of good answers">
+    <CounterStyled aria-label={t("Amount-of-answers")}>
+      <div className="amount__container" aria-label={t("Amount-good-answers")}>
         <span className="amount__label" id="good-answers-label">
           {t("Amount-good-answers")}
         </span>
@@ -32,10 +30,10 @@ export default function CounterComponent({
           aria-labelledby="good-answers-label"
           aria-live="polite"
         >
-          {goodAnswers}
+          {goodAnswersCounter}
         </span>
       </div>
-      <div className="amount__container" aria-labell="Amount of good answers">
+      <div className="amount__container" aria-label={t("Amount-wrong-answers")}>
         <span className="amount__label" id="wrong-answers-label">
           {t("Amount-wrong-answers")}
         </span>
@@ -44,7 +42,7 @@ export default function CounterComponent({
           aria-labelledby="wrong-answers-label"
           aria-live="polite"
         >
-          {wrongAnswers}
+          {wrongAnswersCounter}
         </span>
       </div>
     </CounterStyled>
