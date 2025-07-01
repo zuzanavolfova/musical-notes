@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
+import userIcon from "../assets/user.svg";
 import { useTranslation } from "react-i18next";
 import DropdownComponent from "./Buttons/DropdownComponent";
 import { useState, useEffect } from "react";
@@ -42,10 +43,18 @@ const Header = styled.header`
       z-index: 10;
     }
   }
-  .locale-component {
+  .user-component {
     grid-column: 3 / 4;
+    margin: 0;
+    & button {
+      background-color: white;
+      box-shadow: none;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+  .locale-component {
     justify-self: center;
-
+    margin: 0;
     & button {
       background-color: white;
       box-shadow: none;
