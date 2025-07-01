@@ -27,6 +27,10 @@ const DropdownButton = styled.button`
     box-shadow: none;
     color: white;
   }
+  .dropdown__title__icon {
+    height: 20px;
+    padding: "0 8px";
+  }
 `;
 
 const DropdownMenu = styled.div`
@@ -53,7 +57,8 @@ const DropdownItem = styled.button`
 `;
 
 export default function DropdownComponent({
-  buttonTitle,
+  buttonTitle = null,
+  buttonIcon = null,
   items,
   onItemSelect,
   ...props
@@ -102,7 +107,10 @@ export default function DropdownComponent({
           setIsOpen(!isOpen);
         }}
       >
-        {t(buttonTitle)}
+        {buttonIcon && (
+          <img src={buttonIcon} alt="" className="dropdown__title__icon"></img>
+        )}
+        {buttonTitle ? t(buttonTitle) : ""}
       </DropdownButton>
       {isOpen && (
         <DropdownMenu role="listbox">

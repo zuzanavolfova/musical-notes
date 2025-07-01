@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
+import userIcon from "../assets/user.svg";
 import { useTranslation } from "react-i18next";
 import DropdownComponent from "./Buttons/DropdownComponent";
 import { useState, useEffect } from "react";
@@ -7,7 +8,7 @@ import { useState, useEffect } from "react";
 const Header = styled.header`
   width: 100%;
   display: grid;
-  grid-template-columns: 60px auto 60px;
+  grid-template-columns: 60px auto 30px 30px;
   align-items: center;
   justify-content: center;
   gap: 12px;
@@ -31,7 +32,7 @@ const Header = styled.header`
       font-size: 42px;
     }
   }
-  & img {
+  .clef-logo {
     display: none;
     @media screen and (min-width: 550px) {
       display: block;
@@ -42,10 +43,18 @@ const Header = styled.header`
       z-index: 10;
     }
   }
-  .locale-component {
+  .user-component {
     grid-column: 3 / 4;
+    margin: 0;
+    & button {
+      background-color: white;
+      box-shadow: none;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+  .locale-component {
     justify-self: center;
-
+    margin: 0;
     & button {
       background-color: white;
       box-shadow: none;
@@ -98,7 +107,12 @@ export default function HeaderComponent() {
 
   return (
     <Header role="banner" aria-label="Musical Notes header">
-      <img src={clefLogo} alt="Treble clef logo" aria-hidden="true" />
+      <img
+        className="clef-logo"
+        src={clefLogo}
+        alt="Treble clef logo"
+        aria-hidden="true"
+      />
       <h1 tabIndex={0}>{t("musical-notes")}</h1>
       <DropdownComponent
         buttonTitle={locale}
