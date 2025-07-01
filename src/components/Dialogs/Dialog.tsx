@@ -1,0 +1,105 @@
+import { useEffect, useRef } from "react";
+import { styled } from "styled-components";
+import { handleClickOutside } from "../../scripts/handleClickOutside";
+
+const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  top: 26%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--bkg-medium);
+  box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+  animation: fadeout 0.2s;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+  ${({ $size }) =>
+    $size === "S" &&
+    `
+    width: 300px;
+    min-height: 180px`};
+  ${({ $size }) =>
+    $size === "M" &&
+    `
+    width: 400px;
+     min-height: 180px`};
+  ${({ $size }) =>
+    $size === "L" &&
+    `
+    width: 600px;
+    min-height: 180px`};
+
+  .dialog {
+    &__header {
+      margin: 0;
+      padding: 8px;
+      text-align: center;
+      color: var(--text-dark-grey);
+      background-color: var(--bkg-gold);
+      border-bottom: 1px solid var(--bkg-medium);
+    }
+    &__content {
+      padding: 8px 12px;
+    }
+  }
+`;
+
+interface DialogProps {
+  size?: "S" | "M" | "L";
+  dialogTitle: string;
+  handleClose: () => void;
+  children?: React.ReactNode;
+}
+export default function Dialog({
+  size = "M",
+  dialogTitle,
+  handleClose,
+  children,
+}: DialogProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") handleClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleClose]);
+
+  useEffect(() => {
+    function onDocumentClick(event: MouseEvent) {
+      handleClickOutside(event, ref, handleClose);
+    }
+    document.addEventListener("mousedown", onDocumentClick);
+    return () => {
+      document.removeEventListener("mousedown", onDocumentClick);
+    };
+  }, [handleClose]);
+
+  return (
+    <StyledDialog
+      ref={ref}
+      $size={size}
+      role="dialog"
+      aria-modat="true"
+      aria-labelledby="dialog-title"
+      tabIndex={-1}
+    >
+      <h4 id="dialog-title" className="dialog__header">
+        {dialogTitle}
+      </h4>
+      <div className="dialog__content">{children}</div>
+    </StyledDialog>
+  );
+}
