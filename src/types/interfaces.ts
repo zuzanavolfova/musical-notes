@@ -35,7 +35,8 @@ export interface TabsComponentProps {
 }
 
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-  buttonTitle: string;
+  buttonTitle?: string | null;
+  buttonIcon?: string | null;
   items: { title: string; id: number | string }[];
   onItemSelect?: (value: string) => void;
 }
