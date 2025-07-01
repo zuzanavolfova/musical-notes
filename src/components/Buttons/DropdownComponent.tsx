@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { handleClickOutside } from "../../scripts/handleClickOutside";
 import type { DropdownProps } from "./../../types/interfaces";
 
 const DropdownStyled = styled.div`
@@ -79,16 +80,14 @@ export default function DropdownComponent({
   }, [isOpen]);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+    function onDocumentClick(event: MouseEvent) {
+      handleClickOutside(event, ref, setIsOpen);
     }
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", onDocumentClick);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", onDocumentClick);
     };
   }, [isOpen]);
 
