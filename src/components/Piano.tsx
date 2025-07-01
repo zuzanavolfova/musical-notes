@@ -40,7 +40,7 @@ const WhiteKey = styled.button<{ $isCorrect?: boolean }>`
     `}
 `;
 
-const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
+const BlackKey = styled.button<{ $isCorrect?: boolean; $index: number }>`
   width: 32px;
   height: 120px;
   background-color: black;
@@ -69,7 +69,7 @@ const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
     `
       background-color: var(--secondary-color) !important;
     `}
-  ${({ index }) => {
+  ${({ $index }) => {
     const positions: { [key: number]: number } = {
       0: 26,
       1: 70,
@@ -77,10 +77,10 @@ const BlackKey = styled.button<{ $isCorrect?: boolean; index: number }>`
       4: 202,
       5: 246,
     };
-    if (index === 2 || index === 6) {
+    if ($index === 2 || $index === 6) {
       return `visibility: hidden;`;
     }
-    return `left: ${positions[index]}px;`;
+    return `left: ${positions[$index]}px;`;
   }}
 `;
 
@@ -112,7 +112,7 @@ export default function Piano({
         note ? (
           <BlackKey
             key={index}
-            index={index}
+            $index={index}
             onClick={() => checkAnswer(note)}
             $isCorrect={answerResult === true && note === noteType}
             disabled={disabled}
