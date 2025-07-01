@@ -2,14 +2,17 @@
   --primary-color: #b8a064;
   --primary-color-hover: #c69927;
   --secondary-color: #5e6572;
-  --success-color: #05cc9d;
+  --success-color: #00916e;
   --wrong-color: #972d07;
   --text-light-grey: #a7a3a3;
   --text-medium-grey: #615f5f;
   --text-dark-grey: #434343;
   --dark-theme-text-color: rgb(220, 220, 220);
-  --dark-theme-success-color: #00916e;
+  --dark-theme-success-color: #05cc9d;
   --dark-theme-wrong-color: #fa3218;
+  --bkg-gold: #c69927;
+  --bkg-light: #e7e7e7;
+  --bkg-medium: #b8b7b7;
 }
 
 html,
