@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
 import { useTranslation } from "react-i18next";
 import DropdownComponent from "./Buttons/DropdownComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Header = styled.header`
   width: 100%;
@@ -79,7 +79,15 @@ export default function HeaderComponent() {
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
-  const [locale, setLocale] = useState("CS");
+  const getLocaleTitle = (lng: string) =>
+    localeItems.find((item) => item.id === lng)?.title || "CS";
+
+  const [locale, setLocale] = useState(() => getLocaleTitle(i18n.language));
+
+  useEffect(() => {
+    setLocale(getLocaleTitle(i18n.language));
+  }, [i18n.language]);
+
   const handleLocaleChange = (selectedItem: string) => {
     setLocale(selectedItem);
     const found = localeItems.find((item) => item.title === selectedItem);
