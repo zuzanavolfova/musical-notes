@@ -45,6 +45,13 @@ export interface CounterProps {
   goodAnswersCounter: number;
   wrongAnswersCounter: number;
 }
+
+export interface DialogProps {
+  size?: "S" | "M" | "L";
+  dialogTitle: string;
+  handleClose: () => void;
+  children?: React.ReactNode;
+}
 export interface LogInDialogProps {
   onLogInClick: () => void;
 }
