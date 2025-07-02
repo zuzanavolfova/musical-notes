@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import clefLogo from "../assets/clef-clipart.svg";
-import userIcon from "../assets/user.svg";
 import { useTranslation } from "react-i18next";
 import DropdownComponent from "./Buttons/DropdownComponent";
 import { useState, useEffect } from "react";
