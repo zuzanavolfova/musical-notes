@@ -3,6 +3,8 @@ import clefLogo from "../assets/clef-clipart.svg";
 import userIcon from "../assets/user.svg";
 import { useTranslation } from "react-i18next";
 import DropdownComponent from "./Buttons/DropdownComponent";
+import Dialog from "./Dialogs/Dialog";
+import LogInDialog from "./Dialogs/LogInDialog";
 import { useState, useEffect } from "react";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
@@ -130,12 +132,19 @@ const Header = styled.header<{ $isLogged?: boolean }>`
 export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const [isLogged, setIsLogged] = useState(false);
-
+  const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
+  const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
-  const userItems = [{ title: isLogged ? "logOut" : "logIn", id: 0 }];
+  const userItems = [
+    {
+      title: isLogged ? userName : t("noUser"),
+      disabled: true,
+    },
+    { title: isLogged ? "logOut" : "logIn", id: 0 },
+  ];
 
   const getLocaleTitle = (lng: string) =>
     localeItems.find((item) => item.id === lng)?.title || "CS";
@@ -154,6 +163,16 @@ export default function HeaderComponent() {
     }
   };
 
+  const onLogInClick = (user: string) => {
+    setIsLogged(true);
+    setUserName(user);
+    console.log("Logged user:", userName);
+    setIsLogInDialogOpen(false);
+  };
+
+  const logOut = () => {
+    setIsLogged(false);
+  };
   return (
     <Header
       role="banner"
@@ -171,7 +190,9 @@ export default function HeaderComponent() {
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() => setIsLogged(!isLogged)}
+          onItemSelect={() =>
+            !isLogged ? setIsLogInDialogOpen(true) : logOut()
+          }
           className="user-component"
         />
         <DropdownComponent
@@ -181,6 +202,14 @@ export default function HeaderComponent() {
           className="locale-component"
         />
       </div>
+      {logInDialogOpen && (
+        <Dialog
+          dialogTitle={t("logIn")}
+          handleClose={() => setIsLogInDialogOpen(false)}
+        >
+          <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
+        </Dialog>
+      )}
     </Header>
   );
 }

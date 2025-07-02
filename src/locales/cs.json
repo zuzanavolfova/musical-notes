@@ -9,5 +9,9 @@
   "amount-good-answers": "Celkem správných odpovědí:",
   "amount-wrong-answers": "Celkem špatných odpovědí:",
   "logIn": "Přihlásit se",
-  "logOut": "Odhlásit se"
+  "logOut": "Odhlásit se",
+  "Password": "Heslo",
+  "Username": "Přihlašovací jméno",
+  "passwordRules": "Heslo musí mít alespoň 8 znaků,\nobsahovat velké písmeno,\njedno cislo a speciální znak.",
+  "noUser": "Nepřihlášen"
 }
