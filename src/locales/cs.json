@@ -6,6 +6,8 @@
   "good-answer": "Správná odpověď",
   "wrong-answer": "Špatná odpověď",
   "next-t": "Další",
-  "Amount-good-answers": "Celkem správných odpovědí:",
-  "Amount-wrong-answers": "Celkem špatných odpovědí:"
+  "amount-good-answers": "Celkem správných odpovědí:",
+  "amount-wrong-answers": "Celkem špatných odpovědí:",
+  "logIn": "Přihlásit se",
+  "logOut": "Odhlásit se"
 }
