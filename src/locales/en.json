@@ -12,5 +12,6 @@
   "logOut": "Log out",
   "Password": "Password",
   "Username": "User name",
-  "passwordRules": "Password must be at least 8 characters,\ncontain an uppercase letter, one number\nand a special character."
+  "passwordRules": "Password must be at least 8 characters,\ncontain an uppercase letter, one number\nand a special character.",
+  "noUser": "Not logged in"
 }
