@@ -141,9 +141,11 @@ export default function HeaderComponent() {
   const userItems = [
     {
       title: isLogged ? userName : t("noUser"),
+      id: 0,
       disabled: true,
     },
-    { title: isLogged ? "logOut" : "logIn", id: 0 },
+    { title: isLogged ? "logOut" : "logIn", id: 1 },
+    { title: t("register"), id: 2, disabled: true },
   ];
 
   const getLocaleTitle = (lng: string) =>
