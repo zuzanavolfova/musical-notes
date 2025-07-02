@@ -45,3 +45,6 @@ export interface CounterProps {
   goodAnswersCounter: number;
   wrongAnswersCounter: number;
 }
+export interface LogInDialogProps {
+  onLogInClick: () => void;
+}
