@@ -12,7 +12,8 @@ const TabsContainerStyled = styled.div`
   justify-content: center;
   margin: 30px auto;
   gap: 12px;
-  width: calc(8 * var(--piano-key-width));
+  width: calc(8 * var(--piano-key-width) -24px);
+  flex-wrap: wrap;
 `;
 
 export default function TabsComponent({ setContent }: TabsComponentProps) {
