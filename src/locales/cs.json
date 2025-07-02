@@ -8,5 +8,6 @@
   "next-t": "Další",
   "amount-good-answers": "Celkem správných odpovědí:",
   "amount-wrong-answers": "Celkem špatných odpovědí:",
-  "logIn": "Přihlásit se"
+  "logIn": "Přihlásit se",
+  "logOut": "Odhlásit se"
 }

@@ -8,5 +8,6 @@
   "next-t": "Next",
   "amount-good-answers": "Amount of good answers:",
   "amount-wrong-answers": "Amount of wrong answers:",
-  "logIn": "Log in"
+  "logIn": "Log in",
+  "logOut": "Log out"
 }
