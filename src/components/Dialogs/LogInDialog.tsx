@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
+import { checkPassword } from "./../../scripts/passwordChecks";
 
 import type { LogInDialogProps } from "../../types/interfaces";
 
@@ -30,19 +31,21 @@ const StyledLogInDialog = styled.form`
     outline: none;
     background: #fff;
   }
+  .password-rules {
+    font-size: 12px;
+    text-align: start;
+    white-space: pre-line;
+  }
 `;
 
 export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   const { t } = useTranslation();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  function passwordCheck() {
-    //DOTO add checking functionality
-    return true;
-  }
+
   function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (onLogInClick && userName.current && passwordCheck()) {
+    if (onLogInClick && userName.current && checkPassword()) {
       onLogInClick(userName.current.value);
     }
   }
@@ -73,9 +76,12 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           type="password"
           name="password"
           required
+          minLength={8}
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
           placeholder={t("Password")}
         />
       </div>
+      <span className="password-rules">{t("passwordRules")}</span>
       <ActionButton type="submit" buttonTitle="logIn" />
     </StyledLogInDialog>
   );
