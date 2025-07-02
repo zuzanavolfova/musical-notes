@@ -158,7 +158,12 @@ export default function HeaderComponent() {
   };
 
   const onLogInClick = () => {
-    setIsLogInDialogOpen(true);
+    setIsLogged(true);
+    setIsLogInDialogOpen(false);
+  };
+
+  const logOut = () => {
+    setIsLogged(false);
   };
   return (
     <Header
@@ -177,7 +182,9 @@ export default function HeaderComponent() {
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={onLogInClick}
+          onItemSelect={() =>
+            !isLogged ? setIsLogInDialogOpen(true) : logOut()
+          }
           className="user-component"
         />
         <DropdownComponent
