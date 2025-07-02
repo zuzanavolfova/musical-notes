@@ -1,11 +1,14 @@
+import { useState, useEffect } from "react";
 import { styled } from "styled-components";
+import { useTranslation } from "react-i18next";
+
 import clefLogo from "../assets/clef-clipart.svg";
 import userIcon from "../assets/user.svg";
-import { useTranslation } from "react-i18next";
+
 import DropdownComponent from "./Buttons/DropdownComponent";
 import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
-import { useState, useEffect } from "react";
+import RegisterDialog from "./Dialogs/RegisterDialog";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
   width: 100%;
@@ -153,6 +156,7 @@ export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const [isLogged, setIsLogged] = useState(false);
   const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
+  const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
@@ -164,8 +168,21 @@ export default function HeaderComponent() {
       id: 0,
       disabled: true,
     },
-    { title: isLogged ? "logOut" : "logIn", id: 1 },
-    { title: t("register"), id: 2, disabled: true },
+    {
+      title: isLogged ? "logOut" : "logIn",
+      id: 1,
+      onClick: () => {
+        if (!isLogged) setIsLogInDialogOpen(true);
+        else logOut();
+      },
+    },
+    {
+      title: t("newRegister"),
+      id: 2,
+      onClick: () => {
+        setIsRegisterDialogOpen(true);
+      },
+    },
   ];
 
   const getLocaleTitle = (lng: string) =>
@@ -230,6 +247,14 @@ export default function HeaderComponent() {
           handleClose={() => setIsLogInDialogOpen(false)}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
+        </Dialog>
+      )}
+      {registerDialogOpen && (
+        <Dialog
+          dialogTitle={t("newRegister")}
+          handleClose={() => setIsRegisterDialogOpen(false)}
+        >
+          <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
         </Dialog>
       )}
     </Header>
