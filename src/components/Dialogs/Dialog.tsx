@@ -2,8 +2,10 @@ import { useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import { handleClickOutside } from "../../scripts/handleClickOutside";
 
+import type { DialogProps } from "../../types/interfaces";
+
 const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background-color: white;
   top: 26%;
@@ -53,12 +55,6 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   }
 `;
 
-interface DialogProps {
-  size?: "S" | "M" | "L";
-  dialogTitle: string;
-  handleClose: () => void;
-  children?: React.ReactNode;
-}
 export default function Dialog({
   size = "M",
   dialogTitle,
