@@ -10,6 +10,21 @@ const StyledLogInDialog = styled.form`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  .login {
+    &__label {
+      margin-right: 6px;
+    }
+    &__input {
+      padding: 8px;
+      border: 3px solid var(--text-medium-grey);
+      border-radius: 4px;
+    }
+  }
+  .login__input:focus {
+    border: 3px solid var(--primary-color-hover);
+    outline: none;
+    background: #fff;
+  }
 `;
 
 export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
@@ -18,8 +33,11 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   return (
     <StyledLogInDialog>
       <div>
-        <label htmlFor="username">{t("username")}:</label>
+        <label className="login__label" htmlFor="username">
+          {t("username")}:
+        </label>
         <input
+          className="login__input"
           id="username"
           type="text"
           name="username"
@@ -28,8 +46,11 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
         />
       </div>
       <div>
-        <label htmlFor="password">{t("password")}:</label>
+        <label className="login__label" htmlFor="password">
+          {t("password")}:
+        </label>
         <input
+          className="login__input"
           id="password"
           type="password"
           name="password"
