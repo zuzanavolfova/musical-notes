@@ -4,7 +4,7 @@ import type { TabType } from "./types";
 export interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonTitle: string;
-  onButtonClick: () => void;
+  onButtonClick?: () => void | null;
   ariaLabel?: string;
 }
 
@@ -53,5 +53,5 @@ export interface DialogProps {
   children?: React.ReactNode;
 }
 export interface LogInDialogProps {
-  onLogInClick: () => void;
+  onLogInClick: (username: string) => void;
 }

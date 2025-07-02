@@ -133,7 +133,7 @@ export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const [isLogged, setIsLogged] = useState(false);
   const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
-
+  const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
@@ -157,8 +157,10 @@ export default function HeaderComponent() {
     }
   };
 
-  const onLogInClick = () => {
+  const onLogInClick = (user: string) => {
     setIsLogged(true);
+    setUserName(user);
+    console.log("Logged user:", userName);
     setIsLogInDialogOpen(false);
   };
 

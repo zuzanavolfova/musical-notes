@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
@@ -33,14 +34,26 @@ const StyledLogInDialog = styled.form`
 
 export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   const { t } = useTranslation();
-
+  const userName = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  function passwordCheck() {
+    //DOTO add checking functionality
+    return true;
+  }
+  function handleFormSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (onLogInClick && userName.current && passwordCheck()) {
+      onLogInClick(userName.current.value);
+    }
+  }
   return (
-    <StyledLogInDialog>
+    <StyledLogInDialog onSubmit={handleFormSubmit}>
       <div className="login">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
         </label>
         <input
+          ref={userName}
           className="login__input"
           id="username"
           type="text"
@@ -54,6 +67,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           {t("Password")}:
         </label>
         <input
+          ref={password}
           className="login__input"
           id="password"
           type="password"
@@ -62,11 +76,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           placeholder={t("Password")}
         />
       </div>
-      <ActionButton
-        type="submit"
-        buttonTitle="logIn"
-        onButtonClick={onLogInClick}
-      />
+      <ActionButton type="submit" buttonTitle="logIn" />
     </StyledLogInDialog>
   );
 }
