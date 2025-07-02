@@ -72,17 +72,37 @@ const Header = styled.header<{ $isLogged?: boolean }>`
           $isLogged ? "white" : "var(--secondary-color)"};
       }
 
-      &:hover {
+      &:not(:disabled):hover {
         background-color: var(--primary-color);
         color: white;
       }
+      &:disabled {
+        cursor: default;
+        border: 2px solid transparent !important;
+        background-color: white !important;
 
-      &:focus,
+        &:focus,
+        &:active {
+          background-color: white !important;
+          border: 2px solid transparent !important;
+          box-shadow: none;
+        }
+      }
+      */ &:focus,
       &:active {
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
         box-shadow: none;
         color: white;
+      }
+      &:disabled {
+        cursor: default;
+        &:focus,
+        &:active {
+          background-color: white;
+          border: 1px solid white;
+          box-shadow: none;
+        }
       }
       &.dropdown__item {
         border: none;
@@ -116,7 +136,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       &:focus,
       &:active {
         background-color: var(--primary-color);
-        border: 1px solid var(--primary-color);
+        border: none;
         box-shadow: none;
         color: white;
       }
