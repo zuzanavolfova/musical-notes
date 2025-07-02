@@ -6,6 +6,7 @@
   "good-answer": "Good answer",
   "wrong-answer": "Wrong answer",
   "next-t": "Next",
-  "Amount-good-answers": "Amount of good answers:",
-  "Amount-wrong-answers": "Amount of wrong answers:"
+  "amount-good-answers": "Amount of good answers:",
+  "amount-wrong-answers": "Amount of wrong answers:",
+  "logIn": "Log in"
 }
