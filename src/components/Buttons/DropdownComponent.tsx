@@ -124,6 +124,7 @@ export default function DropdownComponent({
                 e.stopPropagation();
                 onItemClick(item.title);
               }}
+              disabled={item.disabled ?? false}
               className="dropdown__item"
             >
               {t(item.title)}
