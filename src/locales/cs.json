@@ -13,5 +13,6 @@
   "Password": "Heslo",
   "Username": "Přihlašovací jméno",
   "passwordRules": "Heslo musí mít alespoň 8 znaků,\nobsahovat velké písmeno,\njedno cislo a speciální znak.",
-  "noUser": "Nepřihlášen"
+  "noUser": "Nepřihlášen",
+  "register": "Nová registrace"
 }
