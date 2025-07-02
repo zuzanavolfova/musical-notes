@@ -15,5 +15,6 @@
   "passwordRules": "Heslo musí mít alespoň 8 znaků,\nobsahovat velké písmeno,\njedno cislo a speciální znak.",
   "noUser": "Nepřihlášen",
   "newRegister": "Nová registrace",
-  "register": "Registrovat"
+  "register": "Registrovat",
+  "repeatePassword": "Heslo znovu"
 }
