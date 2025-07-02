@@ -14,5 +14,6 @@
   "Username": "User name",
   "passwordRules": "Password must be at least 8 characters,\ncontain an uppercase letter, one number\nand a special character.",
   "noUser": "Not logged in",
+  "newRegister": "Register",
   "register": "Register"
 }
