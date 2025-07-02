@@ -9,16 +9,20 @@ const StyledLogInDialog = styled.form`
   margin: auto;
   display: flex;
   flex-direction: column;
+  align-items: end;
   gap: 12px;
-  .login {
-    &__label {
-      margin-right: 6px;
-    }
-    &__input {
-      padding: 8px;
-      border: 3px solid var(--text-medium-grey);
-      border-radius: 4px;
-    }
+  .login__field {
+    display: flex;
+    gap: 10px;
+  }
+  .login__label {
+    margin-right: 6px;
+    text-align: right;
+  }
+  .login__input {
+    padding: 8px;
+    border: 3px solid var(--text-medium-grey);
+    border-radius: 4px;
   }
   .login__input:focus {
     border: 3px solid var(--primary-color-hover);
@@ -32,7 +36,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
 
   return (
     <StyledLogInDialog>
-      <div>
+      <div className="login">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
         </label>
@@ -45,7 +49,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           placeholder={t("Username")}
         />
       </div>
-      <div>
+      <div className="login__field">
         <label className="login__label" htmlFor="password">
           {t("Password")}:
         </label>
