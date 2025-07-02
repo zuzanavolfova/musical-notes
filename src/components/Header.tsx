@@ -3,6 +3,8 @@ import clefLogo from "../assets/clef-clipart.svg";
 import userIcon from "../assets/user.svg";
 import { useTranslation } from "react-i18next";
 import DropdownComponent from "./Buttons/DropdownComponent";
+import Dialog from "./Dialogs/Dialog";
+import LogInDialog from "./Dialogs/LogInDialog";
 import { useState, useEffect } from "react";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
@@ -130,6 +132,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
 export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const [isLogged, setIsLogged] = useState(false);
+  const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
 
   const localeItems = [
     { title: "CS", id: "cs" },
@@ -154,6 +157,9 @@ export default function HeaderComponent() {
     }
   };
 
+  const onLogInClick = () => {
+    setIsLogInDialogOpen(true);
+  };
   return (
     <Header
       role="banner"
@@ -171,7 +177,7 @@ export default function HeaderComponent() {
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() => setIsLogged(!isLogged)}
+          onItemSelect={onLogInClick}
           className="user-component"
         />
         <DropdownComponent
@@ -181,6 +187,14 @@ export default function HeaderComponent() {
           className="locale-component"
         />
       </div>
+      {logInDialogOpen && (
+        <Dialog
+          dialogTitle={t("logIn")}
+          handleClose={() => setIsLogInDialogOpen(false)}
+        >
+          <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
+        </Dialog>
+      )}
     </Header>
   );
 }
