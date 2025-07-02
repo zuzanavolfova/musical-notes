@@ -80,6 +80,7 @@ export default function LogInDialog({ onClose }: LogInDialogProps) {
           minLength={8}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
           placeholder={t("Password")}
+          title={t("passwordRules")}
         />
       </div>
       <div className="login__field">
@@ -96,6 +97,7 @@ export default function LogInDialog({ onClose }: LogInDialogProps) {
           minLength={8}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
           placeholder={t("repeatePassword")}
+          title={t("passwordRules")}
         />
       </div>
       <span className="password-rules">{t("passwordRules")}</span>
