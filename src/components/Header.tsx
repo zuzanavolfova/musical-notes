@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import { styled } from "styled-components";
-import clefLogo from "../assets/clef-clipart.svg";
-import userIcon from "../assets/user.svg";
 import { useTranslation } from "react-i18next";
+
+import clefLogo from "../assets/clef-clipart.svg";
+
 import DropdownComponent from "./Buttons/DropdownComponent";
 import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
