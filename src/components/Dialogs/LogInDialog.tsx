@@ -34,7 +34,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
     <StyledLogInDialog>
       <div>
         <label className="login__label" htmlFor="username">
-          {t("username")}:
+          {t("Username")}:
         </label>
         <input
           className="login__input"
@@ -42,12 +42,12 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           type="text"
           name="username"
           required
-          placeholder={t("userName")}
+          placeholder={t("Username")}
         />
       </div>
       <div>
         <label className="login__label" htmlFor="password">
-          {t("password")}:
+          {t("Password")}:
         </label>
         <input
           className="login__input"
@@ -55,7 +55,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           type="password"
           name="password"
           required
-          placeholder={t("password")}
+          placeholder={t("Password")}
         />
       </div>
       <ActionButton

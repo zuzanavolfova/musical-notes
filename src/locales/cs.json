@@ -9,5 +9,7 @@
   "amount-good-answers": "Celkem správných odpovědí:",
   "amount-wrong-answers": "Celkem špatných odpovědí:",
   "logIn": "Přihlásit se",
-  "logOut": "Odhlásit se"
+  "logOut": "Odhlásit se",
+  "Password": "Heslo",
+  "Username": "Přihlašovací jméno"
 }
