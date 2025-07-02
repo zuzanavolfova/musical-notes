@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
 
-import type { LogInDialogProps } from "../../types/interfaces";
-
 const StyledRegisterDialog = styled.form`
   padding: 12px;
   margin: auto;
