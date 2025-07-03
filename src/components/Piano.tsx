@@ -90,7 +90,7 @@ const blackKeys = ["c#", "d#", "", "f#", "g#", "a#", ""];
 export default function Piano({
   checkAnswer,
   noteType,
-  answerResult,
+  result,
   disabled = false,
 }: PianoProps) {
   return (
@@ -100,7 +100,7 @@ export default function Piano({
           <WhiteKey
             key={index}
             onClick={() => checkAnswer(note)}
-            $isCorrect={answerResult === true && note === noteType}
+            $isCorrect={result === true && note === noteType}
             disabled={disabled}
             type="button"
             aria-label={`White key ${note.toUpperCase()}`}
@@ -114,7 +114,7 @@ export default function Piano({
             key={index}
             $index={index}
             onClick={() => checkAnswer(note)}
-            $isCorrect={answerResult === true && note === noteType}
+            $isCorrect={result === true && note === noteType}
             disabled={disabled}
             type="button"
             aria-label={`Black key ${note.toUpperCase()}`}
