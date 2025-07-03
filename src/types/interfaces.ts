@@ -26,7 +26,7 @@ export interface TabButtonProps
 export interface PianoProps {
   checkAnswer: (answerText: string) => void;
   noteType: string;
-  answerResult: boolean | null;
+  result: boolean | null;
   disabled?: boolean;
 }
 

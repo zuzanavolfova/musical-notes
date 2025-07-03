@@ -11,9 +11,9 @@ import CounterComponent from "../components/CounterComponent";
 
 import type { TabType } from "../types/types";
 
-export default function Home() {
+export default function NoteLearning() {
   const { t } = useTranslation();
-  const [answerResult, setAnswerResult] = useState<boolean | null>(null);
+  const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Notes");
   const [goodAnswers, setGoodAnswers] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
@@ -30,15 +30,15 @@ export default function Home() {
   function checkAnswer(data: string): void {
     if (data == noteType) {
       setGoodAnswers((prev) => prev + 1);
-      setAnswerResult(true);
+      setResult(true);
     } else {
       setWrongAnswers((prev) => prev + 1);
-      setAnswerResult(false);
+      setResult(false);
     }
   }
 
   function changeNote() {
-    setAnswerResult(null);
+    setResult(null);
     setNoteType(notes[getRandomPosition()]);
   }
 
@@ -72,8 +72,8 @@ export default function Home() {
           <Piano
             checkAnswer={checkAnswer}
             noteType={noteType}
-            answerResult={answerResult}
-            disabled={answerResult === true}
+            result={result}
+            disabled={result === true}
           />
         </section>
       )}
@@ -95,10 +95,10 @@ export default function Home() {
               checkAnswer={checkAnswer}
               key={note}
               answerText={note}
-              resetFocus={answerResult === null}
-              disabled={answerResult === true}
-              isCorrect={answerResult === true && note === noteType}
-              aria-pressed={answerResult === true && note === noteType}
+              resetFocus={result === null}
+              disabled={result === true}
+              isCorrect={result === true && note === noteType}
+              aria-pressed={result === true && note === noteType}
               aria-label={`Select note ${note.toUpperCase()}`}
             />
           ))}
@@ -108,20 +108,20 @@ export default function Home() {
         aria-live="polite"
         aria-atomic="true"
         style={{
-          color: answerResult ? "var(--success-color)" : "var(--wrong-color)",
+          color: result ? "var(--success-color)" : "var(--wrong-color)",
           fontSize: "32px",
           margin: "20px auto 0 auto",
         }}
       >
-        {answerResult != null && (
-          <span>{answerResult ? t("good-answer") : t("wrong-answer")}</span>
+        {result != null && (
+          <span>{result ? t("good-answer") : t("wrong-answer")}</span>
         )}
       </section>
       <CounterComponent
         goodAnswersCounter={goodAnswers}
         wrongAnswersCounter={wrongAnswers}
       ></CounterComponent>
-      {answerResult === true && (
+      {result === true && (
         <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
       )}
     </>
