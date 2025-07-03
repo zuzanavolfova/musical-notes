@@ -1,7 +1,7 @@
 export const getUserData = async (): Promise<any> => {
   try {
     const response: Response = await fetch(
-      "https://raw.githubusercontent.com/zuzanavolfova/data/refs/heads/main/musica-notes-users.json",
+      "https://raw.githubusercontent.com/zuzanavolfova/data/refs/heads/main/musical-notes-users.json",
       { method: "GET" }
     );
     if (!response.ok) {
