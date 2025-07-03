@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
 
 import clefLogo from "../assets/clef-clipart.svg";
-import userIcon from "../assets/user.svg";
 
 import DropdownComponent from "./Buttons/DropdownComponent";
 import Dialog from "./Dialogs/Dialog";
