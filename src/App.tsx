@@ -1,7 +1,7 @@
 import "./styles/main.css";
 import styled from "styled-components";
 
-import Home from "./Pages/Home";
+import NoteLearning from "./Pages/NoteLearning";
 import HeaderComponent from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -21,7 +21,7 @@ export default function App() {
     <AppContainer>
       <HeaderComponent />
       <MainContent>
-        <Home />
+        <NoteLearning />
       </MainContent>
       <Footer />
     </AppContainer>
