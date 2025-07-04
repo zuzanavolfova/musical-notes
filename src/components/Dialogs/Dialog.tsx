@@ -90,7 +90,7 @@ export default function Dialog({
       ref={ref}
       $size={size}
       role="dialog"
-      aria-modat="true"
+      aria-modal="true"
       aria-labelledby="dialog-title"
       tabIndex={-1}
     >
