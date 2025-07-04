@@ -21,7 +21,7 @@ const StyledActionButton = styled.button`
     background-color: var(--primary-color-hover);
     border: var(--primary-color-hover);
   }
-  &:focus {
+  &:active {
     background-color: white;
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
