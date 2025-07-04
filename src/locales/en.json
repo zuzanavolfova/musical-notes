@@ -17,5 +17,6 @@
   "newRegister": "Register",
   "register": "Register",
   "repeatePassword": "Repeate the password",
-  "passwordsNotMatch": "Passwords do not match."
+  "passwordsNotMatch": "Passwords do not match.",
+  "userNamesExists": "User name already exists."
 }

@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
 import type { RegisterDialogProps } from "../../types/interfaces";
 
+import { registerUser } from "./../../scripts/services/authService";
+
 const StyledRegisterDialog = styled.form`
   padding: 12px;
   margin: auto;
@@ -37,29 +39,46 @@ const StyledRegisterDialog = styled.form`
   }
 `;
 
-export default function RegisterDialog({
-  onClose,
-  register,
-}: RegisterDialogProps) {
+export default function RegisterDialog({ onClose }: RegisterDialogProps) {
   const { t } = useTranslation();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const repeatPassword = useRef<HTMLInputElement>(null);
-
   const [validPassword, setValidPassword] = useState(true);
+  const [validUserName, setValidUserName] = useState(true);
 
-  function handleFormSubmit(event: React.FormEvent) {
+  async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
+
     if (password.current?.value !== repeatPassword.current?.value) {
       setValidPassword(false);
       return;
     }
-    register({
-      newUserName: userName.current?.value,
-      newPassword: password.current?.value,
-    });
-    onClose();
+
+    if (!validUserName && userName.current?.value) {
+      return;
+    }
+
+    try {
+      await registerUser({
+        newUserName: userName.current!.value,
+        newPassword: password.current!.value,
+      });
+      //TODO waiting dialog
+      onClose();
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes("User already exists")) {
+          setValidUserName(false);
+        } else {
+          alert(error.message);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   }
+
   return (
     <StyledRegisterDialog
       onSubmit={handleFormSubmit}
@@ -79,6 +98,7 @@ export default function RegisterDialog({
           required
           placeholder={t("Username")}
           autoComplete="username"
+          onFocus={() => setValidUserName(true)}
         />
       </div>
       <div className="login__field">
@@ -125,6 +145,11 @@ export default function RegisterDialog({
       ) : (
         <span style={{ color: "var(--wrong-color)" }}>
           {t("passwordsNotMatch")}
+        </span>
+      )}
+      {!validUserName && (
+        <span style={{ color: "var(--wrong-color)" }}>
+          {t("userNamesExists")}
         </span>
       )}
       <ActionButton type="submit" buttonTitle="register" />

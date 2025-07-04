@@ -63,8 +63,4 @@ export interface LogInDialogProps {
 
 export interface RegisterDialogProps {
   onClose: () => void;
-  register: (data: {
-    newUserName: string | undefined;
-    newPassword: string | undefined;
-  }) => void;
 }
