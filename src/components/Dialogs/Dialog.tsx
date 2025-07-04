@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { styled } from "styled-components";
+import { createPortal} from `react-dom`
+
 import { handleClickOutside } from "../../scripts/handleClickOutside";
 
 import type { DialogProps } from "../../types/interfaces";
@@ -83,7 +85,7 @@ export default function Dialog({
     };
   }, [handleClose]);
 
-  return (
+  return createPortal(
     <StyledDialog
       ref={ref}
       $size={size}
@@ -96,6 +98,6 @@ export default function Dialog({
         {dialogTitle}
       </h4>
       <div className="dialog__content">{children}</div>
-    </StyledDialog>
+    </StyledDialog>, document.getElementById("dialog") || document.body
   );
 }
