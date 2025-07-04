@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
 import type { RegisterDialogProps } from "../../types/interfaces";
 
+import { registerUser } from "./../../scripts/services/authService";
+
 const StyledRegisterDialog = styled.form`
   padding: 12px;
   margin: auto;
@@ -37,29 +39,32 @@ const StyledRegisterDialog = styled.form`
   }
 `;
 
-export default function RegisterDialog({
-  onClose,
-  register,
-}: RegisterDialogProps) {
+export default function RegisterDialog({ onClose }: RegisterDialogProps) {
   const { t } = useTranslation();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const repeatPassword = useRef<HTMLInputElement>(null);
-
   const [validPassword, setValidPassword] = useState(true);
 
-  function handleFormSubmit(event: React.FormEvent) {
+  async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
+
     if (password.current?.value !== repeatPassword.current?.value) {
       setValidPassword(false);
       return;
     }
-    register({
-      newUserName: userName.current?.value,
-      newPassword: password.current?.value,
-    });
-    onClose();
+
+    try {
+      await registerUser({
+        newUserName: userName.current!.value,
+        newPassword: password.current!.value,
+      });
+      onClose();
+    } catch (error) {
+      console.error("Error during user registration:", error);
+    }
   }
+
   return (
     <StyledRegisterDialog
       onSubmit={handleFormSubmit}
