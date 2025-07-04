@@ -16,5 +16,6 @@
   "noUser": "Nepřihlášen",
   "newRegister": "Nová registrace",
   "register": "Registrovat",
-  "repeatePassword": "Heslo znovu"
+  "repeatePassword": "Heslo znovu",
+  "passwordsNotMatch": "Hesla se neshodují."
 }

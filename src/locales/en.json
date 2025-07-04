@@ -16,5 +16,6 @@
   "noUser": "Not logged in",
   "newRegister": "Register",
   "register": "Register",
-  "repeatePassword": "Repeate the password"
+  "repeatePassword": "Repeate the password",
+  "passwordsNotMatch": "Passwords do not match."
 }
