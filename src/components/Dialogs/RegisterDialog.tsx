@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 import ActionButton from "../Buttons/ActionButton";
+import type { RegisterDialogProps } from "../../types/interfaces";
 
 const StyledRegisterDialog = styled.form`
   padding: 12px;
@@ -36,11 +37,10 @@ const StyledRegisterDialog = styled.form`
   }
 `;
 
-interface LogInDialogProps {
-  onClose: () => void;
-}
-
-export default function LogInDialog({ onClose }: LogInDialogProps) {
+export default function RegisterDialog({
+  onClose,
+  register,
+}: RegisterDialogProps) {
   const { t } = useTranslation();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
