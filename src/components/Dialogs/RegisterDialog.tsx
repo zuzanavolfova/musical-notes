@@ -44,6 +44,7 @@ export default function RegisterDialog({
   const { t } = useTranslation();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const repeatPassword = useRef<HTMLInputElement>(null);
 
   function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -54,7 +55,11 @@ export default function RegisterDialog({
     onClose();
   }
   return (
-    <StyledRegisterDialog onSubmit={handleFormSubmit}>
+    <StyledRegisterDialog
+      onSubmit={handleFormSubmit}
+      role="form"
+      aria-labelledby="register-title"
+    >
       <div className="login">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
@@ -67,6 +72,7 @@ export default function RegisterDialog({
           name="username"
           required
           placeholder={t("Username")}
+          autoComplete="username"
         />
       </div>
       <div className="login__field">
@@ -84,6 +90,8 @@ export default function RegisterDialog({
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
           placeholder={t("Password")}
           title={t("passwordRules")}
+          aria-describedby="password-rules"
+          autoComplete="new-password"
         />
       </div>
       <div className="login__field">
@@ -91,7 +99,7 @@ export default function RegisterDialog({
           {t("repeatePassword")}:
         </label>
         <input
-          ref={password}
+          ref={repeatPassword}
           className="login__input"
           id="repeatePassword"
           type="password"
@@ -101,6 +109,7 @@ export default function RegisterDialog({
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
           placeholder={t("repeatePassword")}
           title={t("passwordRules")}
+          aria-describedby="password-rules"
         />
       </div>
       <span className="password-rules">{t("passwordRules")}</span>
