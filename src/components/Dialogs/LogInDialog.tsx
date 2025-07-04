@@ -76,12 +76,9 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           type="password"
           name="password"
           required
-          minLength={8}
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
           placeholder={t("Password")}
         />
       </div>
-      <span className="password-rules">{t("passwordRules")}</span>
       <ActionButton type="submit" buttonTitle="logIn" />
     </StyledLogInDialog>
   );

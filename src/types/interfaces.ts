@@ -37,7 +37,12 @@ export interface TabsComponentProps {
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   buttonTitle?: string | null;
   buttonIcon?: string | null;
-  items: { title: string; id: number | string; disabled?: boolean }[];
+  items: {
+    title: string;
+    id: number | string;
+    disabled?: boolean;
+    onClick?: () => void;
+  }[];
   onItemSelect?: (value: string) => void;
 }
 
@@ -54,4 +59,12 @@ export interface DialogProps {
 }
 export interface LogInDialogProps {
   onLogInClick: (username: string) => void;
+}
+
+export interface RegisterDialogProps {
+  onClose: () => void;
+  register: (data: {
+    newUserName: string | undefined;
+    newPassword: string | undefined;
+  }) => void;
 }

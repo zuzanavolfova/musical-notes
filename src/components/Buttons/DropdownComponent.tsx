@@ -123,7 +123,12 @@ export default function DropdownComponent({
               onClick={(e) => {
                 e.stopPropagation();
                 if (item.disabled) return;
-                onItemClick(item.title);
+                if (typeof item.onClick === "function") {
+                  item.onClick();
+                } else {
+                  onItemClick(item.title);
+                }
+                setIsOpen(false);
               }}
               disabled={item.disabled ?? false}
               className="dropdown__item"
