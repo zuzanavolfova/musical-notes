@@ -47,6 +47,10 @@ export default function RegisterDialog({
 
   function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
+    register({
+      newUserName: userName.current?.value,
+      newPassword: password.current?.value,
+    });
     onClose();
   }
   return (
