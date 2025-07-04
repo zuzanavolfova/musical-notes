@@ -184,7 +184,6 @@ export default function HeaderComponent() {
       },
     },
   ];
-  const [users, setUsers] = useState<any[]>([]);
 
   const getLocaleTitle = (lng: string) =>
     localeItems.find((item) => item.id === lng)?.title || "CS";
@@ -213,17 +212,6 @@ export default function HeaderComponent() {
   const logOut = () => {
     setIsLogged(false);
   };
-
-  const register = (newUserName: string, newPassword: string) => {
-    setUsers((prevUsers) => [
-      ...prevUsers,
-      { newUserName: newUserName, newPassword: newPassword },
-    ]);
-  };
-
-  useEffect(() => {
-    console.log("Users:", users);
-  }, [users]);
 
   return (
     <Header
@@ -267,12 +255,7 @@ export default function HeaderComponent() {
           dialogTitle={t("newRegister")}
           handleClose={() => setIsRegisterDialogOpen(false)}
         >
-          <RegisterDialog
-            onClose={() => setIsRegisterDialogOpen(false)}
-            register={({ newUserName, newPassword }) =>
-              register(newUserName, newPassword)
-            }
-          />
+          <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
         </Dialog>
       )}
     </Header>
