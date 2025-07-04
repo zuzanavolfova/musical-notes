@@ -45,12 +45,17 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
   const password = useRef<HTMLInputElement>(null);
   const repeatPassword = useRef<HTMLInputElement>(null);
   const [validPassword, setValidPassword] = useState(true);
+  const [validUserName, setValidUserName] = useState(true);
 
   async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
 
     if (password.current?.value !== repeatPassword.current?.value) {
       setValidPassword(false);
+      return;
+    }
+
+    if (!validUserName && userName.current?.value) {
       return;
     }
 
@@ -61,7 +66,15 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
       });
       onClose();
     } catch (error) {
-      console.error("Error during user registration:", error);
+      if (error instanceof Error) {
+        if (error.message.includes("User already exists")) {
+          setValidUserName(false);
+        } else {
+          alert(error.message);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
     }
   }
 
@@ -84,6 +97,7 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
           required
           placeholder={t("Username")}
           autoComplete="username"
+          onFocus={() => setValidUserName(true)}
         />
       </div>
       <div className="login__field">
@@ -130,6 +144,11 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
       ) : (
         <span style={{ color: "var(--wrong-color)" }}>
           {t("passwordsNotMatch")}
+        </span>
+      )}
+      {!validUserName && (
+        <span style={{ color: "var(--wrong-color)" }}>
+          {t("userNamesExists")}
         </span>
       )}
       <ActionButton type="submit" buttonTitle="register" />
