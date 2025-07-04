@@ -64,6 +64,7 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
         newUserName: userName.current!.value,
         newPassword: password.current!.value,
       });
+      //TODO waiting dialog
       onClose();
     } catch (error) {
       if (error instanceof Error) {
