@@ -14,7 +14,7 @@ import type { TabType } from "../types/types";
 export default function NoteLearning() {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
-  const [showContent, setContent] = useState<string | null>("Notes");
+  const [showContent, setContent] = useState<string | null>("Keyboard");
   const [goodAnswers, setGoodAnswers] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
 
