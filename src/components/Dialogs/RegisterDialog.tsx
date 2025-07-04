@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -46,8 +46,14 @@ export default function RegisterDialog({
   const password = useRef<HTMLInputElement>(null);
   const repeatPassword = useRef<HTMLInputElement>(null);
 
+  const [validPassword, setValidPassword] = useState(true);
+
   function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
+    if (password.current?.value !== repeatPassword.current?.value) {
+      setValidPassword(false);
+      return;
+    }
     register({
       newUserName: userName.current?.value,
       newPassword: password.current?.value,
@@ -92,6 +98,7 @@ export default function RegisterDialog({
           title={t("passwordRules")}
           aria-describedby="password-rules"
           autoComplete="new-password"
+          onFocus={() => setValidPassword(true)}
         />
       </div>
       <div className="login__field">
@@ -110,9 +117,16 @@ export default function RegisterDialog({
           placeholder={t("repeatePassword")}
           title={t("passwordRules")}
           aria-describedby="password-rules"
+          onFocus={() => setValidPassword(true)}
         />
       </div>
-      <span className="password-rules">{t("passwordRules")}</span>
+      {validPassword ? (
+        <span className="password-rules">{t("passwordRules")}</span>
+      ) : (
+        <span style={{ color: "var(--wrong-color)" }}>
+          {t("passwordsNotMatch")}
+        </span>
+      )}
       <ActionButton type="submit" buttonTitle="register" />
     </StyledRegisterDialog>
   );
