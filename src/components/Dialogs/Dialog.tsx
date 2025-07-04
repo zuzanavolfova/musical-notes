@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { styled } from "styled-components";
-import { createPortal} from `react-dom`
+import { createPortal } from "react-dom";
 
 import { handleClickOutside } from "../../scripts/handleClickOutside";
 
@@ -98,6 +98,7 @@ export default function Dialog({
         {dialogTitle}
       </h4>
       <div className="dialog__content">{children}</div>
-    </StyledDialog>, document.getElementById("dialog") || document.body
+    </StyledDialog>,
+    document.getElementById("dialog") || document.body
   );
 }
