@@ -17,5 +17,6 @@
   "newRegister": "Nová registrace",
   "register": "Registrovat",
   "repeatePassword": "Heslo znovu",
-  "passwordsNotMatch": "Hesla se neshodují."
+  "passwordsNotMatch": "Hesla se neshodují.",
+  "userNamesExists": "Uživatelské jméno již existuje."
 }
