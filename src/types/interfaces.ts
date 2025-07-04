@@ -60,3 +60,11 @@ export interface DialogProps {
 export interface LogInDialogProps {
   onLogInClick: (username: string) => void;
 }
+
+export interface RegisterDialogProps {
+  onClose: () => void;
+  register: (data: {
+    newUserName: string | undefined;
+    newPassword: string | undefined;
+  }) => void;
+}
