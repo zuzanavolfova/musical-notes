@@ -9,6 +9,7 @@ import DropdownComponent from "./Buttons/DropdownComponent";
 import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
 import RegisterDialog from "./Dialogs/RegisterDialog";
+import { getUsers } from "../scripts/services/authService";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
   width: 100%;
@@ -189,7 +190,7 @@ export default function HeaderComponent() {
     localeItems.find((item) => item.id === lng)?.title || "CS";
 
   const [locale, setLocale] = useState(() => getLocaleTitle(i18n.language));
-
+  console.log(getUsers());
   useEffect(() => {
     setLocale(getLocaleTitle(i18n.language));
   }, [i18n.language]);
@@ -205,7 +206,6 @@ export default function HeaderComponent() {
   const onLogInClick = (user: string) => {
     setIsLogged(true);
     setUserName(user);
-    console.log("Logged user:", userName);
     setIsLogInDialogOpen(false);
   };
 

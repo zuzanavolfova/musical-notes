@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
-import { checkPassword } from "./../../scripts/passwordChecks";
+import { checkLogIn } from "../../scripts/userManagementScripts";
 
 import type { LogInDialogProps } from "../../types/interfaces";
 
@@ -43,14 +43,21 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  function handleFormSubmit(event: React.FormEvent) {
+  async function logIn(event: React.FormEvent) {
     event.preventDefault();
-    if (onLogInClick && userName.current && checkPassword()) {
-      onLogInClick(userName.current.value);
+    if (onLogInClick && userName.current && password.current) {
+      const isValid = await checkLogIn(
+        userName.current.value,
+        password.current.value
+      );
+      if (isValid) {
+        onLogInClick(userName.current.value);
+      }
     }
   }
+
   return (
-    <StyledLogInDialog onSubmit={handleFormSubmit}>
+    <StyledLogInDialog onSubmit={logIn}>
       <div className="login">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
