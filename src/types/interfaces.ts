@@ -57,10 +57,18 @@ export interface DialogProps {
   handleClose: () => void;
   children?: React.ReactNode;
 }
+
 export interface LogInDialogProps {
   onLogInClick: (username: string) => void;
 }
 
 export interface RegisterDialogProps {
   onClose: () => void;
+}
+
+export interface UserManagementDialogProps {
+  onLogIn: () => void;
+  onRegister: () => void;
+  onClose: () => void;
+  children?: React.ReactNode;
 }

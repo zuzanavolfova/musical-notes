@@ -13,10 +13,10 @@ import type { TabType } from "../types/types";
 
 export default function NoteLearning({
   isLogIn,
-  setIsLogInOpen,
+  setUserManagementDialogOpen,
 }: {
   isLogIn?: boolean;
-  setIsLogInOpen: (open: boolean) => void;
+  setUserManagementDialogOpen: (open: boolean) => void;
 }) {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
@@ -59,7 +59,7 @@ export default function NoteLearning({
         wrongAnswers,
       };
       console.log("Saving statistics:", statistics);
-    } else setIsLogInOpen(true);
+    } else setUserManagementDialogOpen(true);
   }
 
   return (
