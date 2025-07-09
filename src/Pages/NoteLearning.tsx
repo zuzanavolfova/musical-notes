@@ -57,6 +57,7 @@ export default function NoteLearning({
       const statistics = {
         goodAnswers,
         wrongAnswers,
+        timeStamp: new Date().toISOString(),
       };
       console.log("Saving statistics:", statistics);
     } else setUserManagementDialogOpen(true);
