@@ -72,3 +72,9 @@ export interface UserManagementDialogProps {
   onClose: () => void;
   children?: React.ReactNode;
 }
+
+export interface NoteLearningProps {
+  isLogIn?: boolean;
+  userName?: string | null;
+  setUserManagementDialogOpen: (open: boolean) => void;
+}

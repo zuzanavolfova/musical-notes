@@ -14,10 +14,7 @@ import type { TabType } from "../types/types";
 export default function NoteLearning({
   isLogIn,
   setUserManagementDialogOpen,
-}: {
-  isLogIn?: boolean;
-  setUserManagementDialogOpen: (open: boolean) => void;
-}) {
+}: NoteLearningProps) {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Keyboard");
