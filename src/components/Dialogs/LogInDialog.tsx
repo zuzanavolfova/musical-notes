@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
-import { checkLogIn } from "../../scripts/userManagementScripts";
+import { checkLogIn } from "../../scripts/services/authService";
 
 import type { LogInDialogProps } from "../../types/interfaces";
 
