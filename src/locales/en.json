@@ -20,5 +20,6 @@
   "passwordsNotMatch": "Passwords do not match.",
   "userNamesExists": "User name already exists.",
   "InvalidUsernameOrPassword": "Invalid user name or password!",
-  "saveStatistics": "Save statistics"
+  "saveStatistics": "Save statistics",
+  "LogIn/RegisterToSaveStatistics": "Log in or register to save your statistics."
 }
