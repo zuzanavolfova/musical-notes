@@ -13,6 +13,7 @@ import type { TabType } from "../types/types";
 
 export default function NoteLearning({
   isLogIn,
+  userName,
   setUserManagementDialogOpen,
 }: NoteLearningProps) {
   const { t } = useTranslation();
