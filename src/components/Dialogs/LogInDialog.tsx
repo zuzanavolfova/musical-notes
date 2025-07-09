@@ -1,8 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
-import { checkPassword } from "./../../scripts/passwordChecks";
+import { checkLogIn } from "../../scripts/services/authService";
 
 import type { LogInDialogProps } from "../../types/interfaces";
 
@@ -42,15 +42,26 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   const { t } = useTranslation();
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const [loginIsValid, setLoginIsValid] = useState(true);
 
-  function handleFormSubmit(event: React.FormEvent) {
+  async function logIn(event: React.FormEvent) {
     event.preventDefault();
-    if (onLogInClick && userName.current && checkPassword()) {
-      onLogInClick(userName.current.value);
+    if (onLogInClick && userName.current && password.current) {
+      const isValid = await checkLogIn(
+        userName.current.value,
+        password.current.value
+      );
+      if (isValid) {
+        onLogInClick(userName.current.value);
+        setLoginIsValid(true);
+      } else {
+        setLoginIsValid(false);
+      }
     }
   }
+
   return (
-    <StyledLogInDialog onSubmit={handleFormSubmit}>
+    <StyledLogInDialog onSubmit={logIn}>
       <div className="login">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
@@ -79,6 +90,11 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           placeholder={t("Password")}
         />
       </div>
+      {!loginIsValid && (
+        <span style={{ color: "var(--wrong-color)" }}>
+          {t("InvalidUsernameOrPassword")}
+        </span>
+      )}
       <ActionButton type="submit" buttonTitle="logIn" />
     </StyledLogInDialog>
   );
