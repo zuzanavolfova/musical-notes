@@ -27,8 +27,10 @@ export default function App() {
       <HeaderComponent
         isLogIn={isLogIn}
         logInOpen={logInDialogOpen}
+        registerDialogOpen={registerDialogOpen}
         setIsLogIn={setIsLogIn}
         setIsLogInOpen={setIsLogInOpen}
+        setIsRegisterOpen={setIsRegisterOpen}
       />
       <MainContent>
         <NoteLearning isLogIn={isLogIn} setIsLogInOpen={setIsLogInOpen} />

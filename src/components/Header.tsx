@@ -154,18 +154,21 @@ const Header = styled.header<{ $isLogged?: boolean }>`
 interface HeaderProps {
   isLogIn: boolean;
   logInOpen: boolean;
+  registerDialogOpen: boolean;
   setIsLogIn: (isLogged: boolean) => void;
   setIsLogInOpen: (isOpen: boolean) => void;
+  setIsRegisterOpen: (isOpen: boolean) => void;
 }
 
 export default function HeaderComponent({
   isLogIn,
   logInOpen,
+  registerDialogOpen,
   setIsLogIn,
   setIsLogInOpen,
+  setIsRegisterOpen,
 }: HeaderProps) {
   const { t, i18n } = useTranslation();
-  const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
@@ -189,7 +192,7 @@ export default function HeaderComponent({
       title: t("newRegister"),
       id: 2,
       onClick: () => {
-        setIsRegisterDialogOpen(true);
+        setIsRegisterOpen(true);
       },
     },
   ];
@@ -256,9 +259,9 @@ export default function HeaderComponent({
       {registerDialogOpen && (
         <Dialog
           dialogTitle={t("newRegister")}
-          handleClose={() => setIsRegisterDialogOpen(false)}
+          handleClose={() => setIsRegisterOpen(false)}
         >
-          <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
+          <RegisterDialog onClose={() => setIsRegisterOpen(false)} />
         </Dialog>
       )}
     </Header>
