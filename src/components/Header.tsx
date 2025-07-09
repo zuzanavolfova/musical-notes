@@ -179,7 +179,7 @@ export default function HeaderComponent({
   ];
   const userItems = [
     {
-      title: isLogIn ? userName : t("noUser"),
+      title: isLogIn && userName ? userName : t("noUser"),
       id: 0,
       disabled: true,
     },
@@ -241,7 +241,6 @@ export default function HeaderComponent({
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() => (!isLogIn ? setIsLogInOpen(true) : logOut())}
           className="user-component"
         />
         <DropdownComponent
