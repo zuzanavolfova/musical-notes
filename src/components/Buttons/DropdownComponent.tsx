@@ -122,8 +122,15 @@ export default function DropdownComponent({
               tabIndex={0}
               onClick={(e) => {
                 e.stopPropagation();
-                onItemClick(item.title);
+                if (item.disabled) return;
+                if (typeof item.onClick === "function") {
+                  item.onClick();
+                } else {
+                  onItemClick(item.title);
+                }
+                setIsOpen(false);
               }}
+              disabled={item.disabled ?? false}
               className="dropdown__item"
             >
               {t(item.title)}

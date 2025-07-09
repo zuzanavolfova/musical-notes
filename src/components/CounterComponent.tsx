@@ -21,9 +21,9 @@ export default function CounterComponent({
 
   return (
     <CounterStyled aria-label={t("Amount-of-answers")}>
-      <div className="amount__container" aria-label={t("Amount-good-answers")}>
+      <div className="amount__container" aria-label={t("amount-good-answers")}>
         <span className="amount__label" id="good-answers-label">
-          {t("Amount-good-answers")}
+          {t("amount-good-answers")}
         </span>
         <span
           className="amount__counter"
@@ -33,9 +33,9 @@ export default function CounterComponent({
           {goodAnswersCounter}
         </span>
       </div>
-      <div className="amount__container" aria-label={t("Amount-wrong-answers")}>
+      <div className="amount__container" aria-label={t("amount-wrong-answers")}>
         <span className="amount__label" id="wrong-answers-label">
-          {t("Amount-wrong-answers")}
+          {t("amount-wrong-answers")}
         </span>
         <span
           className="amount__counter"

@@ -3,38 +3,47 @@ import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
 
 import clefLogo from "../assets/clef-clipart.svg";
+import userIcon from "../assets/user.svg";
 
 import DropdownComponent from "./Buttons/DropdownComponent";
+import Dialog from "./Dialogs/Dialog";
+import LogInDialog from "./Dialogs/LogInDialog";
+import RegisterDialog from "./Dialogs/RegisterDialog";
 
-const Header = styled.header`
+const Header = styled.header<{ $isLogged?: boolean }>`
   width: 100%;
   display: grid;
-  grid-template-columns: 60px auto 30px 30px;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 6px 4px;
+  gap: 6px;
+  padding: 6px 8px;
   position: relative;
+
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
+
   @media screen and (min-width: 800px) {
     gap: 40px;
   }
+
   & h1 {
     grid-column: 2 / 3;
     justify-self: center;
     font-family: var(--font-decoration);
     text-transform: uppercase;
     color: var(--primary-color);
-    margin: 0 auto;
+    margin: 0;
     position: relative;
+
     @media screen and (min-width: 480px) {
       font-size: 42px;
     }
   }
+
   .clef-logo {
     display: none;
+
     @media screen and (min-width: 550px) {
       display: block;
       position: absolute;
@@ -44,40 +53,100 @@ const Header = styled.header`
       z-index: 10;
     }
   }
-  .user-component {
+  .header__buttons {
     grid-column: 3 / 4;
-    margin: 0;
-    & button {
-      background-color: white;
-      box-shadow: none;
-      transition: all 0.3s ease-in-out;
-    }
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
-  .locale-component {
-    justify-self: center;
+  .user-component {
     margin: 0;
     & button {
       background-color: white;
       box-shadow: none;
-      border-bottom: 2px solid var(--primary-color);
-      padding: 4px;
+      padding: 6px 6px;
+      border: ${({ $isLogged }) =>
+        $isLogged ? "2px solid var(--primary-color)" : "2px solid white"};
+      border-radius: 50%;
       transition: all 0.3s ease-in-out;
       @media (prefers-color-scheme: dark) {
-        color: var(--secondary-color);
+        color: ${({ $isLogged }) =>
+          $isLogged ? "white" : "var(--secondary-color)"};
       }
-      &:hover {
+
+      &:not(:disabled):hover {
         background-color: var(--primary-color);
         color: white;
       }
-      &:focus,
+      &:disabled {
+        cursor: default;
+        border: 2px solid transparent !important;
+        background-color: white !important;
+
+        &:focus,
+        &:active {
+          background-color: white !important;
+          border: 2px solid transparent !important;
+          box-shadow: none;
+        }
+      }
+      */ &:focus,
       &:active {
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
         box-shadow: none;
         color: white;
       }
+      &:disabled {
+        cursor: default;
+        &:focus,
+        &:active {
+          background-color: white;
+          border: 1px solid white;
+          box-shadow: none;
+        }
+      }
       &.dropdown__item {
         border: none;
+        border-radius: 0;
+        padding: 8px;
+      }
+    }
+  }
+
+  .locale-component {
+    margin: 0;
+    min-width: fit-content;
+
+    & button {
+      background-color: white;
+      box-shadow: none;
+      border-bottom: 2px solid var(--primary-color);
+      padding: 4px 4px;
+      min-width: 30px;
+      transition: all 0.3s ease-in-out;
+
+      @media (prefers-color-scheme: dark) {
+        color: var(--secondary-color);
+      }
+
+      &:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      &:focus,
+      &:active {
+        background-color: var(--primary-color);
+        border: none;
+        box-shadow: none;
+        color: white;
+      }
+
+      &.dropdown__item {
+        border: none;
+        padding: 8px;
       }
     }
   }
@@ -85,10 +154,37 @@ const Header = styled.header`
 
 export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
+  const [isLogged, setIsLogged] = useState(false);
+  const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
+  const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
+  const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
+  const userItems = [
+    {
+      title: isLogged ? userName : t("noUser"),
+      id: 0,
+      disabled: true,
+    },
+    {
+      title: isLogged ? "logOut" : "logIn",
+      id: 1,
+      onClick: () => {
+        if (!isLogged) setIsLogInDialogOpen(true);
+        else logOut();
+      },
+    },
+    {
+      title: t("newRegister"),
+      id: 2,
+      onClick: () => {
+        setIsRegisterDialogOpen(true);
+      },
+    },
+  ];
+
   const getLocaleTitle = (lng: string) =>
     localeItems.find((item) => item.id === lng)?.title || "CS";
 
@@ -106,8 +202,22 @@ export default function HeaderComponent() {
     }
   };
 
+  const onLogInClick = (user: string) => {
+    setIsLogged(true);
+    setUserName(user);
+    setIsLogInDialogOpen(false);
+  };
+
+  const logOut = () => {
+    setIsLogged(false);
+  };
+
   return (
-    <Header role="banner" aria-label="Musical Notes header">
+    <Header
+      role="banner"
+      aria-label="Musical Notes header"
+      $isLogged={isLogged}
+    >
       <img
         className="clef-logo"
         src={clefLogo}
@@ -115,12 +225,38 @@ export default function HeaderComponent() {
         aria-hidden="true"
       />
       <h1 tabIndex={0}>{t("musical-notes")}</h1>
-      <DropdownComponent
-        buttonTitle={locale}
-        items={localeItems}
-        onItemSelect={handleLocaleChange}
-        className="locale-component"
-      />
+      <div className="header__buttons">
+        <DropdownComponent
+          buttonIcon={userIcon}
+          items={userItems}
+          onItemSelect={() =>
+            !isLogged ? setIsLogInDialogOpen(true) : logOut()
+          }
+          className="user-component"
+        />
+        <DropdownComponent
+          buttonTitle={locale}
+          items={localeItems}
+          onItemSelect={handleLocaleChange}
+          className="locale-component"
+        />
+      </div>
+      {logInDialogOpen && (
+        <Dialog
+          dialogTitle={t("logIn")}
+          handleClose={() => setIsLogInDialogOpen(false)}
+        >
+          <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
+        </Dialog>
+      )}
+      {registerDialogOpen && (
+        <Dialog
+          dialogTitle={t("newRegister")}
+          handleClose={() => setIsRegisterDialogOpen(false)}
+        >
+          <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
+        </Dialog>
+      )}
     </Header>
   );
 }

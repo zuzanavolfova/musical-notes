@@ -2,4 +2,4 @@
 
 author: Zuzana Volfova
 technologies: React + TypeScript + Vite
-backend repository" https://github.com/zuzanavolfova/musical-notes-backend
+backend repository: https://github.com/zuzanavolfova/musical-notes-backend
