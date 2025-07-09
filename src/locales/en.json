@@ -18,5 +18,6 @@
   "register": "Register",
   "repeatePassword": "Repeate the password",
   "passwordsNotMatch": "Passwords do not match.",
-  "userNamesExists": "User name already exists."
+  "userNamesExists": "User name already exists.",
+  "InvalidUsernameOrPassword": "Invalid user name or password!"
 }
