@@ -11,7 +11,13 @@ import CounterComponent from "../components/CounterComponent";
 
 import type { TabType } from "../types/types";
 
-export default function NoteLearning() {
+export default function NoteLearning({
+  isLogIn,
+  setIsLogInOpen,
+}: {
+  isLogIn?: boolean;
+  setIsLogInOpen: (open: boolean) => void;
+}) {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Keyboard");
@@ -44,6 +50,16 @@ export default function NoteLearning() {
 
   function changeContent(tab: TabType) {
     setContent(tab);
+  }
+
+  function saveStatistics() {
+    if (isLogIn) {
+      const statistics = {
+        goodAnswers,
+        wrongAnswers,
+      };
+      console.log("Saving statistics:", statistics);
+    } else setIsLogInOpen(true);
   }
 
   return (

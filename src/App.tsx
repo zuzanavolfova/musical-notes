@@ -1,6 +1,8 @@
 import "./styles/main.css";
 import styled from "styled-components";
 
+import { useState } from "react";
+
 import NoteLearning from "./Pages/NoteLearning";
 import HeaderComponent from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,11 +19,19 @@ const MainContent = styled.main`
 `;
 
 export default function App() {
+  const [isLogIn, setIsLogIn] = useState(false);
+  const [logInDialogOpen, setIsLogInOpen] = useState(false);
+  
   return (
     <AppContainer>
-      <HeaderComponent />
+      <HeaderComponent
+        isLogIn={isLogIn}
+        logInOpen={logInDialogOpen}
+        setIsLogIn={setIsLogIn}
+        setIsLogInOpen={setIsLogInOpen}
+      />
       <MainContent>
-        <NoteLearning />
+        <NoteLearning isLogIn={isLogIn} setIsLogInOpen={setIsLogInOpen} />
       </MainContent>
       <Footer />
     </AppContainer>

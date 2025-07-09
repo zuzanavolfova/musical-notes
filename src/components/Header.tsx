@@ -151,11 +151,20 @@ const Header = styled.header<{ $isLogged?: boolean }>`
     }
   }
 `;
+interface HeaderProps {
+  isLogIn: boolean;
+  logInOpen: boolean;
+  setIsLogIn: (isLogged: boolean) => void;
+  setIsLogInOpen: (isOpen: boolean) => void;
+}
 
-export default function HeaderComponent() {
+export default function HeaderComponent({
+  isLogIn,
+  logInOpen,
+  setIsLogIn,
+  setIsLogInOpen,
+}: HeaderProps) {
   const { t, i18n } = useTranslation();
-  const [isLogged, setIsLogged] = useState(false);
-  const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
   const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const localeItems = [
@@ -164,15 +173,15 @@ export default function HeaderComponent() {
   ];
   const userItems = [
     {
-      title: isLogged ? userName : t("noUser"),
+      title: isLogIn ? userName : t("noUser"),
       id: 0,
       disabled: true,
     },
     {
-      title: isLogged ? "logOut" : "logIn",
+      title: isLogIn ? "logOut" : "logIn",
       id: 1,
       onClick: () => {
-        if (!isLogged) setIsLogInDialogOpen(true);
+        if (!isLogIn) setIsLogInOpen(true);
         else logOut();
       },
     },
@@ -203,21 +212,18 @@ export default function HeaderComponent() {
   };
 
   const onLogInClick = (user: string) => {
-    setIsLogged(true);
+    setIsLogIn(true);
     setUserName(user);
-    setIsLogInDialogOpen(false);
+    setIsLogInOpen(false);
   };
 
   const logOut = () => {
-    setIsLogged(false);
+    setIsLogIn(false);
+    setUserName("");
   };
 
   return (
-    <Header
-      role="banner"
-      aria-label="Musical Notes header"
-      $isLogged={isLogged}
-    >
+    <Header role="banner" aria-label="Musical Notes header" $isLogged={isLogIn}>
       <img
         className="clef-logo"
         src={clefLogo}
@@ -229,9 +235,7 @@ export default function HeaderComponent() {
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() =>
-            !isLogged ? setIsLogInDialogOpen(true) : logOut()
-          }
+          onItemSelect={() => (!isLogIn ? setIsLogInOpen(true) : logOut())}
           className="user-component"
         />
         <DropdownComponent
@@ -241,10 +245,10 @@ export default function HeaderComponent() {
           className="locale-component"
         />
       </div>
-      {logInDialogOpen && (
+      {logInOpen && (
         <Dialog
           dialogTitle={t("logIn")}
-          handleClose={() => setIsLogInDialogOpen(false)}
+          handleClose={() => setIsLogInOpen(false)}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
         </Dialog>
