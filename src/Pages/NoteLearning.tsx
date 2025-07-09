@@ -138,7 +138,13 @@ export default function NoteLearning({
         wrongAnswersCounter={wrongAnswers}
       ></CounterComponent>
       {result === true && (
-        <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
+        <>
+          <ActionButton
+            buttonTitle="saveStatistics"
+            onButtonClick={saveStatistics}
+          />
+          <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
+        </>
       )}
     </>
   );
