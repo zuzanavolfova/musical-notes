@@ -12,6 +12,7 @@ import CounterComponent from "../components/CounterComponent";
 import { saveStatistics } from "../scripts/services/statistics";
 import type { TabType } from "../types/types";
 import type { NoteLearningProps } from "../types/interfaces";
+import type { Statistics } from "../types/interfaces";
 
 export default function NoteLearning({
   isLogIn,
@@ -54,8 +55,8 @@ export default function NoteLearning({
 
   function onSaveStatisticsClick() {
     if (isLogIn) {
-      const statistics = {
-        userName,
+      const statistics: Statistics = {
+        userName: userName || "",
         goodAnswers,
         wrongAnswers,
         timeStamp: new Date().toISOString(),
