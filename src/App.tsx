@@ -45,6 +45,7 @@ export default function App() {
         <NoteLearning
           isLogIn={isLogIn}
           setUserManagementDialogOpen={setUserManagementDialogOpen}
+          userName={userName}
         />
         {userManagementDialogOpen && (
           <Dialog
