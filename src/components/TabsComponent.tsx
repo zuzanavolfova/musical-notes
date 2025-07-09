@@ -18,7 +18,7 @@ const TabsContainerStyled = styled.div`
 
 export default function TabsComponent({ setContent }: TabsComponentProps) {
   const { t } = useTranslation();
-  const [selectedTab, setSelectedTab] = useState<TabType>("Notes");
+  const [selectedTab, setSelectedTab] = useState<TabType>("Keyboard");
 
   function handleOnTabClick(value: TabType) {
     setSelectedTab(value);
@@ -27,16 +27,16 @@ export default function TabsComponent({ setContent }: TabsComponentProps) {
   return (
     <TabsContainerStyled>
       <TabButton
-        isSelected={selectedTab === "Notes"}
-        onClick={() => handleOnTabClick("Notes")}
-      >
-        {t("learn-notes")}
-      </TabButton>
-      <TabButton
         isSelected={selectedTab === "Keyboard"}
         onClick={() => handleOnTabClick("Keyboard")}
       >
         {t("find-note-on-keyboard")}
+      </TabButton>
+      <TabButton
+        isSelected={selectedTab === "Notes"}
+        onClick={() => handleOnTabClick("Notes")}
+      >
+        {t("learn-notes")}
       </TabButton>
     </TabsContainerStyled>
   );

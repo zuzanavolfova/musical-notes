@@ -95,7 +95,25 @@ export default function Dialog({
       tabIndex={-1}
     >
       <h4 id="dialog-title" className="dialog__header">
-        {dialogTitle}
+        {dialogTitle}{" "}
+        <button
+          type="button"
+          aria-label="Close dialog"
+          onClick={handleClose}
+          style={{
+            position: "absolute",
+            right: 4,
+            top: 0,
+            background: "none",
+            border: "none",
+            fontSize: 36,
+            fontWeight: "normal",
+            cursor: "pointer",
+            color: "inherit",
+          }}
+        >
+          ×
+        </button>
       </h4>
       <div className="dialog__content">{children}</div>
     </StyledDialog>,
