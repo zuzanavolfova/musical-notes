@@ -19,5 +19,6 @@
   "repeatePassword": "Repeate the password",
   "passwordsNotMatch": "Passwords do not match.",
   "userNamesExists": "User name already exists.",
-  "InvalidUsernameOrPassword": "Invalid user name or password!"
+  "InvalidUsernameOrPassword": "Invalid user name or password!",
+  "saveStatistics": "Save statistics"
 }

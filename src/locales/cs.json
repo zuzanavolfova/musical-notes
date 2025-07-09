@@ -19,5 +19,6 @@
   "repeatePassword": "Heslo znovu",
   "passwordsNotMatch": "Hesla se neshodují.",
   "userNamesExists": "Uživatelské jméno již existuje.",
-  "InvalidUsernameOrPassword": "Neplatné uživatelské jméno nebo heslo!"
+  "InvalidUsernameOrPassword": "Neplatné uživatelské jméno nebo heslo!",
+  "saveStatistics": "Uložit statistiky"
 }
