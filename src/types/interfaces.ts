@@ -4,7 +4,7 @@ import type { TabType } from "./types";
 export interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonTitle: string;
-  onButtonClick?: () => void | null;
+  onButtonClick?: () => void | null | Promise<void>;
   ariaLabel?: string;
 }
 
