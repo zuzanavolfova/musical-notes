@@ -7,7 +7,7 @@ import type { Statistics } from "../types/interfaces";
 
 const StatisticsStyled = styled.section``;
 interface StatisticsProps {
-  userName: string | null;
+  userName: string;
 }
 
 export default function StatisticsComponent({ userName }: StatisticsProps) {
@@ -16,12 +16,12 @@ export default function StatisticsComponent({ userName }: StatisticsProps) {
 
   useEffect(() => {
     async function fetchStatistics() {
-      const data = await getStatistics();
+      const data = await getStatistics(userName);
       setStatistics(data);
     }
 
     fetchStatistics();
-  }, []);
+  }, [userName]);
 
   return (
     <StatisticsStyled>

@@ -8,8 +8,10 @@ import ActionButton from "../components/Buttons/ActionButton";
 import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
 import CounterComponent from "../components/CounterComponent";
+import StatisticsComponent from "../components/StatisticsComponent";
 
 import { saveStatistics } from "../scripts/services/statistics";
+
 import type { TabType } from "../types/types";
 import type { NoteLearningProps } from "../types/interfaces";
 import type { Statistics } from "../types/interfaces";
@@ -150,6 +152,7 @@ export default function NoteLearning({
           <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
         </>
       )}
+      {userName && <StatisticsComponent userName={userName} />}
     </>
   );
 }
