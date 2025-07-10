@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { styled } from "styled-components";
 
 import StaveComponent from "../components/StaveComponent";
 import NoteComponent from "../components/NoteComponent";
@@ -16,6 +17,33 @@ import { formatDataStatistics } from "../scripts/statistics";
 import type { TabType } from "../types/types";
 import type { NoteLearningProps } from "../types/interfaces";
 import type { Statistics } from "../types/interfaces";
+
+const NoteLearningStyled = styled.div`
+  display: grid;
+  grid-template-columns: minmax(300px, 600px) 1fr minmax(300px, 600px);
+  grid-template-rows: 80px auto;
+  grid-template-areas:
+    "tabs tabs tabs"
+    "content content content"
+    "statistics statistics statistics";
+  @media screen and (min-width: 960px) {
+    grid-template-areas:
+      "clef tabs statistics"
+      "clef content statistics";
+  }
+  .tabs {
+    grid-area: tabs;
+  }
+  .content {
+    grid-area: content;
+  }
+  .statistics {
+    grid-area: statistics;
+    @media screen and (min-width: 960px) {
+      justify-self: center;
+    }
+  }
+`;
 
 export default function NoteLearning({
   isLogIn,
@@ -81,96 +109,100 @@ export default function NoteLearning({
   }
 
   return (
-    <>
-      <TabsComponent setContent={changeContent} />
-      <section
-        aria-label="Musical stave with note"
-        style={{
-          position: "relative",
-          height: "130px",
-          padding: "10px 0 0 0",
-          margin: "20px 0",
-          backgroundColor: "white",
-        }}
-      >
-        <div style={{ position: "relative" }}>
-          <StaveComponent />
-          <NoteComponent
-            noteImage={noteType === "c" ? "note2" : "note"}
-            noteType={noteType}
-          />
-        </div>
-      </section>
-      {showContent === "Keyboard" && (
-        <section id="Piano" style={{ margin: "0 auto" }}>
-          <Piano
-            checkAnswer={checkAnswer}
-            noteType={noteType}
-            result={result}
-            disabled={result === true}
-          />
-        </section>
-      )}
-      {showContent === "Notes" && (
+    <NoteLearningStyled>
+      <TabsComponent className="tabs" setContent={changeContent} />
+      <div className="content">
         <section
-          aria-label="Select the correct note"
+          aria-label="Musical stave with note"
           style={{
-            display: "flex",
-            gap: "20px",
-            flexWrap: "wrap",
-            maxWidth: "300px",
-            margin: "0 auto",
-            padding: "20px",
-            justifyContent: "center",
+            position: "relative",
+            height: "130px",
+            padding: "10px 0 0 0",
+            margin: "20px 0",
+            backgroundColor: "white",
           }}
         >
-          {notes.map((note) => (
-            <SelectButton
-              checkAnswer={checkAnswer}
-              key={note}
-              answerText={note}
-              resetFocus={result === null}
-              disabled={result === true}
-              isCorrect={result === true && note === noteType}
-              aria-pressed={result === true && note === noteType}
-              aria-label={`Select note ${note.toUpperCase()}`}
+          <div style={{ position: "relative" }}>
+            <StaveComponent />
+            <NoteComponent
+              noteImage={noteType === "c" ? "note2" : "note"}
+              noteType={noteType}
             />
-          ))}
+          </div>
         </section>
-      )}
-      <section
-        aria-live="polite"
-        aria-atomic="true"
-        style={{
-          color: result ? "var(--success-color)" : "var(--wrong-color)",
-          fontSize: "32px",
-          margin: "20px auto 0 auto",
-        }}
-      >
-        {result != null && (
-          <span>{result ? t("good-answer") : t("wrong-answer")}</span>
+        {showContent === "Keyboard" && (
+          <section id="Piano" style={{ margin: "0 auto" }}>
+            <Piano
+              checkAnswer={checkAnswer}
+              noteType={noteType}
+              result={result}
+              disabled={result === true}
+            />
+          </section>
         )}
-      </section>
-      <CounterComponent
-        goodAnswersCounter={goodAnswers}
-        wrongAnswersCounter={wrongAnswers}
-      ></CounterComponent>
-      {result === true && (
-        <>
-          <ActionButton
-            buttonTitle="saveStatistics"
-            disabled={disableSaveStatisticButton}
-            onButtonClick={onSaveStatisticsClick}
-          />
-          <ActionButton
-            buttonTitle="next-t"
-            onButtonClick={onNextButtonClick}
-          />
-        </>
-      )}
-      {userName && (
-        <StatisticsComponent userName={userName} statistics={statistics} />
-      )}
-    </>
+        {showContent === "Notes" && (
+          <section
+            aria-label="Select the correct note"
+            style={{
+              display: "flex",
+              gap: "20px",
+              flexWrap: "wrap",
+              maxWidth: "300px",
+              margin: "0 auto",
+              padding: "20px",
+              justifyContent: "center",
+            }}
+          >
+            {notes.map((note) => (
+              <SelectButton
+                checkAnswer={checkAnswer}
+                key={note}
+                answerText={note}
+                resetFocus={result === null}
+                disabled={result === true}
+                isCorrect={result === true && note === noteType}
+                aria-pressed={result === true && note === noteType}
+                aria-label={`Select note ${note.toUpperCase()}`}
+              />
+            ))}
+          </section>
+        )}
+        <section
+          aria-live="polite"
+          aria-atomic="true"
+          style={{
+            color: result ? "var(--success-color)" : "var(--wrong-color)",
+            fontSize: "32px",
+            margin: "20px auto 0 auto",
+          }}
+        >
+          {result != null && (
+            <span>{result ? t("good-answer") : t("wrong-answer")}</span>
+          )}
+        </section>
+        <CounterComponent
+          goodAnswersCounter={goodAnswers}
+          wrongAnswersCounter={wrongAnswers}
+        ></CounterComponent>
+        {result === true && (
+          <>
+            <ActionButton
+              buttonTitle="saveStatistics"
+              disabled={disableSaveStatisticButton}
+              onButtonClick={onSaveStatisticsClick}
+            />
+            <ActionButton
+              buttonTitle="next-t"
+              onButtonClick={onNextButtonClick}
+            />
+          </>
+        )}
+      </div>
+      <div className="statistics">
+        {userName && (
+          <StatisticsComponent userName={userName} statistics={statistics} />
+        )}
+      </div>
+    </NoteLearningStyled>
   );
 }
