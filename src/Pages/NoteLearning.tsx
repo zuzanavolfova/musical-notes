@@ -26,6 +26,8 @@ export default function NoteLearning({
   const [showContent, setContent] = useState<string | null>("Keyboard");
   const [goodAnswers, setGoodAnswers] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
+  const [disableSaveStatisticButton, setDisableSaveStatisticButton] =
+    useState<boolean>(false);
   const [statistics, setStatistics] = useState<Statistics[] | null>(null);
   const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
   const [noteType, setNoteType] = useState<string>(
@@ -46,7 +48,8 @@ export default function NoteLearning({
     }
   }
 
-  function changeNote() {
+  function onNextButtonClick() {
+    setDisableSaveStatisticButton(false);
     setResult(null);
     setNoteType(notes[getRandomPosition()]);
   }
@@ -70,7 +73,7 @@ export default function NoteLearning({
         wrongAnswers,
         timeStamp: new Date().toISOString(),
       };
-
+      setDisableSaveStatisticButton(true);
       await saveStatistics(statistic);
       await updateStatisticsUI();
     } else setUserManagementDialogOpen(true);
@@ -155,9 +158,13 @@ export default function NoteLearning({
         <>
           <ActionButton
             buttonTitle="saveStatistics"
+            disabled={disableSaveStatisticButton}
             onButtonClick={onSaveStatisticsClick}
           />
-          <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
+          <ActionButton
+            buttonTitle="next-t"
+            onButtonClick={onNextButtonClick}
+          />
         </>
       )}
       {userName && (
