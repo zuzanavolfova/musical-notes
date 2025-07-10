@@ -5,19 +5,42 @@ import { getStatistics } from "../scripts/services/statistics";
 
 import type { Statistics } from "../types/interfaces";
 
-const StatisticsStyled = styled.section``;
+const StatisticsStyled = styled.section`
+  .statistics {
+    &__item {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--bkg-medium);
+      margin: 20px auto;
+      width: 280px;
+      &__date {
+        padding: 4px 0;
+        background-color: var(--primary-color-hover);
+        box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+      }
+      &__details {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 12px;
+      }
+    }
+  }
+`;
+
 interface StatisticsProps {
   userName: string;
 }
 
 export default function StatisticsComponent({ userName }: StatisticsProps) {
   const { t } = useTranslation();
-  const [statistics, setStatistics] = useState<Statistics | null>(null);
+  const [statistics, setStatistics] = useState<Statistics[] | null>(null);
 
   useEffect(() => {
     async function fetchStatistics() {
       const data = await getStatistics(userName);
-      setStatistics(data);
+      if (data && data.statistics) {
+        setStatistics(data.statistics);
+      }
     }
 
     fetchStatistics();
@@ -25,8 +48,29 @@ export default function StatisticsComponent({ userName }: StatisticsProps) {
 
   return (
     <StatisticsStyled>
-      <h2>{userName}</h2>
-      {JSON.stringify(statistics)}
+      <h2>{t("statistics")}</h2>
+      <h3>
+        {t("student")} {userName}
+      </h3>
+      {statistics === null && <p>{t("noStatistics")}</p>}
+      {statistics &&
+        statistics.length > 0 &&
+        statistics.map((item, index) => (
+          <div className="statistics__item" key={index}>
+            <div className="statistics__item__date">
+              <span>{t("savedTime")} </span>
+              <span>{item.timeStamp ? item.timeStamp : ""}</span>
+            </div>
+            <div className="statistics__item__details">
+              <span>{t("amount-good-answers")} </span>
+              <span>{item.goodAnswers ? item.goodAnswers : 0}</span>
+            </div>
+            <div className="statistics__item__details">
+              <span>{t("amount-wrong-answers")} </span>
+              <span>{item.wrongAnswers ? item.wrongAnswers : 0}</span>
+            </div>
+          </div>
+        ))}
     </StatisticsStyled>
   );
 }
