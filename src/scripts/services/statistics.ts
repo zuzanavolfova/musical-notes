@@ -11,7 +11,7 @@ export async function saveStatistics({
 }): Promise<void> {
   try {
     const response = await fetch(
-      "https://musical-notes-backend.onrender.com/statistics",
+      "https://musical-notes-backend.onrender.com/save-statistics",
       {
         method: "POST",
         headers: {
