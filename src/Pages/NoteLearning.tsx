@@ -9,15 +9,16 @@ import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
 import CounterComponent from "../components/CounterComponent";
 
+import { saveStatistics } from "../scripts/services/statistics";
 import type { TabType } from "../types/types";
+import type { NoteLearningProps } from "../types/interfaces";
+import type { Statistics } from "../types/interfaces";
 
 export default function NoteLearning({
   isLogIn,
+  userName,
   setUserManagementDialogOpen,
-}: {
-  isLogIn?: boolean;
-  setUserManagementDialogOpen: (open: boolean) => void;
-}) {
+}: NoteLearningProps) {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Keyboard");
@@ -52,13 +53,16 @@ export default function NoteLearning({
     setContent(tab);
   }
 
-  function saveStatistics() {
+  function onSaveStatisticsClick() {
     if (isLogIn) {
-      const statistics = {
+      const statistics: Statistics = {
+        userName: userName || "",
         goodAnswers,
         wrongAnswers,
+        timeStamp: new Date().toISOString(),
       };
       console.log("Saving statistics:", statistics);
+      saveStatistics(statistics);
     } else setUserManagementDialogOpen(true);
   }
 
@@ -141,7 +145,7 @@ export default function NoteLearning({
         <>
           <ActionButton
             buttonTitle="saveStatistics"
-            onButtonClick={saveStatistics}
+            onButtonClick={onSaveStatisticsClick}
           />
           <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
         </>

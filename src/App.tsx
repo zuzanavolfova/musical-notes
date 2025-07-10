@@ -23,6 +23,7 @@ const MainContent = styled.main`
 export default function App() {
   const { t } = useTranslation();
   const [isLogIn, setIsLogIn] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
   const [logInDialogOpen, setIsLogInOpen] = useState(false);
   const [registerDialogOpen, setIsRegisterOpen] = useState(false);
   const [userManagementDialogOpen, setUserManagementDialogOpen] =
@@ -34,14 +35,17 @@ export default function App() {
         isLogIn={isLogIn}
         logInOpen={logInDialogOpen}
         registerDialogOpen={registerDialogOpen}
+        userName={userName}
         setIsLogIn={setIsLogIn}
         setIsLogInOpen={setIsLogInOpen}
         setIsRegisterOpen={setIsRegisterOpen}
+        setUserName={setUserName}
       />
       <MainContent>
         <NoteLearning
           isLogIn={isLogIn}
           setUserManagementDialogOpen={setUserManagementDialogOpen}
+          userName={userName}
         />
         {userManagementDialogOpen && (
           <Dialog

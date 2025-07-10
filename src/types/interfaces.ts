@@ -72,3 +72,16 @@ export interface UserManagementDialogProps {
   onClose: () => void;
   children?: React.ReactNode;
 }
+
+export interface NoteLearningProps {
+  isLogIn?: boolean;
+  userName?: string | null;
+  setUserManagementDialogOpen: (open: boolean) => void;
+}
+
+export interface Statistics {
+  userName: string;
+  goodAnswers: number;
+  wrongAnswers: number;
+  timeStamp: string;
+}
