@@ -10,6 +10,8 @@ import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
 import RegisterDialog from "./Dialogs/RegisterDialog";
 
+import type { HeaderProps } from "../types/interfaces";
+
 const Header = styled.header<{ $isLogged?: boolean }>`
   width: 100%;
   display: grid;
@@ -151,16 +153,6 @@ const Header = styled.header<{ $isLogged?: boolean }>`
     }
   }
 `;
-interface HeaderProps {
-  isLogIn: boolean;
-  logInOpen: boolean;
-  registerDialogOpen: boolean;
-  userName: string;
-  setIsLogIn: (isLogged: boolean) => void;
-  setIsLogInOpen: (isOpen: boolean) => void;
-  setIsRegisterOpen: (isOpen: boolean) => void;
-  setUserName: (name: string) => void;
-}
 
 export default function HeaderComponent({
   isLogIn,

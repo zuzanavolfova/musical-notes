@@ -38,6 +38,10 @@ export default function NoteLearning({
     return Math.floor(Math.random() * notes.length);
   }
 
+  function changeContent(tab: TabType) {
+    setContent(tab);
+  }
+
   function checkAnswer(data: string): void {
     if (data == noteType) {
       setGoodAnswers((prev) => prev + 1);
@@ -52,10 +56,6 @@ export default function NoteLearning({
     setDisableSaveStatisticButton(false);
     setResult(null);
     setNoteType(notes[getRandomPosition()]);
-  }
-
-  function changeContent(tab: TabType) {
-    setContent(tab);
   }
 
   async function updateStatisticsUI() {

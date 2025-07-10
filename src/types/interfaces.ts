@@ -85,3 +85,19 @@ export interface Statistics {
   wrongAnswers: number;
   timeStamp: string;
 }
+
+export interface StatisticsProps {
+  userName: string;
+  statistics: Statistics[] | null;
+}
+
+export interface HeaderProps {
+  isLogIn: boolean;
+  logInOpen: boolean;
+  registerDialogOpen: boolean;
+  userName: string;
+  setIsLogIn: (isLogged: boolean) => void;
+  setIsLogInOpen: (isOpen: boolean) => void;
+  setIsRegisterOpen: (isOpen: boolean) => void;
+  setUserName: (name: string) => void;
+}

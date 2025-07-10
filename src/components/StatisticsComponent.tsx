@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
-import type { Statistics } from "../types/interfaces";
+import type { StatisticsProps } from "../types/interfaces";
 
 const StatisticsStyled = styled.section`
   .statistics {
@@ -24,11 +24,6 @@ const StatisticsStyled = styled.section`
     }
   }
 `;
-
-interface StatisticsProps {
-  userName: string;
-  statistics: Statistics[] | null;
-}
 
 export default function StatisticsComponent({
   userName,
