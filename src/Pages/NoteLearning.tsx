@@ -10,7 +10,7 @@ import TabsComponent from "../components/TabsComponent";
 import CounterComponent from "../components/CounterComponent";
 import StatisticsComponent from "../components/StatisticsComponent";
 
-import { saveStatistics } from "../scripts/services/statistics";
+import { saveStatistics, getStatistics } from "../scripts/services/statistics";
 
 import type { TabType } from "../types/types";
 import type { NoteLearningProps } from "../types/interfaces";
@@ -26,7 +26,7 @@ export default function NoteLearning({
   const [showContent, setContent] = useState<string | null>("Keyboard");
   const [goodAnswers, setGoodAnswers] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
-
+  const [statistics, setStatistics] = useState<Statistics[] | null>(null);
   const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
   const [noteType, setNoteType] = useState<string>(
     () => notes[getRandomPosition()]
@@ -55,16 +55,24 @@ export default function NoteLearning({
     setContent(tab);
   }
 
-  function onSaveStatisticsClick() {
+  async function updateStatisticsUI() {
+    const data = await getStatistics(userName);
+    if (data && data.statistics) {
+      setStatistics(data.statistics);
+    }
+  }
+
+  async function onSaveStatisticsClick() {
     if (isLogIn) {
-      const statistics: Statistics = {
+      const statistic: Statistics = {
         userName: userName || "",
         goodAnswers,
         wrongAnswers,
         timeStamp: new Date().toISOString(),
       };
-      console.log("Saving statistics:", statistics);
-      saveStatistics(statistics);
+
+      await saveStatistics(statistic);
+      await updateStatisticsUI();
     } else setUserManagementDialogOpen(true);
   }
 
@@ -152,7 +160,9 @@ export default function NoteLearning({
           <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
         </>
       )}
-      {userName && <StatisticsComponent userName={userName} />}
+      {userName && (
+        <StatisticsComponent userName={userName} statistics={statistics} />
+      )}
     </>
   );
 }

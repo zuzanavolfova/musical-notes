@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { getStatistics } from "../scripts/services/statistics";
 
 import type { Statistics } from "../types/interfaces";
 
@@ -29,22 +27,14 @@ const StatisticsStyled = styled.section`
 
 interface StatisticsProps {
   userName: string;
+  statistics: Statistics[] | null;
 }
 
-export default function StatisticsComponent({ userName }: StatisticsProps) {
+export default function StatisticsComponent({
+  userName,
+  statistics,
+}: StatisticsProps) {
   const { t } = useTranslation();
-  const [statistics, setStatistics] = useState<Statistics[] | null>(null);
-
-  useEffect(() => {
-    async function fetchStatistics() {
-      const data = await getStatistics(userName);
-      if (data && data.statistics) {
-        setStatistics(data.statistics);
-      }
-    }
-
-    fetchStatistics();
-  }, [userName]);
 
   return (
     <StatisticsStyled>
