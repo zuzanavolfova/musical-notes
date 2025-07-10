@@ -11,6 +11,7 @@ import CounterComponent from "../components/CounterComponent";
 import StatisticsComponent from "../components/StatisticsComponent";
 
 import { saveStatistics, getStatistics } from "../scripts/services/statistics";
+import { formatDataStatistics } from "../scripts/statistics";
 
 import type { TabType } from "../types/types";
 import type { NoteLearningProps } from "../types/interfaces";
@@ -61,7 +62,7 @@ export default function NoteLearning({
   async function updateStatisticsUI() {
     const data = await getStatistics(userName);
     if (data && data.statistics) {
-      setStatistics(data.statistics);
+      setStatistics(formatDataStatistics(data.statistics));
     }
   }
 
