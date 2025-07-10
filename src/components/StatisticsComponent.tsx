@@ -61,11 +61,27 @@ export default function StatisticsComponent({ userName }: StatisticsProps) {
               <span>{t("savedTime")} </span>
               <span>{item.timeStamp ? item.timeStamp : ""}</span>
             </div>
-            <div className="statistics__item__details">
+            <div
+              className="statistics__item__details"
+              style={{
+                color:
+                  item.goodAnswers > item.wrongAnswers
+                    ? "var(--success-color)"
+                    : "var(--text-dark-grey)",
+              }}
+            >
               <span>{t("amount-good-answers")} </span>
               <span>{item.goodAnswers ? item.goodAnswers : 0}</span>
             </div>
-            <div className="statistics__item__details">
+            <div
+              className="statistics__item__details"
+              style={{
+                color:
+                  item.goodAnswers < item.wrongAnswers
+                    ? "var(--wrong-color)"
+                    : "var(--text-dark-grey)",
+              }}
+            >
               <span>{t("amount-wrong-answers")} </span>
               <span>{item.wrongAnswers ? item.wrongAnswers : 0}</span>
             </div>
