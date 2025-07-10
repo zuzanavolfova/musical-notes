@@ -21,5 +21,9 @@
   "userNamesExists": "User name already exists.",
   "InvalidUsernameOrPassword": "Invalid user name or password!",
   "saveStatistics": "Save statistics",
-  "LogIn/RegisterToSaveStatistics": "Log in or register to save your statistics."
+  "LogIn/RegisterToSaveStatistics": "Log in or register to save your statistics.",
+  "savedTime": "Time saved: ",
+  "statistics": "Statistics",
+  "noStatistics": "No statistics saved.",
+  "student": "Student: "
 }

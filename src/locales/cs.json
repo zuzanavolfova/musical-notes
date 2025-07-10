@@ -21,5 +21,9 @@
   "userNamesExists": "Uživatelské jméno již existuje.",
   "InvalidUsernameOrPassword": "Neplatné uživatelské jméno nebo heslo!",
   "saveStatistics": "Uložit statistiky",
-  "LogIn/RegisterToSaveStatistics": "Přihlaste se nebo zaregistrujte, abyste mohli ukládat své statistiky."
+  "LogIn/RegisterToSaveStatistics": "Přihlaste se nebo zaregistrujte, abyste mohli ukládat své statistiky.",
+  "savedTime": "Uloženo:",
+  "statistics": "Statistiky",
+  "noStatistics": "Nejsou uloženy žádné statistiky.",
+  "student": "Student: "
 }
