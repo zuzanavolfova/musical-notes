@@ -30,7 +30,7 @@ export interface PianoProps {
   disabled?: boolean;
 }
 
-export interface TabsComponentProps {
+export interface TabsComponentProps extends React.HTMLAttributes<HTMLDivElement>{
   setContent: (tab: TabType) => void;
 }
 
