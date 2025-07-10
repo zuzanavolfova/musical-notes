@@ -4,7 +4,7 @@ import type { TabType } from "./types";
 export interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonTitle: string;
-  onButtonClick?: () => void | null;
+  onButtonClick?: () => void | null | Promise<void>;
   ariaLabel?: string;
 }
 
@@ -75,7 +75,7 @@ export interface UserManagementDialogProps {
 
 export interface NoteLearningProps {
   isLogIn?: boolean;
-  userName?: string | null;
+  userName: string;
   setUserManagementDialogOpen: (open: boolean) => void;
 }
 
@@ -84,4 +84,20 @@ export interface Statistics {
   goodAnswers: number;
   wrongAnswers: number;
   timeStamp: string;
+}
+
+export interface StatisticsProps {
+  userName: string;
+  statistics: Statistics[] | null;
+}
+
+export interface HeaderProps {
+  isLogIn: boolean;
+  logInOpen: boolean;
+  registerDialogOpen: boolean;
+  userName: string;
+  setIsLogIn: (isLogged: boolean) => void;
+  setIsLogInOpen: (isOpen: boolean) => void;
+  setIsRegisterOpen: (isOpen: boolean) => void;
+  setUserName: (name: string) => void;
 }

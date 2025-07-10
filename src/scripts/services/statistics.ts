@@ -33,3 +33,20 @@ export async function saveStatistics({
     console.error("Error saving statistics:", error);
   }
 }
+
+export async function getStatistics(userName: string): Promise<any> {
+  try {
+    const response = await fetch(
+      `https://musical-notes-backend.onrender.com/get-statistics?userName=${userName}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch statistics");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching statistics:", error);
+    return null;
+  }
+}
