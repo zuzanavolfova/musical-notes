@@ -8,16 +8,28 @@ import ActionButton from "../components/Buttons/ActionButton";
 import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
 import CounterComponent from "../components/CounterComponent";
+import StatisticsComponent from "../components/StatisticsComponent";
+
+import { saveStatistics, getStatistics } from "../scripts/services/statistics";
+import { formatDataStatistics } from "../scripts/statistics";
 
 import type { TabType } from "../types/types";
+import type { NoteLearningProps } from "../types/interfaces";
+import type { Statistics } from "../types/interfaces";
 
-export default function NoteLearning() {
+export default function NoteLearning({
+  isLogIn,
+  userName,
+  setUserManagementDialogOpen,
+}: NoteLearningProps) {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Keyboard");
   const [goodAnswers, setGoodAnswers] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
-
+  const [disableSaveStatisticButton, setDisableSaveStatisticButton] =
+    useState<boolean>(false);
+  const [statistics, setStatistics] = useState<Statistics[] | null>(null);
   const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
   const [noteType, setNoteType] = useState<string>(
     () => notes[getRandomPosition()]
@@ -25,6 +37,10 @@ export default function NoteLearning() {
 
   function getRandomPosition(): number {
     return Math.floor(Math.random() * notes.length);
+  }
+
+  function changeContent(tab: TabType) {
+    setContent(tab);
   }
 
   function checkAnswer(data: string): void {
@@ -37,13 +53,31 @@ export default function NoteLearning() {
     }
   }
 
-  function changeNote() {
+  function onNextButtonClick() {
+    setDisableSaveStatisticButton(false);
     setResult(null);
     setNoteType(notes[getRandomPosition()]);
   }
 
-  function changeContent(tab: TabType) {
-    setContent(tab);
+  async function updateStatisticsUI() {
+    const data = await getStatistics(userName);
+    if (data && data.statistics) {
+      setStatistics(formatDataStatistics(data.statistics));
+    }
+  }
+
+  async function onSaveStatisticsClick() {
+    if (isLogIn) {
+      const statistic: Statistics = {
+        userName: userName || "",
+        goodAnswers,
+        wrongAnswers,
+        timeStamp: new Date().toISOString(),
+      };
+      setDisableSaveStatisticButton(true);
+      await saveStatistics(statistic);
+      await updateStatisticsUI();
+    } else setUserManagementDialogOpen(true);
   }
 
   return (
@@ -122,7 +156,20 @@ export default function NoteLearning() {
         wrongAnswersCounter={wrongAnswers}
       ></CounterComponent>
       {result === true && (
-        <ActionButton buttonTitle="next-t" onButtonClick={changeNote} />
+        <>
+          <ActionButton
+            buttonTitle="saveStatistics"
+            disabled={disableSaveStatisticButton}
+            onButtonClick={onSaveStatisticsClick}
+          />
+          <ActionButton
+            buttonTitle="next-t"
+            onButtonClick={onNextButtonClick}
+          />
+        </>
+      )}
+      {userName && (
+        <StatisticsComponent userName={userName} statistics={statistics} />
       )}
     </>
   );

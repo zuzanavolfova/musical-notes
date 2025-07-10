@@ -10,6 +10,8 @@ import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
 import RegisterDialog from "./Dialogs/RegisterDialog";
 
+import type { HeaderProps } from "../types/interfaces";
+
 const Header = styled.header<{ $isLogged?: boolean }>`
   width: 100%;
   display: grid;
@@ -152,27 +154,32 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   }
 `;
 
-export default function HeaderComponent() {
+export default function HeaderComponent({
+  isLogIn,
+  logInOpen,
+  registerDialogOpen,
+  userName,
+  setIsLogIn,
+  setIsLogInOpen,
+  setIsRegisterOpen,
+  setUserName,
+}: HeaderProps) {
   const { t, i18n } = useTranslation();
-  const [isLogged, setIsLogged] = useState(false);
-  const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
-  const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
-  const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
   const userItems = [
     {
-      title: isLogged ? userName : t("noUser"),
+      title: isLogIn && userName ? userName : t("noUser"),
       id: 0,
       disabled: true,
     },
     {
-      title: isLogged ? "logOut" : "logIn",
+      title: isLogIn ? "logOut" : "logIn",
       id: 1,
       onClick: () => {
-        if (!isLogged) setIsLogInDialogOpen(true);
+        if (!isLogIn) setIsLogInOpen(true);
         else logOut();
       },
     },
@@ -180,7 +187,7 @@ export default function HeaderComponent() {
       title: t("newRegister"),
       id: 2,
       onClick: () => {
-        setIsRegisterDialogOpen(true);
+        setIsRegisterOpen(true);
       },
     },
   ];
@@ -203,21 +210,18 @@ export default function HeaderComponent() {
   };
 
   const onLogInClick = (user: string) => {
-    setIsLogged(true);
+    setIsLogIn(true);
     setUserName(user);
-    setIsLogInDialogOpen(false);
+    setIsLogInOpen(false);
   };
 
   const logOut = () => {
-    setIsLogged(false);
+    setIsLogIn(false);
+    setUserName("");
   };
 
   return (
-    <Header
-      role="banner"
-      aria-label="Musical Notes header"
-      $isLogged={isLogged}
-    >
+    <Header role="banner" aria-label="Musical Notes header" $isLogged={isLogIn}>
       <img
         className="clef-logo"
         src={clefLogo}
@@ -229,9 +233,6 @@ export default function HeaderComponent() {
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() =>
-            !isLogged ? setIsLogInDialogOpen(true) : logOut()
-          }
           className="user-component"
         />
         <DropdownComponent
@@ -241,10 +242,10 @@ export default function HeaderComponent() {
           className="locale-component"
         />
       </div>
-      {logInDialogOpen && (
+      {logInOpen && (
         <Dialog
           dialogTitle={t("logIn")}
-          handleClose={() => setIsLogInDialogOpen(false)}
+          handleClose={() => setIsLogInOpen(false)}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
         </Dialog>
@@ -252,9 +253,9 @@ export default function HeaderComponent() {
       {registerDialogOpen && (
         <Dialog
           dialogTitle={t("newRegister")}
-          handleClose={() => setIsRegisterDialogOpen(false)}
+          handleClose={() => setIsRegisterOpen(false)}
         >
-          <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
+          <RegisterDialog onClose={() => setIsRegisterOpen(false)} />
         </Dialog>
       )}
     </Header>
