@@ -155,11 +155,11 @@ interface HeaderProps {
   isLogIn: boolean;
   logInOpen: boolean;
   registerDialogOpen: boolean;
-  userName: string | null;
+  userName: string;
   setIsLogIn: (isLogged: boolean) => void;
   setIsLogInOpen: (isOpen: boolean) => void;
   setIsRegisterOpen: (isOpen: boolean) => void;
-  setUserName: (name: string | null) => void;
+  setUserName: (name: string) => void;
 }
 
 export default function HeaderComponent({

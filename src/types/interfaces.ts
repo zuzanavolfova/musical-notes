@@ -75,7 +75,7 @@ export interface UserManagementDialogProps {
 
 export interface NoteLearningProps {
   isLogIn?: boolean;
-  userName?: string | null;
+  userName: string;
   setUserManagementDialogOpen: (open: boolean) => void;
 }
 

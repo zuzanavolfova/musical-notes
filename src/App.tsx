@@ -23,7 +23,7 @@ const MainContent = styled.main`
 export default function App() {
   const { t } = useTranslation();
   const [isLogIn, setIsLogIn] = useState(false);
-  const [userName, setUserName] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>("");
   const [logInDialogOpen, setIsLogInOpen] = useState(false);
   const [registerDialogOpen, setIsRegisterOpen] = useState(false);
   const [userManagementDialogOpen, setUserManagementDialogOpen] =
