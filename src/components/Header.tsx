@@ -155,28 +155,31 @@ interface HeaderProps {
   isLogIn: boolean;
   logInOpen: boolean;
   registerDialogOpen: boolean;
+  userName: string | null;
   setIsLogIn: (isLogged: boolean) => void;
   setIsLogInOpen: (isOpen: boolean) => void;
   setIsRegisterOpen: (isOpen: boolean) => void;
+  setUserName: (name: string | null) => void;
 }
 
 export default function HeaderComponent({
   isLogIn,
   logInOpen,
   registerDialogOpen,
+  userName,
   setIsLogIn,
   setIsLogInOpen,
   setIsRegisterOpen,
+  setUserName,
 }: HeaderProps) {
   const { t, i18n } = useTranslation();
-  const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
   const userItems = [
     {
-      title: isLogIn ? userName : t("noUser"),
+      title: isLogIn && userName ? userName : t("noUser"),
       id: 0,
       disabled: true,
     },
@@ -238,7 +241,6 @@ export default function HeaderComponent({
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() => (!isLogIn ? setIsLogInOpen(true) : logOut())}
           className="user-component"
         />
         <DropdownComponent
