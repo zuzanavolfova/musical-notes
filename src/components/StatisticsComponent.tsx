@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { getStatistics } from "../scripts/services/statistics";
@@ -6,8 +6,11 @@ import { getStatistics } from "../scripts/services/statistics";
 import type { Statistics } from "../types/interfaces";
 
 const StatisticsStyled = styled.section``;
+interface StatisticsProps {
+  userName: string | null;
+}
 
-export default function Statistics() {
+export default function StatisticsComponent({ userName }: StatisticsProps) {
   const { t } = useTranslation();
   const [statistics, setStatistics] = useState<Statistics | null>(null);
 
@@ -20,5 +23,10 @@ export default function Statistics() {
     fetchStatistics();
   }, []);
 
-  return <StatisticsStyled>{JSON.stringify(statistics)}</StatisticsStyled>;
+  return (
+    <StatisticsStyled>
+      <h2>{userName}</h2>
+      {JSON.stringify(statistics)}
+    </StatisticsStyled>
+  );
 }
