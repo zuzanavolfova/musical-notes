@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 
@@ -93,6 +93,9 @@ export default function NoteLearning({
       setStatistics(formatDataStatistics(data.statistics));
     }
   }
+  useEffect(() => {
+    updateStatisticsUI();
+  }, [userName]);
 
   async function onSaveStatisticsClick() {
     if (isLogIn) {
