@@ -203,7 +203,7 @@ export default function HeaderComponent({
     localeItems.find((item) => item.id === lng)?.title || "CS";
 
   const [locale, setLocale] = useState(() => getLocaleTitle(i18n.language));
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     setLocale(getLocaleTitle(i18n.language));
   }, [i18n.language]);
@@ -225,6 +225,20 @@ export default function HeaderComponent({
   const logOut = () => {
     setIsLogIn(false);
     setUserName("");
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getDialogSize = () => {
+    if (windowWidth < 480) return "S";
+    if (windowWidth > 480) return "M";
   };
 
   return (
@@ -252,6 +266,7 @@ export default function HeaderComponent({
       {logInOpen && (
         <Dialog
           dialogTitle={t("logIn")}
+          size={getDialogSize()}
           handleClose={() => setIsLogInOpen(false)}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
@@ -260,6 +275,7 @@ export default function HeaderComponent({
       {registerDialogOpen && (
         <Dialog
           dialogTitle={t("newRegister")}
+          size={getDialogSize()}
           handleClose={() => setIsRegisterOpen(false)}
         >
           <RegisterDialog onClose={() => setIsRegisterOpen(false)} />
