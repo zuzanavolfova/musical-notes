@@ -13,7 +13,7 @@ import RegisterDialog from "./Dialogs/RegisterDialog";
 import type { HeaderProps } from "../types/interfaces";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
-  width: 100%;
+ 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
