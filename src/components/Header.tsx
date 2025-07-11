@@ -157,6 +157,7 @@ export default function HeaderComponent() {
   const [isLogged, setIsLogged] = useState(false);
   const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
   const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
@@ -212,6 +213,20 @@ export default function HeaderComponent() {
     setIsLogged(false);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getDialogSize = () => {
+    if (windowWidth < 480) return "S";
+    if (windowWidth > 480) return "M";
+    return "L";
+  };
   return (
     <Header
       role="banner"
@@ -244,6 +259,7 @@ export default function HeaderComponent() {
       {logInDialogOpen && (
         <Dialog
           dialogTitle={t("logIn")}
+          size={getDialogSize()}
           handleClose={() => setIsLogInDialogOpen(false)}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
@@ -252,6 +268,7 @@ export default function HeaderComponent() {
       {registerDialogOpen && (
         <Dialog
           dialogTitle={t("newRegister")}
+          size={getDialogSize()}
           handleClose={() => setIsRegisterDialogOpen(false)}
         >
           <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
