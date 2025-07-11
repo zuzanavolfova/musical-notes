@@ -18,15 +18,12 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   gap: 6px;
   padding: 6px 8px;
   position: relative;
-
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
-
   @media screen and (min-width: 800px) {
     gap: 40px;
   }
-
   & h1 {
     grid-column: 2 / 3;
     justify-self: center;
@@ -40,10 +37,8 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       font-size: 42px;
     }
   }
-
   .clef-logo {
     display: none;
-
     @media screen and (min-width: 550px) {
       display: block;
       position: absolute;
@@ -74,7 +69,6 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         color: ${({ $isLogged }) =>
           $isLogged ? "white" : "var(--secondary-color)"};
       }
-
       &:not(:disabled):hover {
         background-color: var(--primary-color);
         color: white;
@@ -83,7 +77,6 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         cursor: default;
         border: 2px solid transparent !important;
         background-color: white !important;
-
         &:focus,
         &:active {
           background-color: white !important;
@@ -91,7 +84,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
           box-shadow: none;
         }
       }
-      */ &:focus,
+      &:focus,
       &:active {
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
@@ -114,11 +107,9 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       }
     }
   }
-
   .locale-component {
     margin: 0;
     min-width: fit-content;
-
     & button {
       background-color: white;
       box-shadow: none;
@@ -126,16 +117,13 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       padding: 4px 4px;
       min-width: 30px;
       transition: all 0.3s ease-in-out;
-
       @media (prefers-color-scheme: dark) {
         color: var(--secondary-color);
       }
-
       &:hover {
         background-color: var(--primary-color);
         color: white;
       }
-
       &:focus,
       &:active {
         background-color: var(--primary-color);
@@ -143,7 +131,6 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         box-shadow: none;
         color: white;
       }
-
       &.dropdown__item {
         border: none;
         padding: 8px;

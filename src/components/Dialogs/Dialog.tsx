@@ -41,7 +41,6 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
     `
     width: 600px;
     min-height: 180px`};
-
   .dialog {
     &__header {
       margin: 0;
