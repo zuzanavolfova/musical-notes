@@ -64,6 +64,12 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   }
   .user-component {
     margin: 0;
+    & .dropdown__menu {
+      left: -20px;
+      @media screen and (min-width: 550px) {
+        left: 0;
+      }
+    }
     & button {
       background-color: white;
       box-shadow: none;
@@ -93,7 +99,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
           box-shadow: none;
         }
       }
-      */ &:focus,
+      &:focus,
       &:active {
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
@@ -109,6 +115,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
           box-shadow: none;
         }
       }
+
       &.dropdown__item {
         border: none;
         border-radius: 0;
