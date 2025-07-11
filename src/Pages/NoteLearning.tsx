@@ -94,7 +94,9 @@ export default function NoteLearning({
     }
   }
   useEffect(() => {
-    updateStatisticsUI();
+    if (isLogIn) {
+      updateStatisticsUI();
+    }
   }, [userName]);
 
   async function onSaveStatisticsClick() {
