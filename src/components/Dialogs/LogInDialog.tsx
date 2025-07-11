@@ -11,20 +11,31 @@ const StyledLogInDialog = styled.form`
   margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: end;
-  gap: 12px;
+  align-items: center;
+  @media screen and (min-width: 550px) {
+    gap: 12px;
+    align-items: end;
+  }
+
   .login__field {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    @media screen and (min-width: 550px) {
+      flex-direction: row;
+      gap: 10px;
+    }
   }
   .login__label {
     margin-right: 6px;
-    text-align: right;
+    @media screen and (min-width: 550px) {
+      text-align: right;
+    }
   }
   .login__input {
     padding: 8px;
     border: 3px solid var(--text-medium-grey);
     border-radius: 4px;
+    max-width: 170px;
   }
   .login__input:focus {
     border: 3px solid var(--primary-color-hover);
@@ -62,7 +73,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
 
   return (
     <StyledLogInDialog onSubmit={logIn}>
-      <div className="login">
+      <div className="login__field">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
         </label>
