@@ -19,14 +19,12 @@ import type { NoteLearningProps } from "../types/interfaces";
 import type { Statistics } from "../types/interfaces";
 
 const NoteLearningStyled = styled.div`
-  display: grid;
-  grid-template-columns: minmax(300px, 600px) 1fr minmax(300px, 600px);
-  grid-template-rows: 80px auto;
-  grid-template-areas:
-    "tabs tabs tabs"
-    "content content content"
-    "statistics statistics statistics";
+  display: flex;
+  flex-direction: column;
   @media screen and (min-width: 960px) {
+    display: grid;
+    grid-template-columns: minmax(300px, 600px) 1fr minmax(300px, 600px);
+    grid-template-rows: 80px auto;
     grid-template-areas:
       "clef tabs statistics"
       "clef content statistics";
