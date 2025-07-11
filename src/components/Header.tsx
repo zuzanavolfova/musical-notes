@@ -10,6 +10,8 @@ import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
 import RegisterDialog from "./Dialogs/RegisterDialog";
 
+import type { HeaderProps } from "../types/interfaces";
+
 const Header = styled.header<{ $isLogged?: boolean }>`
   width: 100%;
   display: grid;
@@ -18,12 +20,15 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   gap: 6px;
   padding: 6px 8px;
   position: relative;
+
   @media screen and (min-width: 480px) {
     padding: 16px 18px;
   }
+
   @media screen and (min-width: 800px) {
     gap: 40px;
   }
+
   & h1 {
     grid-column: 2 / 3;
     justify-self: center;
@@ -37,8 +42,10 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       font-size: 42px;
     }
   }
+
   .clef-logo {
     display: none;
+
     @media screen and (min-width: 550px) {
       display: block;
       position: absolute;
@@ -57,8 +64,8 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   }
   .user-component {
     margin: 0;
-    .dropdown__menu {
-      left: -34px;
+    & .dropdown__menu {
+      left: -20px;
       @media screen and (min-width: 550px) {
         left: 0;
       }
@@ -75,6 +82,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         color: ${({ $isLogged }) =>
           $isLogged ? "white" : "var(--secondary-color)"};
       }
+
       &:not(:disabled):hover {
         background-color: var(--primary-color);
         color: white;
@@ -83,6 +91,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         cursor: default;
         border: 2px solid transparent !important;
         background-color: white !important;
+
         &:focus,
         &:active {
           background-color: white !important;
@@ -106,6 +115,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
           box-shadow: none;
         }
       }
+
       &.dropdown__item {
         border: none;
         border-radius: 0;
@@ -113,9 +123,11 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       }
     }
   }
+
   .locale-component {
     margin: 0;
     min-width: fit-content;
+
     & button {
       background-color: white;
       box-shadow: none;
@@ -123,13 +135,16 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       padding: 4px 4px;
       min-width: 30px;
       transition: all 0.3s ease-in-out;
+
       @media (prefers-color-scheme: dark) {
         color: var(--secondary-color);
       }
+
       &:hover {
         background-color: var(--primary-color);
         color: white;
       }
+
       &:focus,
       &:active {
         background-color: var(--primary-color);
@@ -137,6 +152,7 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         box-shadow: none;
         color: white;
       }
+
       &.dropdown__item {
         border: none;
         padding: 8px;
@@ -145,28 +161,32 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   }
 `;
 
-export default function HeaderComponent() {
+export default function HeaderComponent({
+  isLogIn,
+  logInOpen,
+  registerDialogOpen,
+  userName,
+  setIsLogIn,
+  setIsLogInOpen,
+  setIsRegisterOpen,
+  setUserName,
+}: HeaderProps) {
   const { t, i18n } = useTranslation();
-  const [isLogged, setIsLogged] = useState(false);
-  const [logInDialogOpen, setIsLogInDialogOpen] = useState(false);
-  const [registerDialogOpen, setIsRegisterDialogOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [userName, setUserName] = useState("");
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
   const userItems = [
     {
-      title: isLogged ? userName : t("noUser"),
+      title: isLogIn && userName ? userName : t("noUser"),
       id: 0,
       disabled: true,
     },
     {
-      title: isLogged ? "logOut" : "logIn",
+      title: isLogIn ? "logOut" : "logIn",
       id: 1,
       onClick: () => {
-        if (!isLogged) setIsLogInDialogOpen(true);
+        if (!isLogIn) setIsLogInOpen(true);
         else logOut();
       },
     },
@@ -174,7 +194,7 @@ export default function HeaderComponent() {
       title: t("newRegister"),
       id: 2,
       onClick: () => {
-        setIsRegisterDialogOpen(true);
+        setIsRegisterOpen(true);
       },
     },
   ];
@@ -197,34 +217,18 @@ export default function HeaderComponent() {
   };
 
   const onLogInClick = (user: string) => {
-    setIsLogged(true);
+    setIsLogIn(true);
     setUserName(user);
-    setIsLogInDialogOpen(false);
+    setIsLogInOpen(false);
   };
 
   const logOut = () => {
-    setIsLogged(false);
+    setIsLogIn(false);
+    setUserName("");
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const getDialogSize = () => {
-    if (windowWidth < 480) return "S";
-    if (windowWidth > 480) return "M";
-  };
   return (
-    <Header
-      role="banner"
-      aria-label="Musical Notes header"
-      $isLogged={isLogged}
-    >
+    <Header role="banner" aria-label="Musical Notes header" $isLogged={isLogIn}>
       <img
         className="clef-logo"
         src={clefLogo}
@@ -236,9 +240,6 @@ export default function HeaderComponent() {
         <DropdownComponent
           buttonIcon={userIcon}
           items={userItems}
-          onItemSelect={() =>
-            !isLogged ? setIsLogInDialogOpen(true) : logOut()
-          }
           className="user-component"
         />
         <DropdownComponent
@@ -248,11 +249,10 @@ export default function HeaderComponent() {
           className="locale-component"
         />
       </div>
-      {logInDialogOpen && (
+      {logInOpen && (
         <Dialog
           dialogTitle={t("logIn")}
-          size={getDialogSize()}
-          handleClose={() => setIsLogInDialogOpen(false)}
+          handleClose={() => setIsLogInOpen(false)}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
         </Dialog>
@@ -260,10 +260,9 @@ export default function HeaderComponent() {
       {registerDialogOpen && (
         <Dialog
           dialogTitle={t("newRegister")}
-          size={getDialogSize()}
-          handleClose={() => setIsRegisterDialogOpen(false)}
+          handleClose={() => setIsRegisterOpen(false)}
         >
-          <RegisterDialog onClose={() => setIsRegisterDialogOpen(false)} />
+          <RegisterDialog onClose={() => setIsRegisterOpen(false)} />
         </Dialog>
       )}
     </Header>
