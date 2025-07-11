@@ -16,7 +16,10 @@ const TabsContainerStyled = styled.div`
   flex-wrap: wrap;
 `;
 
-export default function TabsComponent({ setContent }: TabsComponentProps) {
+export default function TabsComponent({
+  setContent,
+  ...props
+}: TabsComponentProps) {
   const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState<TabType>("Keyboard");
 
@@ -25,7 +28,7 @@ export default function TabsComponent({ setContent }: TabsComponentProps) {
     setContent(value);
   }
   return (
-    <TabsContainerStyled>
+    <TabsContainerStyled {...props}>
       <TabButton
         isSelected={selectedTab === "Keyboard"}
         onClick={() => handleOnTabClick("Keyboard")}
