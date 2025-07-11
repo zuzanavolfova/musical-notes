@@ -37,7 +37,7 @@ export default function StatisticsComponent({
       <h3>
         {t("student")} {userName}
       </h3>
-      {statistics === null && <p>{t("noStatistics")}</p>}
+      {statistics?.length === 0 && <p>{t("noStatistics")}</p>}
       {statistics &&
         statistics.length > 0 &&
         statistics.map((item, index) => (
