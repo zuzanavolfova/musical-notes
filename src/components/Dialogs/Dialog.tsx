@@ -103,10 +103,10 @@ export default function Dialog({
           style={{
             position: "absolute",
             right: 4,
-            top: 0,
+            top: 4,
             background: "none",
             border: "none",
-            fontSize: 36,
+            fontSize: 28,
             fontWeight: "normal",
             cursor: "pointer",
             color: "inherit",
