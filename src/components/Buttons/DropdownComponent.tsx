@@ -113,7 +113,7 @@ export default function DropdownComponent({
         {buttonTitle ? t(buttonTitle) : ""}
       </DropdownButton>
       {isOpen && (
-        <DropdownMenu role="listbox">
+        <DropdownMenu role="listbox" className="dropdown__menu">
           {items.map((item) => (
             <DropdownItem
               key={item.id ?? item.title}

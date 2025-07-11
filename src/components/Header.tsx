@@ -57,6 +57,12 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   }
   .user-component {
     margin: 0;
+    .dropdown__menu {
+      left: -34px;
+      @media screen and (min-width: 550px) {
+        left: 0;
+      }
+    }
     & button {
       background-color: white;
       box-shadow: none;
@@ -212,7 +218,6 @@ export default function HeaderComponent() {
   const getDialogSize = () => {
     if (windowWidth < 480) return "S";
     if (windowWidth > 480) return "M";
-    return "L";
   };
   return (
     <Header
