@@ -12,22 +12,31 @@ const StyledRegisterDialog = styled.form`
   margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: end;
-  gap: 12px;
-  .login__field {
+  align-items: center;
+  @media screen and (min-width: 550px) {
+    align-items: end;
+    gap: 12px;
+  }
+  .register__field {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    @media screen and (min-width: 550px) {
+      flex-direction: row;
+      gap: 10px;
+    }
   }
-  .login__label {
+  .register__label {
     margin-right: 6px;
-    text-align: right;
+    @media screen and (min-width: 550px) {
+      text-align: right;
+    }
   }
-  .login__input {
+  .register__input {
     padding: 8px;
     border: 3px solid var(--text-medium-grey);
     border-radius: 4px;
   }
-  .login__input:focus {
+  .register__input:focus {
     border: 3px solid var(--primary-color-hover);
     outline: none;
     background: #fff;
@@ -85,13 +94,13 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
       role="form"
       aria-labelledby="register-title"
     >
-      <div className="login">
-        <label className="login__label" htmlFor="username">
+      <div className="register__field">
+        <label className="register__label" htmlFor="username">
           {t("Username")}:
         </label>
         <input
           ref={userName}
-          className="login__input"
+          className="register__input"
           id="username"
           type="text"
           name="username"
@@ -101,13 +110,13 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
           onFocus={() => setValidUserName(true)}
         />
       </div>
-      <div className="login__field">
-        <label className="login__label" htmlFor="password1">
+      <div className="register__field">
+        <label className="register__label" htmlFor="password1">
           {t("Password")}:
         </label>
         <input
           ref={password}
-          className="login__input"
+          className="register__input"
           id="password1"
           type="password"
           name="password"
@@ -121,13 +130,13 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
           onFocus={() => setValidPassword(true)}
         />
       </div>
-      <div className="login__field">
+      <div className="register__field">
         <label className="login__label" htmlFor="repeatePassword">
           {t("repeatePassword")}:
         </label>
         <input
           ref={repeatPassword}
-          className="login__input"
+          className="register__input"
           id="repeatePassword"
           type="password"
           name="password"
