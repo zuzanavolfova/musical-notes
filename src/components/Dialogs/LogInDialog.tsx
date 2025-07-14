@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -58,6 +58,12 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   const [loginIsValid, setLoginIsValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (userNameRef.current) {
+      userNameRef.current.focus();
+    }
+  }, []);
+
   async function logIn(event: React.FormEvent) {
     event.preventDefault();
 
@@ -76,17 +82,30 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
         onLogInClick(username);
       } else {
         setLoginIsValid(false);
+        if (userNameRef.current) {
+          userNameRef.current.focus();
+          userNameRef.current.select();
+        }
       }
     } catch (error) {
       console.error("Login failed:", error);
       setLoginIsValid(false);
+      if (userNameRef.current) {
+        userNameRef.current.focus();
+        userNameRef.current.select();
+      }
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <StyledLogInDialog onSubmit={logIn}>
+    <StyledLogInDialog
+      onSubmit={logIn}
+      role="form"
+      aria-labelledby="login-title"
+      aria-describedby="login-description"
+    >
       {isLoading && <LoadingDialog />}
       <div className="login__field">
         <label className="login__label" htmlFor="username">
@@ -100,6 +119,10 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           name="username"
           required
           placeholder={t("Username")}
+          aria-invalid={!loginIsValid}
+          autoComplete="username"
+          autoCapitalize="none"
+          autoCorrect="off"
         />
       </div>
       <div className="login__field">
@@ -114,10 +137,16 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           name="password"
           required
           placeholder={t("Password")}
+          aria-invalid={!loginIsValid}
+          autoComplete="current-password"
         />
       </div>
       {!loginIsValid && (
-        <span style={{ color: "var(--wrong-color)" }}>
+        <span
+          style={{ color: "var(--wrong-color)" }}
+          role="alert"
+          aria-live="polite"
+        >
           {t("InvalidUsernameOrPassword")}
         </span>
       )}
