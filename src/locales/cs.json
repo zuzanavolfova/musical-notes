@@ -29,5 +29,6 @@
   "loading": "Načítám",
   "pleaseWait": "Prosím čekejte",
   "pleaseWaitLoadingLongText": "Prosím čekejte. Dialog se automaticky zavře po dokončení akce.",
-  "logInOptions": "Možnosti přihlášení"
+  "logInOptions": "Možnosti přihlášení",
+  "userManagement": "Správa uživatele"
 }
