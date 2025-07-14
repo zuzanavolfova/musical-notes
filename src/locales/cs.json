@@ -27,5 +27,6 @@
   "noStatistics": "Nejsou uloženy žádné statistiky.",
   "student": "Student: ",
   "loading": "Načítám",
-  "pleaseWait": "Prosím čekejte"
+  "pleaseWait": "Prosím čekejte",
+  "pleaseWaitLoadingLongText": "Prosím čekejte. Dialog se automaticky zavře po dokončení akce."
 }

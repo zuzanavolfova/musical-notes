@@ -27,5 +27,6 @@
   "noStatistics": "No statistics saved.",
   "student": "Student: ",
   "loading": "Loading",
-  "pleaseWait": "Please wait"
+  "pleaseWait": "Please wait",
+  "pleaseWaitLoadingLongText": "Please wait. This dialog will close automatically when loading is complete."
 }
