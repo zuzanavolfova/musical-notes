@@ -1,19 +1,36 @@
 import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
+import { createPortal } from "react-dom";
 
-import Dialog from "./Dialog";
+// import Dialog frosm "./Dialog";
 import type { LoadingProps } from "../../types/interfaces";
 
-const LoadingDialogStyled = styled.div``;
+const LoadingDialogStyled = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #57575749;
+  pointer-events: auto;
+  user-select: none;
+  cursor: default;
+  z-index: 101;
+`;
 
 const LoadingContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  background-color: white;
+  min-width: 160px;
+  max-width: 260px;
+  margin: 100px auto;
+  padding: 24px;
+  cursor: default;
   .loading__text {
-    margin: 20px;
+    margin-bottom: 20px;
     text-align: center;
   }
 `;
@@ -39,14 +56,13 @@ const Spinner = styled.div`
 export default function LoadingDialog({ message = "loading" }: LoadingProps) {
   const { t } = useTranslation();
 
-  return (
+  return createPortal(
     <LoadingDialogStyled data-loading="true">
-      <Dialog size="S" showHeader={false} disableOutsideClick disableEsc>
-        <LoadingContent>
-          <span className="loading__text">{t(message)}</span>
-          <Spinner />
-        </LoadingContent>
-      </Dialog>
-    </LoadingDialogStyled>
+      <LoadingContent>
+        <span className="loading__text">{t(message)}</span>
+        <Spinner />
+      </LoadingContent>
+    </LoadingDialogStyled>,
+    document.getElementById("loading") || document.body
   );
 }
