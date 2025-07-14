@@ -26,5 +26,6 @@
   "statistics": "Statistics",
   "noStatistics": "No statistics saved.",
   "student": "Student: ",
-  "loading": "Loading"
+  "loading": "Loading",
+  "pleaseWait": "Please wait"
 }

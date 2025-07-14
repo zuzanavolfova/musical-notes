@@ -26,5 +26,6 @@
   "statistics": "Statistiky",
   "noStatistics": "Nejsou uloženy žádné statistiky.",
   "student": "Student: ",
-  "loading": "Načítám"
+  "loading": "Načítám",
+  "pleaseWait": "Prosím čekejte"
 }
