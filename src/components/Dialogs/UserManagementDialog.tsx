@@ -6,7 +6,16 @@ import ActionButton from "./../Buttons/ActionButton";
 const UserManagementDialogStyled = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  align-items: center;
+  margin: auto;
+  .message {
+    padding: 0 20px;
+    line-height: 1.5;
+  }
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export default function UserManagementDialog({
@@ -27,8 +36,8 @@ export default function UserManagementDialog({
 
   return (
     <UserManagementDialogStyled>
-      <div>{children}</div>
-      <div>
+      <div className="message">{children}</div>
+      <div className="action-buttons">
         <ActionButton
           buttonTitle="logIn"
           type="button"

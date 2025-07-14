@@ -33,11 +33,11 @@ const StyledRegisterDialog = styled.form`
   }
   .register__input {
     padding: 8px;
-    border: 3px solid var(--text-medium-grey);
+    border: 2px solid var(--text-medium-grey);
     border-radius: 4px;
   }
   .register__input:focus {
-    border: 3px solid var(--primary-color-hover);
+    border: 2px solid var(--primary-color-hover);
     outline: none;
     background: #fff;
   }

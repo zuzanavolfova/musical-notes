@@ -51,6 +51,7 @@ export default function App() {
           <Dialog
             dialogTitle={t("User Management")}
             handleClose={() => setUserManagementDialogOpen(false)}
+            size="S"
           >
             <UserManagementDialog
               onLogIn={() => setIsLogInOpen(true)}
