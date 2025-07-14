@@ -41,7 +41,7 @@ const DropdownMenu = styled.div`
   z-index: 10;
 `;
 
-const DropdownItem = styled.button`
+const DropdownItem = styled.button<{ isFocused?: boolean }>`
   background: none;
   border: none;
   width: 100%;
@@ -59,12 +59,14 @@ const DropdownItem = styled.button`
 export default function DropdownComponent({
   buttonTitle = null,
   buttonIcon = null,
+  buttonDescription = null,
   items,
   onItemSelect,
   ...props
 }: DropdownProps) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
   function onItemClick(value: string) {
@@ -74,15 +76,43 @@ export default function DropdownComponent({
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setIsOpen(false);
+      if (!isOpen) return;
+
+      switch (event.key) {
+        case "Escape":
+          setIsOpen(false);
+          break;
+        case "ArrowDown":
+          event.preventDefault();
+          setFocusedIndex((prev) => (prev < items.length - 1 ? prev + 1 : 0));
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          setFocusedIndex((prev) => (prev > 0 ? prev - 1 : items.length - 1));
+          break;
+        case "Enter":
+        case " ": {
+          event.preventDefault();
+          const focusedItem = items[focusedIndex];
+          if (focusedItem && !focusedItem.disabled) {
+            if (typeof focusedItem.onClick === "function") {
+              focusedItem.onClick();
+            } else {
+              onItemClick(focusedItem.title);
+            }
+          }
+          break;
+        }
+      }
     }
+
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
     }
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, focusedIndex, items]);
 
   useEffect(() => {
     function onDocumentClick(event: MouseEvent) {
@@ -108,18 +138,24 @@ export default function DropdownComponent({
         }}
       >
         {buttonIcon && (
-          <img src={buttonIcon} alt="" className="dropdown__title__icon"></img>
+          <img
+            src={buttonIcon}
+            alt={buttonDescription ?? ""}
+            className="dropdown__title__icon"
+          ></img>
         )}
         {buttonTitle ? t(buttonTitle) : ""}
       </DropdownButton>
       {isOpen && (
         <DropdownMenu role="listbox" className="dropdown__menu">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <DropdownItem
               key={item.id ?? item.title}
               type="button"
               role="option"
-              tabIndex={0}
+              tabIndex={focusedIndex === index ? 0 : -1}
+              disabled={item.disabled ?? false}
+              isFocused={focusedIndex === index}
               onClick={(e) => {
                 e.stopPropagation();
                 if (item.disabled) return;
@@ -130,7 +166,6 @@ export default function DropdownComponent({
                 }
                 setIsOpen(false);
               }}
-              disabled={item.disabled ?? false}
               className="dropdown__item"
             >
               {t(item.title)}
