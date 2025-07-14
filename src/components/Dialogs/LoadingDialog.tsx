@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 import { createPortal } from "react-dom";
 
-// import Dialog frosm "./Dialog";
 import type { LoadingProps } from "../../types/interfaces";
 
 const LoadingDialogStyled = styled.div`
