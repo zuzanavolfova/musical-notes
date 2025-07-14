@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 
+import Dialog from "./Dialog";
+
 import type { LoadingProps } from "../../types/interfaces";
 
 const LoadingDialogStyled = styled.div`
@@ -36,8 +38,10 @@ export default function LoadingDialog({ message = "loading" }: LoadingProps) {
   const { t } = useTranslation();
   return (
     <LoadingDialogStyled>
-      <span className="loading__text">{t(message)}</span>
-      <Spinner />
+      <Dialog showHeader={false} disableOutsideClick disableEsc>
+        <span className="loading__text">{t(message)}</span>
+        <Spinner />
+      </Dialog>
     </LoadingDialogStyled>
   );
 }
