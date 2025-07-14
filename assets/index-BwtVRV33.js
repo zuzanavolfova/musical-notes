@@ -375,8 +375,9 @@ Error generating stack: `+a.message+`
 `;function Lu({size:u="M",dialogTitle:i,handleClose:r,children:c,showHeader:o=!0,disableOutsideClick:d=!1,disableEsc:g=!1}){const m=lt.useRef(null);return lt.useEffect(()=>{if(g||!r)return;function y(p){p.key==="Escape"&&r&&r()}return document.addEventListener("keydown",y),()=>{document.removeEventListener("keydown",y)}},[r,g]),lt.useEffect(()=>{if(d||!r)return;function y(p){$g(p,m,r)}return document.addEventListener("mousedown",y),()=>{document.removeEventListener("mousedown",y)}},[r,d]),Dy.createPortal(N.jsxs(My,{ref:m,$size:u,role:"dialog","aria-modal":"true","aria-labelledby":"dialog-title",tabIndex:-1,children:[o&&N.jsxs("h4",{id:"dialog-title",className:"dialog__header",children:[i," ",N.jsx("button",{type:"button","aria-label":"Close dialog",onClick:r,style:{position:"absolute",right:4,top:4,background:"none",border:"none",fontSize:28,fontWeight:"normal",cursor:"pointer",color:"inherit"},children:"×"})]}),N.jsx("div",{className:"dialog__content",children:c})]}),document.getElementById("dialog")||document.body)}async function Cy({newUserName:u,newPassword:i}){const r=await fetch("https://musical-notes-backend.onrender.com/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u,password:i})});if(!r.ok){const c=await r.text();throw new Error("Registration failed: "+c)}return r.json()}async function Uy(u,i){try{const r=await fetch("https://musical-notes-backend.onrender.com/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u,password:i})});if(r.ok)return!0;{const c=await r.json();return console.error("Login failed:",c.message),!1}}catch(r){return console.error("Error occurred during login:",r),!1}}const jy=_t.div`
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
   justify-content: center;
+
   .loading__text {
     margin: 20px;
     text-align: center;
@@ -388,7 +389,6 @@ Error generating stack: `+a.message+`
   border-top: 4px solid var(--primary-color-hover);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: auto;
 
   @keyframes spin {
     0% {
@@ -398,7 +398,7 @@ Error generating stack: `+a.message+`
       transform: rotate(360deg);
     }
   }
-`;function Fg({message:u="loading"}){const{t:i}=he();return N.jsx(jy,{children:N.jsxs(Lu,{showHeader:!1,disableOutsideClick:!0,disableEsc:!0,children:[N.jsx("span",{className:"loading__text",children:i(u)}),N.jsx(Ly,{})]})})}const Hy=_t.form`
+`;function Fg({message:u="loading"}){const{t:i}=he();return N.jsx(Lu,{size:"S",showHeader:!1,disableOutsideClick:!0,disableEsc:!0,children:N.jsxs(jy,{children:[N.jsx("span",{className:"loading__text",children:i(u)}),N.jsx(Ly,{})]})})}const Hy=_t.form`
   padding: 12px;
   margin: auto;
   display: flex;
