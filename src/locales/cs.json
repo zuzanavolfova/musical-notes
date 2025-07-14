@@ -28,5 +28,6 @@
   "student": "Student: ",
   "loading": "Načítám",
   "pleaseWait": "Prosím čekejte",
-  "pleaseWaitLoadingLongText": "Prosím čekejte. Dialog se automaticky zavře po dokončení akce."
+  "pleaseWaitLoadingLongText": "Prosím čekejte. Dialog se automaticky zavře po dokončení akce.",
+  "logInOptions": "Možnosti přihlášení"
 }

@@ -28,5 +28,6 @@
   "student": "Student: ",
   "loading": "Loading",
   "pleaseWait": "Please wait",
-  "pleaseWaitLoadingLongText": "Please wait. This dialog will close automatically when loading is complete."
+  "pleaseWaitLoadingLongText": "Please wait. This dialog will close automatically when loading is complete.",
+  "logInOptions": "Log in options"
 }
