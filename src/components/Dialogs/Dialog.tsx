@@ -62,10 +62,16 @@ export default function Dialog({
   handleClose,
   children,
   showHeader = true,
-}: DialogProps) {
+  disableOutsideClick = false,
+  disableEsc = false,
+}: DialogProps & {
+  disableOutsideClick?: boolean;
+  disableEsc?: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (disableEsc || !handleClose) return;
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") handleClose();
     }
@@ -73,9 +79,10 @@ export default function Dialog({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleClose]);
+  }, [handleClose, disableEsc]);
 
   useEffect(() => {
+    if (disableOutsideClick || !handleClose) return;
     function onDocumentClick(event: MouseEvent) {
       handleClickOutside(event, ref, handleClose);
     }
@@ -83,7 +90,7 @@ export default function Dialog({
     return () => {
       document.removeEventListener("mousedown", onDocumentClick);
     };
-  }, [handleClose]);
+  }, [handleClose, disableOutsideClick]);
 
   return createPortal(
     <StyledDialog
