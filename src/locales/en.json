@@ -25,5 +25,6 @@
   "savedTime": "Time saved: ",
   "statistics": "Statistics",
   "noStatistics": "No statistics saved.",
-  "student": "Student: "
+  "student": "Student: ",
+  "loading": "Loading"
 }
