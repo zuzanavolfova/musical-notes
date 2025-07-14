@@ -35,18 +35,21 @@ export interface TabsComponentProps
   setContent: (tab: TabType) => void;
 }
 
+export interface DropdownItemType {
+  title: string;
+  id: number | string;
+  disabled?: boolean;
+  isFocused?: boolean;
+  onClick?: () => void;
+}
+
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   buttonTitle?: string | null;
   buttonIcon?: string | null;
-  items: {
-    title: string;
-    id: number | string;
-    disabled?: boolean;
-    onClick?: () => void;
-  }[];
+  buttonDescription?: string | null;
+  items: DropdownItemType[];
   onItemSelect?: (value: string) => void;
 }
-
 export interface CounterProps {
   goodAnswersCounter: number;
   wrongAnswersCounter: number;

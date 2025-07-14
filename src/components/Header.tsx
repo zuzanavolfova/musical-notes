@@ -253,6 +253,7 @@ export default function HeaderComponent({
       <div className="header__buttons">
         <DropdownComponent
           buttonIcon={userIcon}
+          buttonDescription={t("userManagement")}
           items={userItems}
           className="user-component"
         />
