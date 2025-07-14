@@ -73,7 +73,7 @@ export default function Dialog({
   useEffect(() => {
     if (disableEsc || !handleClose) return;
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") handleClose();
+      if (event.key === "Escape" && handleClose) handleClose();
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => {

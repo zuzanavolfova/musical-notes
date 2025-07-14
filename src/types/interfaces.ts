@@ -58,6 +58,8 @@ export interface DialogProps {
   showHeader?: boolean;
   handleClose?: () => void;
   children?: React.ReactNode;
+  disableOutsideClick?: boolean;
+  disableEsc?: boolean;
 }
 
 export interface LogInDialogProps {
