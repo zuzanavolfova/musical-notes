@@ -54,9 +54,9 @@ export interface CounterProps {
 
 export interface DialogProps {
   size?: "S" | "M" | "L";
-  dialogTitle: string;
+  dialogTitle?: string;
   showHeader?: boolean;
-  handleClose: () => void;
+  handleClose?: () => void;
   children?: React.ReactNode;
 }
 
@@ -104,5 +104,5 @@ export interface HeaderProps {
   setUserName: (name: string) => void;
 }
 export interface LoadingProps {
-  message: string;
+  message?: string;
 }

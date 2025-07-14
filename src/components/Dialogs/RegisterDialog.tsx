@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 import ActionButton from "../Buttons/ActionButton";
+import LoadingDialog from "./LoadingDialog";
+
 import type { RegisterDialogProps } from "../../types/interfaces";
 
 import { registerUser } from "./../../scripts/services/authService";
@@ -55,6 +57,7 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
   const repeatPassword = useRef<HTMLInputElement>(null);
   const [validPassword, setValidPassword] = useState(true);
   const [validUserName, setValidUserName] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -68,12 +71,13 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       await registerUser({
         newUserName: userName.current!.value,
         newPassword: password.current!.value,
       });
-      //TODO waiting dialog
       onClose();
     } catch (error) {
       if (error instanceof Error) {
@@ -85,6 +89,8 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
       } else {
         console.error("Unexpected error:", error);
       }
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -94,6 +100,7 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
       role="form"
       aria-labelledby="register-title"
     >
+      {isLoading && <LoadingDialog message="pleaseWait" />}
       <div className="register__field">
         <label className="register__label" htmlFor="username">
           {t("Username")}:

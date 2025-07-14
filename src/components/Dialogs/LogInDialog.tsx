@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+
 import ActionButton from "../Buttons/ActionButton";
 import { checkLogIn } from "../../scripts/services/authService";
+import LoadingDialog from "./LoadingDialog";
 
 import type { LogInDialogProps } from "../../types/interfaces";
 
@@ -51,34 +53,47 @@ const StyledLogInDialog = styled.form`
 
 export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
   const { t } = useTranslation();
-  const userName = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [loginIsValid, setLoginIsValid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function logIn(event: React.FormEvent) {
     event.preventDefault();
-    if (onLogInClick && userName.current && password.current) {
-      const isValid = await checkLogIn(
-        userName.current.value,
-        password.current.value
-      );
+
+    const username = userNameRef.current?.value.trim();
+    const password = passwordRef.current?.value;
+
+    if (!username || !password) return;
+
+    setIsLoading(true);
+    setLoginIsValid(true);
+
+    try {
+      const isValid = await checkLogIn(username, password);
+
       if (isValid) {
-        onLogInClick(userName.current.value);
-        setLoginIsValid(true);
+        onLogInClick(username);
       } else {
         setLoginIsValid(false);
       }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setLoginIsValid(false);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <StyledLogInDialog onSubmit={logIn}>
+      {isLoading && <LoadingDialog />}
       <div className="login__field">
         <label className="login__label" htmlFor="username">
           {t("Username")}:
         </label>
         <input
-          ref={userName}
+          ref={userNameRef}
           className="login__input"
           id="username"
           type="text"
@@ -92,7 +107,7 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
           {t("Password")}:
         </label>
         <input
-          ref={password}
+          ref={passwordRef}
           className="login__input"
           id="password"
           type="password"
