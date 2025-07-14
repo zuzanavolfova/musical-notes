@@ -34,7 +34,7 @@ const LoadingContent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: default;
-  border: 1px solid var(--bkg-medium);
+
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
   cursor: default;
   .loading__text {
@@ -150,9 +150,7 @@ export default function LoadingDialog({ message = "loading" }: LoadingProps) {
           aria-live="polite"
           aria-atomic="true"
         >
-          {t(
-            "pleaseWaitLoadingLongText"
-          )}
+          {t("pleaseWaitLoadingLongText")}
         </ScreenReaderOnly>
 
         <ScreenReaderOnly aria-live="assertive">
