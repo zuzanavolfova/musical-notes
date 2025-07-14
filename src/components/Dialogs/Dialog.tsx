@@ -73,7 +73,9 @@ export default function Dialog({
   useEffect(() => {
     if (disableEsc || !handleClose) return;
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape" && handleClose) handleClose();
+      const isLoadingShown = document.querySelector("[data-loading='true']");
+      if (event.key === "Escape" && handleClose && !isLoadingShown)
+        handleClose();
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -83,12 +85,17 @@ export default function Dialog({
 
   useEffect(() => {
     if (disableOutsideClick || !handleClose) return;
-    function onDocumentClick(event: MouseEvent) {
+
+    function handleOutsideClick(event: MouseEvent) {
+      const isLoadingShown = document.querySelector("[data-loading='true']");
+      if (isLoadingShown) return;
+
       handleClickOutside(event, ref, handleClose);
     }
-    document.addEventListener("mousedown", onDocumentClick);
+
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", onDocumentClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [handleClose, disableOutsideClick]);
 

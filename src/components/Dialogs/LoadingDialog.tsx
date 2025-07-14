@@ -4,6 +4,8 @@ import { styled } from "styled-components";
 import Dialog from "./Dialog";
 import type { LoadingProps } from "../../types/interfaces";
 
+const LoadingDialogStyled = styled.div``;
+
 const LoadingContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,11 +40,13 @@ export default function LoadingDialog({ message = "loading" }: LoadingProps) {
   const { t } = useTranslation();
 
   return (
-    <Dialog size="S" showHeader={false} disableOutsideClick disableEsc>
-      <LoadingContent>
-        <span className="loading__text">{t(message)}</span>
-        <Spinner />
-      </LoadingContent>
-    </Dialog>
+    <LoadingDialogStyled data-loading="true">
+      <Dialog size="S" showHeader={false} disableOutsideClick disableEsc>
+        <LoadingContent>
+          <span className="loading__text">{t(message)}</span>
+          <Spinner />
+        </LoadingContent>
+      </Dialog>
+    </LoadingDialogStyled>
   );
 }
