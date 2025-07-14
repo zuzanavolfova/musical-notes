@@ -15,7 +15,7 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   transform: translate(-50%, -50%);
   border: 1px solid var(--bkg-medium);
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
-  animation: fadeout 0.2s;
+  animation: fadeIn 0.2s;
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -30,17 +30,20 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
     $size === "S" &&
     `
     width: 300px;
-    min-height: 180px`};
+    min-height: 180px;
+  `};
   ${({ $size }) =>
     $size === "M" &&
     `
     width: 400px;
-     min-height: 180px`};
+    min-height: 180px;
+  `};
   ${({ $size }) =>
     $size === "L" &&
     `
     width: 600px;
-    min-height: 180px`};
+    min-height: 180px;
+  `};
   .dialog {
     &__header {
       margin: 0;
@@ -49,12 +52,17 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
       color: var(--text-dark-grey);
       background-color: var(--bkg-gold);
       border-bottom: 1px solid var(--bkg-medium);
+      position: relative;
     }
     &__content {
       padding: 8px 12px;
     }
   }
 `;
+
+function isLoading(): boolean {
+  return !!document.querySelector("[data-loading='true']");
+}
 
 export default function Dialog({
   size = "M",
@@ -73,9 +81,9 @@ export default function Dialog({
   useEffect(() => {
     if (disableEsc || !handleClose) return;
     function handleKeyDown(event: KeyboardEvent) {
-      const isLoadingShown = document.querySelector("[data-loading='true']");
-      if (event.key === "Escape" && handleClose && !isLoadingShown)
+      if (event.key === "Escape" && handleClose && !isLoading()) {
         handleClose();
+      }
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -86,18 +94,22 @@ export default function Dialog({
   useEffect(() => {
     if (disableOutsideClick || !handleClose) return;
 
-    function handleOutsideClick(event: MouseEvent) {
-      const isLoadingShown = document.querySelector("[data-loading='true']");
-      if (isLoadingShown) return;
+    function handleOutsideClickEvent(event: MouseEvent) {
+      if (isLoading()) return;
 
       handleClickOutside(event, ref, handleClose);
     }
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClickEvent);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClickEvent);
     };
   }, [handleClose, disableOutsideClick]);
+
+  function onCloseClick() {
+    if (isLoading()) return;
+    if (handleClose) handleClose();
+  }
 
   return createPortal(
     <StyledDialog
@@ -110,11 +122,11 @@ export default function Dialog({
     >
       {showHeader && (
         <h4 id="dialog-title" className="dialog__header">
-          {dialogTitle}{" "}
+          {dialogTitle}
           <button
             type="button"
             aria-label="Close dialog"
-            onClick={handleClose}
+            onClick={onCloseClick}
             style={{
               position: "absolute",
               right: 4,
