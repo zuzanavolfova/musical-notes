@@ -41,7 +41,7 @@ const DropdownMenu = styled.div`
   z-index: 10;
 `;
 
-const DropdownItem = styled.button<{ isFocused?: boolean }>`
+const DropdownItem = styled.button<{ $isFocused?: boolean }>`
   background: none;
   border: none;
   width: 100%;
@@ -155,7 +155,7 @@ export default function DropdownComponent({
               role="option"
               tabIndex={focusedIndex === index ? 0 : -1}
               disabled={item.disabled ?? false}
-              isFocused={focusedIndex === index}
+              $isFocused={focusedIndex === index}
               onClick={(e) => {
                 e.stopPropagation();
                 if (item.disabled) return;
