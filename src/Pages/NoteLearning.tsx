@@ -29,6 +29,7 @@ const NoteLearningStyled = styled.div`
       "clef tabs statistics"
       "clef content statistics";
   }
+
   .tabs {
     grid-area: tabs;
   }
@@ -37,8 +38,35 @@ const NoteLearningStyled = styled.div`
   }
   .statistics {
     grid-area: statistics;
+
     @media screen and (min-width: 960px) {
-      justify-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: self-start;
+      margin-left: 20px;
+      &__counter {
+        text-align: start;
+      }
+
+      h2 {
+        position: relative;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 150%;
+          height: 2px;
+          background: linear-gradient(
+            to right,
+            var(--primary-color) 70%,
+            white 100%
+          );
+        }
+      }
     }
   }
 `;
@@ -192,10 +220,13 @@ export default function NoteLearning({
         )}
       </div>
       <div className="statistics">
-        <CounterComponent
-          goodAnswersCounter={goodAnswers}
-          wrongAnswersCounter={wrongAnswers}
-        ></CounterComponent>
+        <div className="statistics__counter">
+          <h2>{t("statistics")}</h2>
+          <CounterComponent
+            goodAnswersCounter={goodAnswers}
+            wrongAnswersCounter={wrongAnswers}
+          ></CounterComponent>
+        </div>
         {userName && (
           <>
             <ActionButton

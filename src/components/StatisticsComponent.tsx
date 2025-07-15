@@ -37,7 +37,6 @@ export default function StatisticsComponent({
 
   return (
     <StatisticsStyled>
-      <h2>{t("statistics")}</h2>
       <h3>
         {t("student")} {userName}
       </h3>
