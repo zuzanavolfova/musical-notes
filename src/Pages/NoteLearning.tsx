@@ -190,13 +190,13 @@ export default function NoteLearning({
         {result === true && (
           <>
             <ActionButton
+              buttonTitle="next-t"
+              onButtonClick={onNextButtonClick}
+            />
+            <ActionButton
               buttonTitle="saveStatistics"
               disabled={disableSaveStatisticButton}
               onButtonClick={onSaveStatisticsClick}
-            />
-            <ActionButton
-              buttonTitle="next-t"
-              onButtonClick={onNextButtonClick}
             />
           </>
         )}
