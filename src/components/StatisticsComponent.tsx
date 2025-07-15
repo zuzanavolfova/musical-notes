@@ -9,12 +9,16 @@ const StatisticsStyled = styled.section`
       display: flex;
       flex-direction: column;
       border: 1px solid var(--bkg-medium);
+      border-radius: 2px;
       margin: 20px auto;
       width: 280px;
       &__date {
         padding: 4px 0;
-        background-color: var(--primary-color-hover);
+        background-color: var(--bkg-medium);
         box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
+        color: var(--text-dark-grey);
+        font-weight: 600;
+        border-bottom: 1px solid var(--primary-color);
       }
       &__details {
         display: flex;
