@@ -183,27 +183,28 @@ export default function NoteLearning({
             <span>{result ? t("good-answer") : t("wrong-answer")}</span>
           )}
         </section>
+
+        {result === true && (
+          <ActionButton
+            buttonTitle="next-t"
+            onButtonClick={onNextButtonClick}
+          />
+        )}
+      </div>
+      <div className="statistics">
         <CounterComponent
           goodAnswersCounter={goodAnswers}
           wrongAnswersCounter={wrongAnswers}
         ></CounterComponent>
-        {result === true && (
+        {userName && (
           <>
-            <ActionButton
-              buttonTitle="next-t"
-              onButtonClick={onNextButtonClick}
-            />
             <ActionButton
               buttonTitle="saveStatistics"
               disabled={disableSaveStatisticButton}
               onButtonClick={onSaveStatisticsClick}
             />
+            <StatisticsComponent userName={userName} statistics={statistics} />
           </>
-        )}
-      </div>
-      <div className="statistics">
-        {userName && (
-          <StatisticsComponent userName={userName} statistics={statistics} />
         )}
       </div>
     </NoteLearningStyled>
