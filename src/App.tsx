@@ -1,13 +1,15 @@
 import "./styles/main.css";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 
 import NoteLearning from "./Pages/NoteLearning";
 import HeaderComponent from "./components/Header";
 import Footer from "./components/Footer";
 import UserManagementDialog from "./components/Dialogs/UserManagementDialog";
 import Dialog from "./components/Dialogs/Dialog";
+import { UserProvider, useUser } from "./contexts/UserContext";
+import { GameProvider } from "./contexts/GameContext";
+import { SettingsProvider } from "./contexts/SettingsContext";
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -20,55 +22,25 @@ const MainContent = styled.main`
   flex: 1;
 `;
 
-export default function App() {
+function AppContent() {
   const { t } = useTranslation();
-  const [isLogIn, setIsLogIn] = useState(
-    localStorage.getItem("userName") ? true : false
-  );
-  const [userName, setUserName] = useState<string>(
-    localStorage.getItem("userName") ?? ""
-  );
-  const [logInDialogOpen, setIsLogInOpen] = useState(false);
-  const [registerDialogOpen, setIsRegisterOpen] = useState(false);
-  const [userManagementDialogOpen, setUserManagementDialogOpen] =
-    useState(false);
+  const { state, dispatch } = useUser();
 
-  function saveToLocalStorage(key: string, value: string) {
-    localStorage.setItem(key, value);
-  }
-
-  function setUser(user: string) {
-    saveToLocalStorage("userName", user);
-    setUserName(user);
-  }
   return (
     <AppContainer>
-      <HeaderComponent
-        isLogIn={isLogIn}
-        logInOpen={logInDialogOpen}
-        registerDialogOpen={registerDialogOpen}
-        userName={userName}
-        setIsLogIn={setIsLogIn}
-        setIsLogInOpen={setIsLogInOpen}
-        setIsRegisterOpen={setIsRegisterOpen}
-        setUserName={setUser}
-      />
+      <HeaderComponent />
       <MainContent>
-        <NoteLearning
-          isLogIn={isLogIn}
-          setUserManagementDialogOpen={setUserManagementDialogOpen}
-          userName={userName}
-        />
-        {userManagementDialogOpen && (
+        <NoteLearning />
+        {state.userManagementDialogOpen && (
           <Dialog
             dialogTitle={t("User Management")}
-            handleClose={() => setUserManagementDialogOpen(false)}
+            handleClose={() => dispatch({ type: 'SET_USER_MANAGEMENT_DIALOG', payload: false })}
             size="S"
           >
             <UserManagementDialog
-              onLogIn={() => setIsLogInOpen(true)}
-              onRegister={() => setIsRegisterOpen(true)}
-              onClose={() => setUserManagementDialogOpen(false)}
+              onLogIn={() => dispatch({ type: 'SET_LOGIN_DIALOG', payload: true })}
+              onRegister={() => dispatch({ type: 'SET_REGISTER_DIALOG', payload: true })}
+              onClose={() => dispatch({ type: 'SET_USER_MANAGEMENT_DIALOG', payload: false })}
             >
               <>
                 <p>{t("LogIn/RegisterToSaveStatistics")}</p>
@@ -79,5 +51,17 @@ export default function App() {
       </MainContent>
       <Footer />
     </AppContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <SettingsProvider>
+      <UserProvider>
+        <GameProvider>
+          <AppContent />
+        </GameProvider>
+      </UserProvider>
+    </SettingsProvider>
   );
 }

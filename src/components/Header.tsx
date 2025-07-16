@@ -9,8 +9,8 @@ import DropdownComponent from "./Buttons/DropdownComponent";
 import Dialog from "./Dialogs/Dialog";
 import LogInDialog from "./Dialogs/LogInDialog";
 import RegisterDialog from "./Dialogs/RegisterDialog";
-
-import type { HeaderProps } from "../types/interfaces";
+import { useUser } from "../contexts/UserContext";
+import { useSettings } from "../contexts/SettingsContext";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
   display: grid;
@@ -160,40 +160,34 @@ const Header = styled.header<{ $isLogged?: boolean }>`
   }
 `;
 
-export default function HeaderComponent({
-  isLogIn,
-  logInOpen,
-  registerDialogOpen,
-  userName,
-  setIsLogIn,
-  setIsLogInOpen,
-  setIsRegisterOpen,
-  setUserName,
-}: HeaderProps) {
+export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
+  const { state: userState, dispatch: userDispatch, setUser, logoutUser } = useUser();
+  const { state: settingsState, dispatch: settingsDispatch } = useSettings();
+
   const localeItems = [
     { title: "CS", id: "cs" },
     { title: "EN", id: "en" },
   ];
   const userItems = [
     {
-      title: isLogIn && userName ? userName : t("noUser"),
+      title: userState.isLogIn && userState.userName ? userState.userName : t("noUser"),
       id: 0,
       disabled: true,
     },
     {
-      title: isLogIn ? "logOut" : "logIn",
+      title: userState.isLogIn ? "logOut" : "logIn",
       id: 1,
       onClick: () => {
-        if (!isLogIn) setIsLogInOpen(true);
-        else logOut();
+        if (!userState.isLogIn) userDispatch({ type: 'SET_LOGIN_DIALOG', payload: true });
+        else logoutUser();
       },
     },
     {
       title: t("newRegister"),
       id: 2,
       onClick: () => {
-        setIsRegisterOpen(true);
+        userDispatch({ type: 'SET_REGISTER_DIALOG', payload: true });
       },
     },
   ];
@@ -202,7 +196,7 @@ export default function HeaderComponent({
     localeItems.find((item) => item.id === lng)?.title || "CS";
 
   const [locale, setLocale] = useState(() => getLocaleTitle(i18n.language));
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
   useEffect(() => {
     setLocale(getLocaleTitle(i18n.language));
   }, [i18n.language]);
@@ -213,36 +207,29 @@ export default function HeaderComponent({
     if (found) {
       i18n.changeLanguage(found.id);
     }
+    settingsDispatch({ type: 'SET_LOCALE', payload: selectedItem });
   };
 
   const onLogInClick = (user: string) => {
-    setIsLogIn(true);
-    setUserName(user);
-    setIsLogInOpen(false);
-  };
-
-  const logOut = () => {
-    localStorage.removeItem("userName");
-    setIsLogIn(false);
-    setUserName("");
+    setUser(user);
   };
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      settingsDispatch({ type: 'SET_WINDOW_WIDTH', payload: window.innerWidth });
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [settingsDispatch]);
 
   const getDialogSize = () => {
-    if (windowWidth < 480) return "S";
-    if (windowWidth > 480) return "M";
+    if (settingsState.windowWidth < 480) return "S";
+    if (settingsState.windowWidth > 480) return "M";
   };
 
   return (
-    <Header role="banner" aria-label="Musical Notes header" $isLogged={isLogIn}>
+    <Header role="banner" aria-label="Musical Notes header" $isLogged={userState.isLogIn}>
       <img
         className="clef-logo"
         src={clefLogo}
@@ -264,22 +251,22 @@ export default function HeaderComponent({
           className="locale-component"
         />
       </div>
-      {logInOpen && (
+      {userState.logInDialogOpen && (
         <Dialog
           dialogTitle={t("logIn")}
           size={getDialogSize()}
-          handleClose={() => setIsLogInOpen(false)}
+          handleClose={() => userDispatch({ type: 'SET_LOGIN_DIALOG', payload: false })}
         >
           <LogInDialog onLogInClick={onLogInClick}></LogInDialog>
         </Dialog>
       )}
-      {registerDialogOpen && (
+      {userState.registerDialogOpen && (
         <Dialog
           dialogTitle={t("newRegister")}
           size={getDialogSize()}
-          handleClose={() => setIsRegisterOpen(false)}
+          handleClose={() => userDispatch({ type: 'SET_REGISTER_DIALOG', payload: false })}
         >
-          <RegisterDialog onClose={() => setIsRegisterOpen(false)} />
+          <RegisterDialog onClose={() => userDispatch({ type: 'SET_REGISTER_DIALOG', payload: false })} />
         </Dialog>
       )}
     </Header>
