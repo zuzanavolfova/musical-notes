@@ -16,9 +16,10 @@ const StyledRegisterDialog = styled.form`
   flex-direction: column;
   align-items: center;
   @media screen and (min-width: 550px) {
-    align-items: end;
     gap: 12px;
+    align-items: end;
   }
+
   .register__field {
     display: flex;
     flex-direction: column;
@@ -37,6 +38,7 @@ const StyledRegisterDialog = styled.form`
     padding: 8px;
     border: 2px solid var(--text-medium-grey);
     border-radius: 4px;
+    max-width: 170px;
   }
   .register__input:focus {
     border: 2px solid var(--primary-color-hover);

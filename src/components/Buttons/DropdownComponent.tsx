@@ -17,8 +17,19 @@ const DropdownButton = styled.button`
   cursor: pointer;
   padding: 8px 12px;
   transition: all 0.3s ease-in-out;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--bkg-dark);
+    color: var(--dark-theme-text-color);
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+  }
+  
   &:hover {
     background-color: rgb(212, 212, 212);
+    
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--bkg-medium);
+    }
   }
   &:focus,
   &:active {
@@ -39,6 +50,12 @@ const DropdownMenu = styled.div`
   min-width: 120px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 10;
+  
+  @media (prefers-color-scheme: dark) {
+    background: var(--bkg-dark);
+    color: var(--dark-theme-text-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const DropdownItem = styled.button<{ $isFocused?: boolean }>`
@@ -49,10 +66,20 @@ const DropdownItem = styled.button<{ $isFocused?: boolean }>`
   padding: 8px 16px;
   cursor: pointer;
   font-size: 16px;
+  
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-theme-text-color);
+  }
+  
   &:hover,
   &:focus {
     background: var(--secondary-color, #eee);
     outline: none;
+    
+    @media (prefers-color-scheme: dark) {
+      background: var(--bkg-medium);
+      color: var(--dark-theme-text-color);
+    }
   }
 `;
 

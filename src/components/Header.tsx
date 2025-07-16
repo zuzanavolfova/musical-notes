@@ -77,7 +77,13 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         $isLogged ? "2px solid var(--primary-color)" : "2px solid white"};
       border-radius: 50%;
       transition: all 0.3s ease-in-out;
+
       @media (prefers-color-scheme: dark) {
+        background-color: white;
+        border: ${({ $isLogged }) =>
+          $isLogged
+            ? "2px solid var(--primary-color)"
+            : "2px solid var(--bkg-dark)"};
         color: ${({ $isLogged }) =>
           $isLogged ? "white" : "var(--secondary-color)"};
       }
@@ -91,11 +97,20 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         border: 2px solid transparent !important;
         background-color: white !important;
 
+        @media (prefers-color-scheme: dark) {
+          background-color: white !important;
+          color: var(--text-light-grey);
+        }
+
         &:focus,
         &:active {
           background-color: white !important;
           border: 2px solid transparent !important;
           box-shadow: none;
+
+          @media (prefers-color-scheme: dark) {
+            background-color: white !important;
+          }
         }
       }
       &:focus,
@@ -112,6 +127,11 @@ const Header = styled.header<{ $isLogged?: boolean }>`
           background-color: white;
           border: 1px solid white;
           box-shadow: none;
+
+          @media (prefers-color-scheme: dark) {
+            background-color: white;
+            border: 1px solid var(--bkg-dark);
+          }
         }
       }
 
@@ -136,6 +156,9 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       transition: all 0.3s ease-in-out;
 
       @media (prefers-color-scheme: dark) {
+        background-color: white;
+        border-bottom: 6px solid var(--primary-color);
+
         color: var(--secondary-color);
       }
 
@@ -150,6 +173,9 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         border: none;
         box-shadow: none;
         color: white;
+        @media (prefers-color-scheme: dark) {
+          border-bottom: 6px solid var(--primary-color);
+        }
       }
 
       &.dropdown__item {

@@ -16,6 +16,13 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   border: 1px solid var(--bkg-medium);
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
   animation: fadeIn 0.2s;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--bkg-medium);
+    color: var(--text-dark-grey);
+    border: 1px solid var(--bkg-dark);
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+  }
   @keyframes fadeIn {
     from {
       opacity: 0;
