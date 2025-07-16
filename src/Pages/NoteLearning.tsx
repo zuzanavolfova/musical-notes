@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 
@@ -13,10 +13,10 @@ import StatisticsComponent from "../components/StatisticsComponent";
 
 import { saveStatistics, getStatistics } from "../scripts/services/statistics";
 import { formatDataStatistics } from "../scripts/statistics";
+import { useGame } from "../contexts/GameContext";
+import { useUser } from "../contexts/UserContext";
 
-import type { TabType } from "../types/types";
-import type { NoteLearningProps } from "../types/interfaces";
-import type { Statistics } from "../types/interfaces";
+import type { TabType, Statistics } from "../types";
 
 const NoteLearningStyled = styled.div`
   display: flex;
@@ -71,72 +71,42 @@ const NoteLearningStyled = styled.div`
   }
 `;
 
-export default function NoteLearning({
-  isLogIn,
-  userName,
-  setUserManagementDialogOpen,
-}: NoteLearningProps) {
+export default function NoteLearning() {
   const { t } = useTranslation();
-  const [result, setResult] = useState<boolean | null>(null);
-  const [showContent, setContent] = useState<string | null>("Keyboard");
-  const [goodAnswers, setGoodAnswers] = useState<number>(0);
-  const [wrongAnswers, setWrongAnswers] = useState<number>(0);
-  const [disableSaveStatisticButton, setDisableSaveStatisticButton] =
-    useState<boolean>(false);
-  const [statistics, setStatistics] = useState<Statistics[] | null>(null);
-  const notes: string[] = ["c", "d", "e", "f", "g", "a", "h", "c2"];
-  const [noteType, setNoteType] = useState<string>(
-    () => notes[getRandomPosition()]
-  );
-
-  function getRandomPosition(): number {
-    return Math.floor(Math.random() * notes.length);
-  }
+  const { state: gameState, dispatch: gameDispatch, checkAnswer, onNextButtonClick } = useGame();
+  const { state: userState, dispatch: userDispatch } = useUser();
 
   function changeContent(tab: TabType) {
-    setContent(tab);
-  }
-
-  function checkAnswer(data: string): void {
-    if (data == noteType) {
-      setGoodAnswers((prev) => prev + 1);
-      setResult(true);
-    } else {
-      setWrongAnswers((prev) => prev + 1);
-      setResult(false);
-    }
-  }
-
-  function onNextButtonClick() {
-    setDisableSaveStatisticButton(false);
-    setResult(null);
-    setNoteType(notes[getRandomPosition()]);
+    gameDispatch({ type: 'SET_SHOW_CONTENT', payload: tab });
   }
 
   async function updateStatisticsUI() {
-    const data = await getStatistics(userName);
+    const data = await getStatistics(userState.userName);
     if (data && data.statistics) {
-      setStatistics(formatDataStatistics(data.statistics));
+      gameDispatch({ type: 'SET_STATISTICS', payload: formatDataStatistics(data.statistics) });
     }
   }
+  
   useEffect(() => {
-    if (isLogIn) {
+    if (userState.isLogIn) {
       updateStatisticsUI();
     }
-  }, [userName]);
+  }, [userState.userName, userState.isLogIn]);
 
   async function onSaveStatisticsClick() {
-    if (isLogIn) {
+    if (userState.isLogIn) {
       const statistic: Statistics = {
-        userName: userName || "",
-        goodAnswers,
-        wrongAnswers,
+        userName: userState.userName || "",
+        goodAnswers: gameState.goodAnswers,
+        wrongAnswers: gameState.wrongAnswers,
         timeStamp: new Date().toISOString(),
       };
-      setDisableSaveStatisticButton(true);
+      gameDispatch({ type: 'SET_DISABLE_SAVE_BUTTON', payload: true });
       await saveStatistics(statistic);
       await updateStatisticsUI();
-    } else setUserManagementDialogOpen(true);
+    } else {
+      userDispatch({ type: 'SET_USER_MANAGEMENT_DIALOG', payload: true });
+    }
   }
 
   return (
@@ -156,22 +126,22 @@ export default function NoteLearning({
           <div style={{ position: "relative" }}>
             <StaveComponent />
             <NoteComponent
-              noteImage={noteType === "c" ? "note2" : "note"}
-              noteType={noteType}
+              noteImage={gameState.noteType === "c" ? "note2" : "note"}
+              noteType={gameState.noteType}
             />
           </div>
         </section>
-        {showContent === "Keyboard" && (
+        {gameState.showContent === "Keyboard" && (
           <section id="Piano" style={{ margin: "0 auto" }}>
             <Piano
               checkAnswer={checkAnswer}
-              noteType={noteType}
-              result={result}
-              disabled={result === true}
+              noteType={gameState.noteType}
+              result={gameState.result}
+              disabled={gameState.result === true}
             />
           </section>
         )}
-        {showContent === "Notes" && (
+        {gameState.showContent === "Notes" && (
           <section
             aria-label="Select the correct note"
             style={{
@@ -184,15 +154,15 @@ export default function NoteLearning({
               justifyContent: "center",
             }}
           >
-            {notes.map((note) => (
+            {gameState.notes.map((note) => (
               <SelectButton
                 checkAnswer={checkAnswer}
                 key={note}
                 answerText={note}
-                resetFocus={result === null}
-                disabled={result === true}
-                isCorrect={result === true && note === noteType}
-                aria-pressed={result === true && note === noteType}
+                resetFocus={gameState.result === null}
+                disabled={gameState.result === true}
+                isCorrect={gameState.result === true && note === gameState.noteType}
+                aria-pressed={gameState.result === true && note === gameState.noteType}
                 aria-label={`Select note ${note.toUpperCase()}`}
               />
             ))}
@@ -202,17 +172,17 @@ export default function NoteLearning({
           aria-live="polite"
           aria-atomic="true"
           style={{
-            color: result ? "var(--success-color)" : "var(--wrong-color)",
+            color: gameState.result ? "var(--success-color)" : "var(--wrong-color)",
             fontSize: "32px",
             margin: "20px auto 0 auto",
           }}
         >
-          {result != null && (
-            <span>{result ? t("good-answer") : t("wrong-answer")}</span>
+          {gameState.result != null && (
+            <span>{gameState.result ? t("good-answer") : t("wrong-answer")}</span>
           )}
         </section>
 
-        {result === true && (
+        {gameState.result === true && (
           <ActionButton
             buttonTitle="next-t"
             onButtonClick={onNextButtonClick}
@@ -223,18 +193,18 @@ export default function NoteLearning({
         <div className="statistics__counter">
           <h2>{t("statistics")}</h2>
           <CounterComponent
-            goodAnswersCounter={goodAnswers}
-            wrongAnswersCounter={wrongAnswers}
+            goodAnswersCounter={gameState.goodAnswers}
+            wrongAnswersCounter={gameState.wrongAnswers}
           ></CounterComponent>
         </div>
-        {userName && (
+        {userState.userName && (
           <>
             <ActionButton
               buttonTitle="saveStatistics"
-              disabled={disableSaveStatisticButton}
+              disabled={gameState.disableSaveStatisticButton}
               onButtonClick={onSaveStatisticsClick}
             />
-            <StatisticsComponent userName={userName} statistics={statistics} />
+            <StatisticsComponent userName={userState.userName} statistics={gameState.statistics} />
           </>
         )}
       </div>

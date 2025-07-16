@@ -1,4 +1,4 @@
-import type { Statistics } from "../types/interfaces";
+import type { Statistics } from "../types";
 
 export function formatDataStatistics(statistics: Statistics[]): Statistics[] {
   return statistics.map((item) => {
