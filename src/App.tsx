@@ -22,13 +22,24 @@ const MainContent = styled.main`
 
 export default function App() {
   const { t } = useTranslation();
-  const [isLogIn, setIsLogIn] = useState(false);
-  const [userName, setUserName] = useState<string>("");
+  const [isLogIn, setIsLogIn] = useState(
+    localStorage.getItem("userName") ? true : false
+  );
+  const [userName, setUserName] = useState<string>(
+    localStorage.getItem("userName") ?? ""
+  );
   const [logInDialogOpen, setIsLogInOpen] = useState(false);
   const [registerDialogOpen, setIsRegisterOpen] = useState(false);
   const [userManagementDialogOpen, setUserManagementDialogOpen] =
     useState(false);
 
+  function saveUserNameToLocalStorage(user: string) {
+    localStorage.setItem("userName", user);
+  }
+  function setUser(user: string) {
+    saveUserNameToLocalStorage(user);
+    setUserName(user);
+  }
   return (
     <AppContainer>
       <HeaderComponent
@@ -39,7 +50,7 @@ export default function App() {
         setIsLogIn={setIsLogIn}
         setIsLogInOpen={setIsLogInOpen}
         setIsRegisterOpen={setIsRegisterOpen}
-        setUserName={setUserName}
+        setUserName={setUser}
       />
       <MainContent>
         <NoteLearning

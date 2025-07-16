@@ -13,7 +13,6 @@ import RegisterDialog from "./Dialogs/RegisterDialog";
 import type { HeaderProps } from "../types/interfaces";
 
 const Header = styled.header<{ $isLogged?: boolean }>`
- 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -223,6 +222,7 @@ export default function HeaderComponent({
   };
 
   const logOut = () => {
+    localStorage.removeItem("userName");
     setIsLogIn(false);
     setUserName("");
   };
