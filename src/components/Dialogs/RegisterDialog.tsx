@@ -39,11 +39,22 @@ const StyledRegisterDialog = styled.form`
     border: 2px solid var(--text-medium-grey);
     border-radius: 4px;
     max-width: 170px;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--bkg-dark);
+      color: white;
+      border: 2px solid var(--bkg-dark);
+    }
   }
   .register__input:focus {
     border: 2px solid var(--primary-color-hover);
     outline: none;
     background: #fff;
+
+    @media (prefers-color-scheme: dark) {
+      background: white;
+      color: var(--text-medium-grey);
+    }
   }
   .password-rules {
     font-size: 12px;

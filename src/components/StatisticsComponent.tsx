@@ -24,6 +24,9 @@ const StatisticsStyled = styled.section`
         display: flex;
         justify-content: space-between;
         padding: 4px 12px;
+        @media (prefers-color-scheme: dark) {
+          background-color: var(--bkg-light);
+        }
       }
     }
   }
