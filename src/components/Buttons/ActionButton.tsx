@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
 
-import type { ActionButtonProps } from "./../../types/interfaces";
+import type { ActionButtonProps } from "../../types";
 
 const StyledActionButton = styled.button`
   width: auto;

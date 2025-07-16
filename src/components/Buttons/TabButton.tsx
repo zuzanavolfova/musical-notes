@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import type { TabButtonProps } from "../../types/interfaces";
+import type { TabButtonProps } from "../../types";
 import { useTranslation } from "react-i18next";
 
 const TabButtonStyled = styled.button<{ $isSelected?: boolean }>`

@@ -1,5 +1,11 @@
-import React from "react";
-import type { TabType } from "./types";
+/**
+ * Component Props Interfaces
+ * All component prop type definitions
+ */
+
+import type { ReactNode } from "react";
+import type { TabType } from "./common";
+import type { Statistics } from "./statistics";
 
 export interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,9 +24,9 @@ export interface SelectButtonProps
 
 export interface TabButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+  children: ReactNode;
   isSelected?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface PianoProps {
@@ -35,14 +41,6 @@ export interface TabsComponentProps
   setContent: (tab: TabType) => void;
 }
 
-export interface DropdownItemType {
-  title: string;
-  id: number | string;
-  disabled?: boolean;
-  isFocused?: boolean;
-  onClick?: () => void;
-}
-
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   buttonTitle?: string | null;
   buttonIcon?: string | null;
@@ -50,6 +48,7 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   items: DropdownItemType[];
   onItemSelect?: (value: string) => void;
 }
+
 export interface CounterProps {
   goodAnswersCounter: number;
   wrongAnswersCounter: number;
@@ -60,7 +59,7 @@ export interface DialogProps {
   dialogTitle?: string;
   showHeader?: boolean;
   handleClose?: () => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
   disableOutsideClick?: boolean;
   disableEsc?: boolean;
 }
@@ -77,20 +76,7 @@ export interface UserManagementDialogProps {
   onLogIn: () => void;
   onRegister: () => void;
   onClose: () => void;
-  children?: React.ReactNode;
-}
-
-export interface NoteLearningProps {
-  isLogIn?: boolean;
-  userName: string;
-  setUserManagementDialogOpen: (open: boolean) => void;
-}
-
-export interface Statistics {
-  userName: string;
-  goodAnswers: number;
-  wrongAnswers: number;
-  timeStamp: string;
+  children?: ReactNode;
 }
 
 export interface StatisticsProps {
@@ -98,16 +84,14 @@ export interface StatisticsProps {
   statistics: Statistics[] | null;
 }
 
-export interface HeaderProps {
-  isLogIn: boolean;
-  logInOpen: boolean;
-  registerDialogOpen: boolean;
-  userName: string;
-  setIsLogIn: (isLogged: boolean) => void;
-  setIsLogInOpen: (isOpen: boolean) => void;
-  setIsRegisterOpen: (isOpen: boolean) => void;
-  setUserName: (name: string) => void;
-}
 export interface LoadingProps {
   message?: string;
+}
+
+export interface DropdownItemType {
+  title: string;
+  id: number | string;
+  disabled?: boolean;
+  isFocused?: boolean;
+  onClick?: () => void;
 }

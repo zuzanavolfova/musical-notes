@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { handleClickOutside } from "../../scripts/handleClickOutside";
-import type { DropdownProps } from "./../../types/interfaces";
+import type { DropdownProps } from "../../types";
 
 const DropdownStyled = styled.div`
   position: relative;

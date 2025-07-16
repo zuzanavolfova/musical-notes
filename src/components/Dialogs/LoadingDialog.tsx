@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 import { createPortal } from "react-dom";
 
-import type { LoadingProps } from "../../types/interfaces";
+import type { LoadingProps } from "../../types";
 
 const LoadingDialogStyled = styled.div`
   position: fixed;

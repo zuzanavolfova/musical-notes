@@ -4,8 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import TabButton from "./Buttons/TabButton";
 
-import type { TabsComponentProps } from "./../types/interfaces";
-import type { TabType } from "../types/types";
+import type { TabsComponentProps, TabType } from "../types";
 
 const TabsContainerStyled = styled.div`
   display: flex;

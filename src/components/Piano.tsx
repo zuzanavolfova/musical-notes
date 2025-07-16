@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import type { PianoProps } from "../types/interfaces";
+import type { PianoProps } from "../types";
 
 const PianoStyled = styled.div`
   position: relative;

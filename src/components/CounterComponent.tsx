@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
 
-import type { CounterProps } from "../types/interfaces";
+import type { CounterProps } from "../types";
 const CounterStyled = styled.section`
   display: flex;
   flex-direction: column;

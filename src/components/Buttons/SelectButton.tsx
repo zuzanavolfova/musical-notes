@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import type { SelectButtonProps } from "../../types/interfaces";
+import type { SelectButtonProps } from "../../types";
 import { useTranslation } from "react-i18next";
 
 const Button = styled.button<{ $resetFocus?: boolean; $isCorrect?: boolean }>`

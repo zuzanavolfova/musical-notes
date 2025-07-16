@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 
 import { handleClickOutside } from "../../scripts/handleClickOutside";
 
-import type { DialogProps } from "../../types/interfaces";
+import type { DialogProps } from "../../types";
 
 const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   position: fixed;

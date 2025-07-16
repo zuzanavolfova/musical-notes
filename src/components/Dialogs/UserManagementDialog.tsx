@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
-import type { UserManagementDialogProps } from "./../../types/interfaces";
+import type { UserManagementDialogProps } from "../../types";
 
 import ActionButton from "./../Buttons/ActionButton";
 

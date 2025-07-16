@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
-import type { StatisticsProps } from "../types/interfaces";
+import type { StatisticsProps } from "../types";
 
 const StatisticsStyled = styled.section`
   .statistics {

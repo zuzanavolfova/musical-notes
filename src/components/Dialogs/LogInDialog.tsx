@@ -6,7 +6,7 @@ import ActionButton from "../Buttons/ActionButton";
 import { checkLogIn } from "../../scripts/services/authService";
 import LoadingDialog from "./LoadingDialog";
 
-import type { LogInDialogProps } from "../../types/interfaces";
+import type { LogInDialogProps } from "../../types";
 
 const StyledLogInDialog = styled.form`
   padding: 12px;

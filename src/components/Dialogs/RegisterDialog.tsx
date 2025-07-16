@@ -5,7 +5,7 @@ import styled from "styled-components";
 import ActionButton from "../Buttons/ActionButton";
 import LoadingDialog from "./LoadingDialog";
 
-import type { RegisterDialogProps } from "../../types/interfaces";
+import type { RegisterDialogProps } from "../../types";
 
 import { registerUser } from "./../../scripts/services/authService";
 
