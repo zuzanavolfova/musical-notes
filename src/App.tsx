@@ -33,11 +33,12 @@ export default function App() {
   const [userManagementDialogOpen, setUserManagementDialogOpen] =
     useState(false);
 
-  function saveUserNameToLocalStorage(user: string) {
-    localStorage.setItem("userName", user);
+  function saveToLocalStorage(key: string, value: string) {
+    localStorage.setItem(key, value);
   }
+
   function setUser(user: string) {
-    saveUserNameToLocalStorage(user);
+    saveToLocalStorage("userName", user);
     setUserName(user);
   }
   return (
