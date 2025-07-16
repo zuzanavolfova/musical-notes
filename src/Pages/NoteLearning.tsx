@@ -65,6 +65,13 @@ const NoteLearningStyled = styled.div`
             var(--primary-color) 70%,
             white 100%
           );
+          @media (prefers-color-scheme: dark) {
+            background: linear-gradient(
+              to right,
+              var(--primary-color) 70%,
+              var(--bkg-dark) 100%
+            );
+          }
         }
       }
     }

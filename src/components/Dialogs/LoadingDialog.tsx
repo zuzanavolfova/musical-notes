@@ -40,6 +40,9 @@ const LoadingContent = styled.div`
   .loading__text {
     margin-bottom: 20px;
     text-align: center;
+    @media (prefers-color-scheme: dark) {
+      color: var(--text-dark-grey);
+    }
   }
 `;
 
