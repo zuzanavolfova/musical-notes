@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
 
@@ -11,6 +11,11 @@ import LogInDialog from "./Dialogs/LogInDialog";
 import RegisterDialog from "./Dialogs/RegisterDialog";
 import { useUser } from "../contexts/UserContext";
 import { useSettings } from "../contexts/SettingsContext";
+
+const localeItems = [
+  { title: "CS", id: "cs" },
+  { title: "EN", id: "en" },
+];
 
 const Header = styled.header<{ $isLogged?: boolean }>`
   display: grid;
@@ -86,18 +91,6 @@ const Header = styled.header<{ $isLogged?: boolean }>`
         background-color: var(--primary-color);
         color: white;
       }
-      &:disabled {
-        cursor: default;
-        border: 2px solid transparent !important;
-        background-color: white !important;
-
-        &:focus,
-        &:active {
-          background-color: white !important;
-          border: 2px solid transparent !important;
-          box-shadow: none;
-        }
-      }
       &:focus,
       &:active {
         background-color: var(--primary-color);
@@ -107,10 +100,13 @@ const Header = styled.header<{ $isLogged?: boolean }>`
       }
       &:disabled {
         cursor: default;
+        border: 2px solid transparent !important;
+        background-color: white !important;
+
         &:focus,
         &:active {
-          background-color: white;
-          border: 1px solid white;
+          background-color: white !important;
+          border: 2px solid transparent !important;
           box-shadow: none;
         }
       }
@@ -164,11 +160,6 @@ export default function HeaderComponent() {
   const { t, i18n } = useTranslation();
   const { state: userState, dispatch: userDispatch, setUser, logoutUser } = useUser();
   const { state: settingsState, dispatch: settingsDispatch } = useSettings();
-
-  const localeItems = [
-    { title: "CS", id: "cs" },
-    { title: "EN", id: "en" },
-  ];
   const userItems = [
     {
       title: userState.isLogIn && userState.userName ? userState.userName : t("noUser"),
@@ -192,22 +183,24 @@ export default function HeaderComponent() {
     },
   ];
 
-  const getLocaleTitle = (lng: string) =>
-    localeItems.find((item) => item.id === lng)?.title || "CS";
+  const getLocaleTitle = useCallback((lng: string) =>
+    localeItems.find((item) => item.id === lng)?.title || "CS", []);
 
-  const [locale, setLocale] = useState(() => getLocaleTitle(i18n.language));
+  const locale = settingsState.locale || getLocaleTitle(i18n.language);
   
   useEffect(() => {
-    setLocale(getLocaleTitle(i18n.language));
-  }, [i18n.language]);
+    const newLocale = getLocaleTitle(i18n.language);
+    if (newLocale !== settingsState.locale) {
+      settingsDispatch({ type: 'SET_LOCALE', payload: newLocale });
+    }
+  }, [i18n.language, settingsState.locale, settingsDispatch, getLocaleTitle]);
 
   const handleLocaleChange = (selectedItem: string) => {
-    setLocale(selectedItem);
     const found = localeItems.find((item) => item.title === selectedItem);
     if (found) {
       i18n.changeLanguage(found.id);
+      settingsDispatch({ type: 'SET_LOCALE', payload: selectedItem });
     }
-    settingsDispatch({ type: 'SET_LOCALE', payload: selectedItem });
   };
 
   const onLogInClick = (user: string) => {
@@ -226,6 +219,7 @@ export default function HeaderComponent() {
   const getDialogSize = () => {
     if (settingsState.windowWidth < 480) return "S";
     if (settingsState.windowWidth > 480) return "M";
+    return "M";
   };
 
   return (
