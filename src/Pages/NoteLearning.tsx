@@ -12,6 +12,8 @@ import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
 import CounterComponent from "../components/CounterComponent";
 import StatisticsComponent from "../components/StatisticsComponent";
+import Dialog from "../components/Dialogs/Dialog";
+import UserManagementDialog from "../components/Dialogs/UserManagementDialog";
 
 import { saveStatistics, getStatistics } from "../scripts/services/statistics";
 import { formatDataStatistics } from "../scripts/statistics";
@@ -93,8 +95,12 @@ export default function NoteLearning() {
   const [noteType, setNoteType] = useState<string>(
     () => notes[getRandomPosition()]
   );
-  const { userName, isLogin, setUserManagementDialogOpen } =
-    useContext(UserContext);
+  const {
+    userName,
+    isLogin,
+    userManagementDialogOpen,
+    setUserManagementDialogOpen,
+  } = useContext(UserContext);
 
   function getRandomPosition(): number {
     return Math.floor(Math.random() * notes.length);
@@ -148,6 +154,19 @@ export default function NoteLearning() {
 
   return (
     <NoteLearningStyled>
+      {userManagementDialogOpen && (
+        <Dialog
+          dialogTitle={t("User Management")}
+          handleClose={() => setUserManagementDialogOpen(false)}
+          size="S"
+        >
+          <UserManagementDialog>
+            <>
+              <p>{t("LogIn/RegisterToSaveStatistics")}</p>
+            </>
+          </UserManagementDialog>
+        </Dialog>
+      )}
       <TabsComponent className="tabs" setContent={changeContent} />
       <div className="content">
         <section
@@ -234,16 +253,15 @@ export default function NoteLearning() {
             wrongAnswersCounter={wrongAnswers}
           ></CounterComponent>
         </div>
-        {userName && (
-          <>
-            <ActionButton
-              buttonTitle="saveStatistics"
-              disabled={disableSaveStatisticButton}
-              onButtonClick={onSaveStatisticsClick}
-            />
-            <StatisticsComponent userName={userName} statistics={statistics} />
-          </>
-        )}
+
+        <>
+          <ActionButton
+            buttonTitle="saveStatistics"
+            disabled={disableSaveStatisticButton}
+            onButtonClick={onSaveStatisticsClick}
+          />
+          <StatisticsComponent userName={userName} statistics={statistics} />
+        </>
       </div>
     </NoteLearningStyled>
   );
