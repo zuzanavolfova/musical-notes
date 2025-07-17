@@ -1,5 +1,16 @@
 export type TabType = "Keyboard" | "Notes";
 
+export type UserState = {
+  isLogin: boolean;
+  userName: string;
+};
+
+export type UserAction = 
+  | { type: "LOGIN" }
+  | { type: "LOGOUT" }
+  | { type: "SET_USERNAME"; payload: string }
+  | { type: "SET_USER"; payload: string };
+
 export type UserContextType = {
   isLogin: boolean;
   userName: string;
