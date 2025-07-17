@@ -1,6 +1,23 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useReducer } from "react";
 import type { ReactNode } from "react";
-import type { UserContextType } from "../types/types";
+import type { UserContextType, UserState, UserAction } from "../types/types";
+
+function userReducer(state: UserState, action: UserAction): UserState {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, isLogin: true };
+    case "LOGOUT":
+      localStorage.removeItem("userName");
+      return { ...state, isLogin: false, userName: "" };
+    case "SET_USERNAME":
+      return { ...state, userName: action.payload };
+    case "SET_USER":
+      localStorage.setItem("userName", action.payload);
+      return { ...state, userName: action.payload, isLogin: true };
+    default:
+      return state;
+  }
+}
 
 export const UserContext = createContext<UserContextType>({
   isLogin: false,
@@ -21,30 +38,32 @@ export default function UserContextProvider({
 }: {
   children: ReactNode;
 }) {
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("userName") ? true : false
-  );
-  const [userName, setUserName] = useState<string>(
-    localStorage.getItem("userName") ?? ""
-  );
+  const initialUserState: UserState = {
+    isLogin: localStorage.getItem("userName") ? true : false,
+    userName: localStorage.getItem("userName") ?? "",
+  };
+
+  const [userState, dispatch] = useReducer(userReducer, initialUserState);
   const [logInDialogOpen, setIsLogInOpen] = useState(false);
   const [registerDialogOpen, setIsRegisterOpen] = useState(false);
   const [userManagementDialogOpen, setUserManagementDialogOpen] =
     useState(false);
 
-  function saveToLocalStorage(key: string, value: string) {
-    localStorage.setItem(key, value);
+  function setUser(user: string) {
+    dispatch({ type: "SET_USER", payload: user });
   }
 
-  function setUser(user: string) {
-    saveToLocalStorage("userName", user);
-    setUserName(user);
-    setIsLogin(true);
+  function setUserName(userName: string) {
+    dispatch({ type: "SET_USERNAME", payload: userName });
+  }
+
+  function setIsLogin(value: boolean) {
+    dispatch({ type: value ? "LOGIN" : "LOGOUT" });
   }
 
   const ctxValue = {
-    isLogin,
-    userName,
+    isLogin: userState.isLogin,
+    userName: userState.userName,
     logInDialogOpen,
     registerDialogOpen,
     userManagementDialogOpen,
