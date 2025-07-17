@@ -135,8 +135,10 @@ export default function NoteLearning() {
   useEffect(() => {
     if (isLogin) {
       updateStatisticsUI();
+    } else {
+      setStatistics(null);
     }
-  }, [userName]);
+  }, [userName, isLogin]);
 
   async function onSaveStatisticsClick() {
     if (isLogin) {
