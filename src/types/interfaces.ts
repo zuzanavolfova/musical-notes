@@ -103,8 +103,8 @@ export interface HeaderProps {
   logInOpen: boolean;
   registerDialogOpen: boolean;
   userName: string;
-  setIsLogIn: (isLogged: boolean) => void;
-  setIsLogInOpen: (isOpen: boolean) => void;
+  // setIsLogIn: (isLogged: boolean) => void;
+  // setIsLogInOpen: (isOpen: boolean) => void;
   setIsRegisterOpen: (isOpen: boolean) => void;
   setUserName: (name: string) => void;
 }
