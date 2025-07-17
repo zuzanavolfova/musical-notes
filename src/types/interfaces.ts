@@ -74,9 +74,6 @@ export interface RegisterDialogProps {
 }
 
 export interface UserManagementDialogProps {
-  onLogIn: () => void;
-  onRegister: () => void;
-  onClose: () => void;
   children?: React.ReactNode;
 }
 

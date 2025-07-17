@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
 import type { UserManagementDialogProps } from "./../../types/interfaces";
 
 import ActionButton from "./../Buttons/ActionButton";
+
+import { UserContext } from "../../store/user-context";
 
 const UserManagementDialogStyled = styled.div`
   display: flex;
@@ -21,21 +24,20 @@ const UserManagementDialogStyled = styled.div`
 `;
 
 export default function UserManagementDialog({
-  onLogIn,
-  onRegister,
-  onClose,
   children,
 }: UserManagementDialogProps) {
   const { t } = useTranslation();
+  const { setIsLogInOpen, setIsRegisterOpen, setUserManagementDialogOpen } =
+    useContext(UserContext);
 
   function onLogInClick() {
-    onLogIn();
-    onClose();
+    setIsLogInOpen(true);
+    setUserManagementDialogOpen(false);
   }
 
   function onRegisterClick() {
-    onRegister();
-    onClose();
+    setIsRegisterOpen(true);
+    setUserManagementDialogOpen(false);
   }
 
   return (
