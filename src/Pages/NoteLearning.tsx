@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+
 import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 
@@ -10,12 +12,14 @@ import Piano from "../components/Piano";
 import TabsComponent from "../components/TabsComponent";
 import CounterComponent from "../components/CounterComponent";
 import StatisticsComponent from "../components/StatisticsComponent";
+import Dialog from "../components/Dialogs/Dialog";
+import UserManagementDialog from "../components/Dialogs/UserManagementDialog";
 
 import { saveStatistics, getStatistics } from "../scripts/services/statistics";
 import { formatDataStatistics } from "../scripts/statistics";
+import { UserContext } from "./../store/user-context";
 
 import type { TabType } from "../types/types";
-import type { NoteLearningProps } from "../types/interfaces";
 import type { Statistics } from "../types/interfaces";
 
 const NoteLearningStyled = styled.div`
@@ -78,11 +82,7 @@ const NoteLearningStyled = styled.div`
   }
 `;
 
-export default function NoteLearning({
-  isLogIn,
-  userName,
-  setUserManagementDialogOpen,
-}: NoteLearningProps) {
+export default function NoteLearning() {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Keyboard");
@@ -95,6 +95,12 @@ export default function NoteLearning({
   const [noteType, setNoteType] = useState<string>(
     () => notes[getRandomPosition()]
   );
+  const {
+    userName,
+    isLogin,
+    userManagementDialogOpen,
+    setUserManagementDialogOpen,
+  } = useContext(UserContext);
 
   function getRandomPosition(): number {
     return Math.floor(Math.random() * notes.length);
@@ -127,13 +133,13 @@ export default function NoteLearning({
     }
   }
   useEffect(() => {
-    if (isLogIn) {
+    if (isLogin) {
       updateStatisticsUI();
     }
   }, [userName]);
 
   async function onSaveStatisticsClick() {
-    if (isLogIn) {
+    if (isLogin) {
       const statistic: Statistics = {
         userName: userName || "",
         goodAnswers,
@@ -148,6 +154,19 @@ export default function NoteLearning({
 
   return (
     <NoteLearningStyled>
+      {userManagementDialogOpen && (
+        <Dialog
+          dialogTitle={t("User Management")}
+          handleClose={() => setUserManagementDialogOpen(false)}
+          size="S"
+        >
+          <UserManagementDialog>
+            <>
+              <p>{t("LogIn/RegisterToSaveStatistics")}</p>
+            </>
+          </UserManagementDialog>
+        </Dialog>
+      )}
       <TabsComponent className="tabs" setContent={changeContent} />
       <div className="content">
         <section
@@ -234,16 +253,15 @@ export default function NoteLearning({
             wrongAnswersCounter={wrongAnswers}
           ></CounterComponent>
         </div>
-        {userName && (
-          <>
-            <ActionButton
-              buttonTitle="saveStatistics"
-              disabled={disableSaveStatisticButton}
-              onButtonClick={onSaveStatisticsClick}
-            />
-            <StatisticsComponent userName={userName} statistics={statistics} />
-          </>
-        )}
+
+        <>
+          <ActionButton
+            buttonTitle="saveStatistics"
+            disabled={disableSaveStatisticButton}
+            onButtonClick={onSaveStatisticsClick}
+          />
+          <StatisticsComponent userName={userName} statistics={statistics} />
+        </>
       </div>
     </NoteLearningStyled>
   );

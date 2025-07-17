@@ -74,16 +74,7 @@ export interface RegisterDialogProps {
 }
 
 export interface UserManagementDialogProps {
-  onLogIn: () => void;
-  onRegister: () => void;
-  onClose: () => void;
   children?: React.ReactNode;
-}
-
-export interface NoteLearningProps {
-  isLogIn?: boolean;
-  userName: string;
-  setUserManagementDialogOpen: (open: boolean) => void;
 }
 
 export interface Statistics {
@@ -103,8 +94,6 @@ export interface HeaderProps {
   logInOpen: boolean;
   registerDialogOpen: boolean;
   userName: string;
-  setIsLogIn: (isLogged: boolean) => void;
-  setIsLogInOpen: (isOpen: boolean) => void;
   setIsRegisterOpen: (isOpen: boolean) => void;
   setUserName: (name: string) => void;
 }
