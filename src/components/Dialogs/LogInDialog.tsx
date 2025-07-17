@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { useContext } from "react";
+
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -6,8 +8,7 @@ import ActionButton from "../Buttons/ActionButton";
 import { checkLogIn } from "../../scripts/services/authService";
 import LoadingDialog from "./LoadingDialog";
 
-import type { LogInDialogProps } from "../../types/interfaces";
-
+import { UserContext } from "../../store/user-context";
 const StyledLogInDialog = styled.form`
   padding: 12px;
   margin: auto;
@@ -62,12 +63,13 @@ const StyledLogInDialog = styled.form`
   }
 `;
 
-export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
+export default function LogInDialog() {
   const { t } = useTranslation();
   const userNameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loginIsValid, setLoginIsValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser, setIsLogInOpen } = useContext(UserContext);
 
   useEffect(() => {
     if (userNameRef.current) {
@@ -90,7 +92,8 @@ export default function LogInDialog({ onLogInClick }: LogInDialogProps) {
       const isValid = await checkLogIn(username, password);
 
       if (isValid) {
-        onLogInClick(username);
+        setUser(username);
+        setIsLogInOpen(false);
       } else {
         setLoginIsValid(false);
         if (userNameRef.current) {
