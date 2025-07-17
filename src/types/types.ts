@@ -1,3 +1,5 @@
+export type TabType = "Keyboard" | "Notes";
+
 export type UserContextType = {
   isLogin: boolean;
   userName: string;
@@ -11,3 +13,4 @@ export type UserContextType = {
   setIsRegisterOpen: (open: boolean) => void;
   setUserManagementDialogOpen: (open: boolean) => void;
 };
+

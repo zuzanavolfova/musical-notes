@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+
 import { useTranslation } from "react-i18next";
 import { styled } from "styled-components";
 
@@ -13,9 +15,9 @@ import StatisticsComponent from "../components/StatisticsComponent";
 
 import { saveStatistics, getStatistics } from "../scripts/services/statistics";
 import { formatDataStatistics } from "../scripts/statistics";
+import { UserContext } from "./../store/user-context";
 
 import type { TabType } from "../types/types";
-import type { NoteLearningProps } from "../types/interfaces";
 import type { Statistics } from "../types/interfaces";
 
 const NoteLearningStyled = styled.div`
@@ -78,11 +80,7 @@ const NoteLearningStyled = styled.div`
   }
 `;
 
-export default function NoteLearning({
-  isLogIn,
-  userName,
-  setUserManagementDialogOpen,
-}: NoteLearningProps) {
+export default function NoteLearning() {
   const { t } = useTranslation();
   const [result, setResult] = useState<boolean | null>(null);
   const [showContent, setContent] = useState<string | null>("Keyboard");
@@ -95,6 +93,8 @@ export default function NoteLearning({
   const [noteType, setNoteType] = useState<string>(
     () => notes[getRandomPosition()]
   );
+  const { userName, isLogin, setUserManagementDialogOpen } =
+    useContext(UserContext);
 
   function getRandomPosition(): number {
     return Math.floor(Math.random() * notes.length);
@@ -127,13 +127,13 @@ export default function NoteLearning({
     }
   }
   useEffect(() => {
-    if (isLogIn) {
+    if (isLogin) {
       updateStatisticsUI();
     }
   }, [userName]);
 
   async function onSaveStatisticsClick() {
-    if (isLogIn) {
+    if (isLogin) {
       const statistic: Statistics = {
         userName: userName || "",
         goodAnswers,

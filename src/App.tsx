@@ -34,11 +34,7 @@ export default function App() {
       <AppContainer>
         <HeaderComponent />
         <MainContent>
-          <NoteLearning
-            isLogIn={isLogIn}
-            setUserManagementDialogOpen={setUserManagementDialogOpen}
-            userName={userName}
-          />
+          <NoteLearning />
           {userManagementDialogOpen && (
             <Dialog
               dialogTitle={t("User Management")}

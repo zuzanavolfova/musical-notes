@@ -77,11 +77,11 @@ export interface UserManagementDialogProps {
   children?: React.ReactNode;
 }
 
-export interface NoteLearningProps {
-  isLogIn?: boolean;
-  userName: string;
-  setUserManagementDialogOpen: (open: boolean) => void;
-}
+// export interface NoteLearningProps {
+//   isLogIn?: boolean;
+//   userName: string;
+//   setUserManagementDialogOpen: (open: boolean) => void;
+// }
 
 export interface Statistics {
   userName: string;
