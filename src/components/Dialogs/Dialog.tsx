@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import type { DialogProps } from "../../types/interfaces";
 import { useEscapeKey } from "../../hooks/useEscape";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { isLoading } from "../../hooks/useLoadingState";
 
 const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   position: fixed;
@@ -67,9 +68,6 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   }
 `;
 
-function isLoading(): boolean {
-  return !!document.querySelector("[data-loading='true']");
-}
 
 export default function Dialog({
   size = "M",
@@ -85,8 +83,8 @@ export default function Dialog({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEscapeKey(handleClose, disableEsc);
-  useClickOutside(handleClose, ref, disableOutsideClick);
+  useEscapeKey(handleClose, disableEsc || isLoading());
+  useClickOutside(handleClose, ref, disableOutsideClick || isLoading());
 
   function onCloseClick() {
     if (isLoading()) return;

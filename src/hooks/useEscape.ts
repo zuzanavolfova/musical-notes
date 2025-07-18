@@ -1,8 +1,5 @@
 import { useEffect } from "react";
-
-function isLoading(): boolean {
-  return !!document.querySelector("[data-loading='true']");
-}
+import { isLoading } from "./useLoadingState";
 
 export function useEscapeKey(
   handleClose: (() => void) | undefined,

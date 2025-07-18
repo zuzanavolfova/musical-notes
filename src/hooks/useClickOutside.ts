@@ -1,9 +1,6 @@
 import { useEffect, type RefObject } from "react";
 import { handleClickOutside } from "../scripts/handleClickOutside";
-
-function isLoading(): boolean {
-  return !!document.querySelector("[data-loading='true']");
-}
+import { isLoading } from "./useLoadingState";
 
 export function useClickOutside<T extends HTMLElement>(
   handleClose: (() => void) | undefined,
