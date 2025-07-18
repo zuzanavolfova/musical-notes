@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { handleClickOutside } from "../../scripts/handleClickOutside";
 
 import type { DialogProps } from "../../types/interfaces";
+import { useEscapeKey } from "../../hooks/useEscape";
 
 const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   position: fixed;
@@ -16,7 +17,7 @@ const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   border: 1px solid var(--bkg-medium);
   box-shadow: 1px 2px 6px rgba(124, 124, 124, 0.5);
   animation: fadeIn 0.2s;
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: var(--bkg-medium);
     color: var(--text-dark-grey);
@@ -85,18 +86,7 @@ export default function Dialog({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (disableEsc || !handleClose) return;
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape" && handleClose && !isLoading()) {
-        handleClose();
-      }
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleClose, disableEsc]);
+  useEscapeKey(handleClose, disableEsc);
 
   useEffect(() => {
     if (disableOutsideClick || !handleClose) return;
