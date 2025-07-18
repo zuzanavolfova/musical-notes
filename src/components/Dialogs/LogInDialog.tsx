@@ -113,9 +113,7 @@ export default function LogInDialog() {
         userNameRef.current.select();
       }
     } finally {
-      if (isMountedRef.current) {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
     }
   }
 

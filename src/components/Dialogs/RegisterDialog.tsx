@@ -110,9 +110,7 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
         console.error("Unexpected error:", error);
       }
     } finally {
-      if (isMountedRef.current) {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
     }
   }
 
