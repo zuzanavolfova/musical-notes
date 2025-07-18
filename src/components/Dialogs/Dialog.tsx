@@ -1,11 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { styled } from "styled-components";
 import { createPortal } from "react-dom";
 
-import { handleClickOutside } from "../../scripts/handleClickOutside";
-
 import type { DialogProps } from "../../types/interfaces";
 import { useEscapeKey } from "../../hooks/useEscape";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 const StyledDialog = styled.div<{ $size?: "S" | "M" | "L" }>`
   position: fixed;
@@ -87,21 +86,7 @@ export default function Dialog({
   const ref = useRef<HTMLDivElement>(null);
 
   useEscapeKey(handleClose, disableEsc);
-
-  useEffect(() => {
-    if (disableOutsideClick || !handleClose) return;
-
-    function handleOutsideClickEvent(event: MouseEvent) {
-      if (isLoading()) return;
-
-      handleClickOutside(event, ref, handleClose);
-    }
-
-    document.addEventListener("mousedown", handleOutsideClickEvent);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClickEvent);
-    };
-  }, [handleClose, disableOutsideClick]);
+  useClickOutside(handleClose, ref, disableOutsideClick);
 
   function onCloseClick() {
     if (isLoading()) return;
