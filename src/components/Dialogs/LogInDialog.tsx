@@ -70,11 +70,15 @@ export default function LogInDialog() {
   const [loginIsValid, setLoginIsValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const { setUser, setIsLogInOpen } = useContext(UserContext);
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
     if (userNameRef.current) {
       userNameRef.current.focus();
     }
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
   async function logIn(event: React.FormEvent) {
@@ -109,7 +113,9 @@ export default function LogInDialog() {
         userNameRef.current.select();
       }
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
   }
 

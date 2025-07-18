@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -71,6 +71,13 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
   const [validPassword, setValidPassword] = useState(true);
   const [validUserName, setValidUserName] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -103,7 +110,9 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
         console.error("Unexpected error:", error);
       }
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
   }
 
