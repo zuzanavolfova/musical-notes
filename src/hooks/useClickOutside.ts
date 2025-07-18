@@ -5,9 +5,9 @@ function isLoading(): boolean {
   return !!document.querySelector("[data-loading='true']");
 }
 
-export function useClickOutside(
+export function useClickOutside<T extends HTMLElement>(
   handleClose: (() => void) | undefined,
-  ref: RefObject<HTMLElement>,  
+  ref: RefObject<T | null>,  
   disableOutsideClick: boolean
 ): void {
   useEffect(() => {
