@@ -30,5 +30,11 @@
   "pleaseWait": "Please wait",
   "pleaseWaitLoadingLongText": "Please wait. This dialog will close automatically when loading is complete.",
   "logInOptions": "Log in options",
-  "userManagement": "User management"
+  "userManagement": "User management",
+  "User Management": "User Management",
+  "select_option": "Select option",
+  "most_wrong": "Most wrong",
+  "most_good": "Most good",
+  "filter": "Filter",
+  "Amount-of-answers": "Amount of answers"
 }
