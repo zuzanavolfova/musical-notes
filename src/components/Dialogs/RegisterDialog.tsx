@@ -158,7 +158,7 @@ export default function RegisterDialog({ onClose }: RegisterDialogProps) {
         />
       </div>
       <div className="register__field">
-        <label className="login__label" htmlFor="repeatePassword">
+        <label className="register__label" htmlFor="repeatePassword">
           {t("repeatePassword")}:
         </label>
         <input
