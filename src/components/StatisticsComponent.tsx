@@ -34,11 +34,60 @@ const StatisticsStyled = styled.section`
   }
 `;
 
+interface FilterData {
+  date?: string;
+  result?: string;
+}
+
 export default function StatisticsComponent({
   userName,
   statistics,
 }: StatisticsProps) {
   const { t } = useTranslation();
+  const [filterData, setFilterData] = useState<FilterData>({});
+
+  const filteredStatistics = useMemo(() => {
+    if (!statistics || statistics.length === 0) return statistics;
+
+    return statistics.filter((item) => {
+      if (!filterData.date && !filterData.result) return;
+
+      let passesDateFilter = true;
+      let passesResultFilter = true;
+
+      if (filterData.date) {
+        if (!item.timeStamp) {
+          passesDateFilter = false;
+        } else {
+          const parts = item.timeStamp.split(" ");
+          if (parts.length >= 3) {
+            const datePart = parts[0] + " " + parts[1] + " " + parts[2];
+            const [day, month, year] = datePart.split(". ");
+            const itemDate = `${year}-${month.padStart(2, "0")}-${day.padStart(
+              2,
+              "0"
+            )}`;
+            passesDateFilter = itemDate === filterData.date;
+          } else {
+            passesDateFilter = false;
+          }
+        }
+      }
+
+      if (filterData.result) {
+        if (filterData.result === "most-good") {
+          passesResultFilter = item.goodAnswers > item.wrongAnswers;
+        } else if (filterData.result === "most-wrong") {
+          passesResultFilter = item.wrongAnswers > item.goodAnswers;
+        }
+      }
+      return passesDateFilter && passesResultFilter;
+    });
+  }, [statistics, filterData]);
+
+  const handleFilterApply = (filters: FilterData) => {
+    setFilterData(filters);
+  };
 
   return (
     <StatisticsStyled>
@@ -46,9 +95,12 @@ export default function StatisticsComponent({
         {t("student")} {userName}
       </h3>
       {statistics?.length === 0 && <p>{t("noStatistics")}</p>}
-      {statistics &&
-        statistics.length > 0 &&
-        statistics.map((item, index) => (
+      {statistics && statistics.length > 0 && (
+        <FilterForm onFilterApply={handleFilterApply} />
+      )}
+      {filteredStatistics &&
+        filteredStatistics.length > 0 &&
+        filteredStatistics.map((item, index) => (
           <div className="statistics__item" key={index}>
             <div className="statistics__item__date">
               <span>{t("savedTime")} </span>
