@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { useState, useMemo } from "react";
+import FilterForm from "./FilterForm";
 
 import type { StatisticsProps } from "../types/interfaces";
 
