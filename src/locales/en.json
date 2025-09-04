@@ -37,5 +37,6 @@
   "most_good": "Most good",
   "filter": "Filter",
   "Amount-of-answers": "Amount of answers",
-  "All": "All"
+  "All": "All",
+  "resetFilter": "Reset filter"
 }
