@@ -61,6 +61,9 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
         }
       />
       <button type="submit">{t("filter")}</button>
+      <button type="button" onClick={() => onFilterApply({})}>
+        {t("resetFilter")}
+      </button>
     </form>
   );
 }
