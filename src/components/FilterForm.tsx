@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import DropdownComponent from "../Buttons/DropdownComponent";
-import type { DropdownItemType } from "../../types/interfaces";
+import DropdownComponent from "./Buttons/DropdownComponent";
+import type { DropdownItemType } from "../types/interfaces";
 
 interface FilterFormProps {
   onFilterApply: (filters: { date?: string; result?: string }) => void;
