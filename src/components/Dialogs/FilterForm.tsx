@@ -4,7 +4,11 @@ import { useState } from "react";
 import DropdownComponent from "../Buttons/DropdownComponent";
 import type { DropdownItemType } from "../../types/interfaces";
 
-export default function FilterForm() {
+interface FilterFormProps {
+  onFilterApply: (filters: { date?: string; result?: string }) => void;
+}
+
+export default function FilterForm({ onFilterApply }: FilterFormProps) {
   const { t } = useTranslation();
   const [selectedResult, setSelectedResult] = useState<string | null>(null);
 
@@ -16,12 +20,13 @@ export default function FilterForm() {
   function handleSubmitFilter(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const filterData = new FormData(event.currentTarget);
-    const dateTime = filterData.getAll("dateTime");
-    const data: { [key: string]: FormDataEntryValue | FormDataEntryValue[] | null } =
-      Object.fromEntries(filterData.entries());
-    data.dateTime = dateTime;
-    console.log("Form data:", data);
-    // event.target.reset()
+
+    const filters = {
+      date: (filterData.get("date") as string) || undefined,
+      result: (filterData.get("result") as string) || undefined,
+    };
+
+    onFilterApply(filters);
   }
 
   function handleResultSelect(value: string) {
@@ -32,8 +37,7 @@ export default function FilterForm() {
   }
   return (
     <form onSubmit={handleSubmitFilter}>
-      <input type="date" id="date" name="dateTime"></input>
-      <input type="time" id="date" name="dateTime"></input>
+      <input type="date" id="date" name="date"></input>
       <DropdownComponent
         buttonTitle={selectedResult || "select_option"}
         items={resultOptions}
@@ -49,7 +53,7 @@ export default function FilterForm() {
             : ""
         }
       />
-      <button>{t("filter")}</button>
+      <button type="submit">{t("filter")}</button>
     </form>
   );
 }
