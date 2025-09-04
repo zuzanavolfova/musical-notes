@@ -13,6 +13,7 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
   const [selectedResult, setSelectedResult] = useState<string | null>(null);
 
   const resultOptions: DropdownItemType[] = [
+    { id: "all", title: "All" },
     { id: "most-wrong", title: "most_wrong" },
     { id: "most-good", title: "most_good" },
   ];
