@@ -26,7 +26,13 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
       result: (filterData.get("result") as string) || undefined,
     };
 
-    onFilterApply(filters);
+    const cleanedFilters = Object.fromEntries(
+      Object.entries(filters).filter(
+        ([_, value]) => value && value.trim() !== ""
+      )
+    );
+
+    onFilterApply(cleanedFilters);
   }
 
   function handleResultSelect(value: string) {
