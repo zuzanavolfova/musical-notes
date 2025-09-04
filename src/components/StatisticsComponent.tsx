@@ -50,7 +50,7 @@ export default function StatisticsComponent({
     if (!statistics || statistics.length === 0) return statistics;
 
     return statistics.filter((item) => {
-      if (!filterData.date && !filterData.result) return;
+      if (!filterData.date && !filterData.result) return true;
 
       let passesDateFilter = true;
       let passesResultFilter = true;
