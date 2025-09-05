@@ -40,15 +40,21 @@ const FormStyled = styled.form`
   }
 `;
 
+const ApplyButton = styled(ActionButton)`
+  font-size: 16px;
+  padding: 12px 18px;
+`;
+
 const ResetButton = styled(ActionButton)`
   background-color: white !important;
   color: var(--primary-color) !important;
   border: 2px solid var(--primary-color) !important;
-
+  font-size: 16px;
+  padding: 12px 18px;
   &:hover {
-    background-color: #f5f5f5 !important;
+    background-color: var(--primary-color-hover) !important;
     border: 2px solid var(--primary-color-hover) !important;
-    color: var(--primary-color-hover) !important;
+    color: white !important;
   }
 
   &:active {
@@ -101,10 +107,10 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
   return (
     <FormStyled onSubmit={handleSubmitFilter}>
       <div>
-        <input 
-          type="date" 
-          id="date" 
-          name="date" 
+        <input
+          type="date"
+          id="date"
+          name="date"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
         ></input>
@@ -125,7 +131,7 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
         />
       </div>
       <div>
-        <ActionButton buttonTitle={t("applyFilter")} type="submit" />
+        <ApplyButton buttonTitle={t("applyFilter")} type="submit" />
         <ResetButton
           buttonTitle={t("resetFilter")}
           type="button"
