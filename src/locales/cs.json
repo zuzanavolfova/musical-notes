@@ -30,5 +30,13 @@
   "pleaseWait": "Prosím čekejte",
   "pleaseWaitLoadingLongText": "Prosím čekejte. Dialog se automaticky zavře po dokončení akce.",
   "logInOptions": "Možnosti přihlášení",
-  "userManagement": "Správa uživatele"
+  "userManagement": "Správa uživatele",
+  "User Management": "Správa uživatele",
+  "select_option": "Vyberte možnost",
+  "most_wrong": "Nejvíce špatných",
+  "most_good": "Nejvíce správných",
+  "applyFilter": "Použít filtr",
+  "Amount-of-answers": "Počet odpovědí",
+  "All": "Vše",
+  "resetFilter": "Resetovat filtr"
 }

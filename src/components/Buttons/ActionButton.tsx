@@ -19,7 +19,7 @@ const StyledActionButton = styled.button`
   cursor: pointer;
   &:hover {
     background-color: var(--primary-color-hover);
-    border: var(--primary-color-hover);
+    border: 2px solid var(--primary-color-hover);
   }
   &:active {
     background-color: white;

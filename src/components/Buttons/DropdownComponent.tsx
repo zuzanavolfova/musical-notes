@@ -78,6 +78,7 @@ const DropdownItem = styled.button<{ $isFocused?: boolean }>`
   &:focus {
     background: var(--secondary-color, #eee);
     outline: none;
+    color: white;
 
     @media (prefers-color-scheme: dark) {
       background: var(--bkg-medium);
