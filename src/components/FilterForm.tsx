@@ -1,12 +1,61 @@
 import { useTranslation } from "react-i18next";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { styled } from "styled-components";
+
 import DropdownComponent from "./Buttons/DropdownComponent";
+import ActionButton from "./Buttons/ActionButton";
 import type { DropdownItemType } from "../types/interfaces";
 
 interface FilterFormProps {
   onFilterApply: (filters: { date?: string; result?: string }) => void;
 }
+
+const FormStyled = styled.form`
+  padding: 1rem;
+  background-color: var(--bkg-light);
+  border-radius: 4px;
+  margin: 12px;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--bkg-dark);
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--bkg-dark);
+      color: var(--dark-theme-text-color);
+      box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+  }
+`;
+
+const ResetButton = styled(ActionButton)`
+  background-color: white !important;
+  color: var(--primary-color) !important;
+  border: 2px solid var(--primary-color) !important;
+  
+  &:hover {
+    background-color: #f5f5f5 !important;
+    border: 2px solid var(--primary-color-hover) !important;
+    color: var(--primary-color-hover) !important;
+  }
+  
+  &:active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+  }
+`;
 
 export default function FilterForm({ onFilterApply }: FilterFormProps) {
   const { t } = useTranslation();
@@ -43,27 +92,33 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
     setSelectedResult(selectedOption ? selectedOption.title : null);
   }
   return (
-    <form onSubmit={handleSubmitFilter}>
-      <input type="date" id="date" name="date"></input>
-      <DropdownComponent
-        buttonTitle={selectedResult || "select_option"}
-        items={resultOptions}
-        onItemSelect={handleResultSelect}
-      />
-      <input
-        type="hidden"
-        name="result"
-        value={
-          selectedResult
-            ? resultOptions.find((opt) => opt.title === selectedResult)?.id ||
-              ""
-            : ""
-        }
-      />
-      <button type="submit">{t("filter")}</button>
-      <button type="button" onClick={() => onFilterApply({})}>
-        {t("resetFilter")}
-      </button>
-    </form>
+    <FormStyled onSubmit={handleSubmitFilter}>
+      <div>
+        <input type="date" id="date" name="date"></input>
+        <DropdownComponent
+          buttonTitle={selectedResult || "select_option"}
+          items={resultOptions}
+          onItemSelect={handleResultSelect}
+        />
+        <input
+          type="hidden"
+          name="result"
+          value={
+            selectedResult
+              ? resultOptions.find((opt) => opt.title === selectedResult)?.id ||
+                ""
+              : ""
+          }
+        />
+      </div>
+      <div>
+        <ActionButton buttonTitle={t("applyFilter")} type="submit" />
+        <ResetButton
+          buttonTitle={t("resetFilter")}
+          type="button"
+          onClick={() => onFilterApply({})}
+        />
+      </div>
+    </FormStyled>
   );
 }
