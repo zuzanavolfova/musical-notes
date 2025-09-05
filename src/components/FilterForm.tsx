@@ -44,13 +44,13 @@ const ResetButton = styled(ActionButton)`
   background-color: white !important;
   color: var(--primary-color) !important;
   border: 2px solid var(--primary-color) !important;
-  
+
   &:hover {
     background-color: #f5f5f5 !important;
     border: 2px solid var(--primary-color-hover) !important;
     color: var(--primary-color-hover) !important;
   }
-  
+
   &:active {
     background-color: var(--primary-color) !important;
     color: white !important;
@@ -60,6 +60,7 @@ const ResetButton = styled(ActionButton)`
 export default function FilterForm({ onFilterApply }: FilterFormProps) {
   const { t } = useTranslation();
   const [selectedResult, setSelectedResult] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   const resultOptions: DropdownItemType[] = [
     { id: "all", title: "All" },
@@ -91,10 +92,22 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
     );
     setSelectedResult(selectedOption ? selectedOption.title : null);
   }
+
+  function resetFilter() {
+    setSelectedResult(null);
+    setSelectedDate("");
+    onFilterApply({});
+  }
   return (
     <FormStyled onSubmit={handleSubmitFilter}>
       <div>
-        <input type="date" id="date" name="date"></input>
+        <input 
+          type="date" 
+          id="date" 
+          name="date" 
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        ></input>
         <DropdownComponent
           buttonTitle={selectedResult || "select_option"}
           items={resultOptions}
@@ -116,7 +129,7 @@ export default function FilterForm({ onFilterApply }: FilterFormProps) {
         <ResetButton
           buttonTitle={t("resetFilter")}
           type="button"
-          onClick={() => onFilterApply({})}
+          onClick={resetFilter}
         />
       </div>
     </FormStyled>
