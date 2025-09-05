@@ -35,7 +35,7 @@
   "select_option": "Vyberte možnost",
   "most_wrong": "Nejvíce špatných",
   "most_good": "Nejvíce správných",
-  "filter": "Filtr",
+  "applyFilter": "Použít filtr",
   "Amount-of-answers": "Počet odpovědí",
   "All": "Vše",
   "resetFilter": "Resetovat filtr"

@@ -35,7 +35,7 @@
   "select_option": "Select option",
   "most_wrong": "Most wrong",
   "most_good": "Most good",
-  "filter": "Filter",
+  "applyFilter": "Apply filter",
   "Amount-of-answers": "Amount of answers",
   "All": "All",
   "resetFilter": "Reset filter"
