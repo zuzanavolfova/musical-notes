@@ -14,8 +14,13 @@ interface FilterFormProps {
 const FormStyled = styled.form`
   padding: 1rem;
   background-color: var(--bkg-light);
+  clip-path: polygon(10% 0, 90% 0, 80% 100%, 20% 100%);
   border-radius: 4px;
-  margin: 12px;
+  margin: 12px auto;
+  max-width: 440px;
+  @media screen and (min-width: 960px) {
+    clip-path: polygon(0 0, 100% 0, 92% 100%, 8% 100%);
+  }
 
   @media (prefers-color-scheme: dark) {
     background-color: var(--bkg-dark);
