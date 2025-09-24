@@ -99,6 +99,7 @@ export default function Piano({
         {whiteKeys.map((note, index) => (
           <WhiteKey
             key={index}
+            data-testid="test"
             onClick={() => checkAnswer(note)}
             $isCorrect={result === true && note === noteType}
             disabled={disabled}
@@ -112,6 +113,7 @@ export default function Piano({
         note ? (
           <BlackKey
             key={index}
+            data-testid="test"
             $index={index}
             onClick={() => checkAnswer(note)}
             $isCorrect={result === true && note === noteType}
